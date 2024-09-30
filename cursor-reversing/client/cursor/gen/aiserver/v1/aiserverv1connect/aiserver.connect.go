@@ -23,6 +23,8 @@ const _ = connect.IsAtLeastVersion1_13_0
 const (
 	// AiServiceName is the fully-qualified name of the AiService service.
 	AiServiceName = "aiserver.v1.AiService"
+	// RepositoryServiceName is the fully-qualified name of the RepositoryService service.
+	RepositoryServiceName = "aiserver.v1.RepositoryService"
 )
 
 // These constants are the fully-qualified names of the RPCs defined in this package. They're
@@ -33,19 +35,718 @@ const (
 // reflection-formatted method names, remove the leading slash and convert the remaining slash to a
 // period.
 const (
+	// AiServiceHealthCheckProcedure is the fully-qualified name of the AiService's HealthCheck RPC.
+	AiServiceHealthCheckProcedure = "/aiserver.v1.AiService/HealthCheck"
+	// AiServiceTimeLeftHealthCheckProcedure is the fully-qualified name of the AiService's
+	// TimeLeftHealthCheck RPC.
+	AiServiceTimeLeftHealthCheckProcedure = "/aiserver.v1.AiService/TimeLeftHealthCheck"
+	// AiServiceThrowErrorCheckProcedure is the fully-qualified name of the AiService's ThrowErrorCheck
+	// RPC.
+	AiServiceThrowErrorCheckProcedure = "/aiserver.v1.AiService/ThrowErrorCheck"
+	// AiServiceAvailableModelsProcedure is the fully-qualified name of the AiService's AvailableModels
+	// RPC.
+	AiServiceAvailableModelsProcedure = "/aiserver.v1.AiService/AvailableModels"
+	// AiServiceStreamChatTryReallyHardProcedure is the fully-qualified name of the AiService's
+	// StreamChatTryReallyHard RPC.
+	AiServiceStreamChatTryReallyHardProcedure = "/aiserver.v1.AiService/StreamChatTryReallyHard"
+	// AiServiceRerankDocumentsProcedure is the fully-qualified name of the AiService's RerankDocuments
+	// RPC.
+	AiServiceRerankDocumentsProcedure = "/aiserver.v1.AiService/RerankDocuments"
+	// AiServiceStreamComposerProcedure is the fully-qualified name of the AiService's StreamComposer
+	// RPC.
+	AiServiceStreamComposerProcedure = "/aiserver.v1.AiService/StreamComposer"
+	// AiServiceStreamComposerContextProcedure is the fully-qualified name of the AiService's
+	// StreamComposerContext RPC.
+	AiServiceStreamComposerContextProcedure = "/aiserver.v1.AiService/StreamComposerContext"
+	// AiServiceWarmComposerCacheProcedure is the fully-qualified name of the AiService's
+	// WarmComposerCache RPC.
+	AiServiceWarmComposerCacheProcedure = "/aiserver.v1.AiService/WarmComposerCache"
+	// AiServiceGetChatTitleProcedure is the fully-qualified name of the AiService's GetChatTitle RPC.
+	AiServiceGetChatTitleProcedure = "/aiserver.v1.AiService/GetChatTitle"
+	// AiServiceGetCompletionProcedure is the fully-qualified name of the AiService's GetCompletion RPC.
+	AiServiceGetCompletionProcedure = "/aiserver.v1.AiService/GetCompletion"
+	// AiServiceGetSearchProcedure is the fully-qualified name of the AiService's GetSearch RPC.
+	AiServiceGetSearchProcedure = "/aiserver.v1.AiService/GetSearch"
+	// AiServiceStreamInlineEditsProcedure is the fully-qualified name of the AiService's
+	// StreamInlineEdits RPC.
+	AiServiceStreamInlineEditsProcedure = "/aiserver.v1.AiService/StreamInlineEdits"
+	// AiServiceSummarizeConversationProcedure is the fully-qualified name of the AiService's
+	// SummarizeConversation RPC.
+	AiServiceSummarizeConversationProcedure = "/aiserver.v1.AiService/SummarizeConversation"
+	// AiServiceIsolatedTreesitterProcedure is the fully-qualified name of the AiService's
+	// IsolatedTreesitter RPC.
+	AiServiceIsolatedTreesitterProcedure = "/aiserver.v1.AiService/IsolatedTreesitter"
+	// AiServiceGetSimplePromptProcedure is the fully-qualified name of the AiService's GetSimplePrompt
+	// RPC.
+	AiServiceGetSimplePromptProcedure = "/aiserver.v1.AiService/GetSimplePrompt"
+	// AiServiceCheckLongFilesFitProcedure is the fully-qualified name of the AiService's
+	// CheckLongFilesFit RPC.
+	AiServiceCheckLongFilesFitProcedure = "/aiserver.v1.AiService/CheckLongFilesFit"
+	// AiServiceGetEvaluationPromptProcedure is the fully-qualified name of the AiService's
+	// GetEvaluationPrompt RPC.
+	AiServiceGetEvaluationPromptProcedure = "/aiserver.v1.AiService/GetEvaluationPrompt"
+	// AiServiceGetUserInfoProcedure is the fully-qualified name of the AiService's GetUserInfo RPC.
+	AiServiceGetUserInfoProcedure = "/aiserver.v1.AiService/GetUserInfo"
+	// AiServiceClearAndRedoEntireBucketProcedure is the fully-qualified name of the AiService's
+	// ClearAndRedoEntireBucket RPC.
+	AiServiceClearAndRedoEntireBucketProcedure = "/aiserver.v1.AiService/ClearAndRedoEntireBucket"
+	// AiServiceStreamBranchGeminiProcedure is the fully-qualified name of the AiService's
+	// StreamBranchGemini RPC.
+	AiServiceStreamBranchGeminiProcedure = "/aiserver.v1.AiService/StreamBranchGemini"
+	// AiServiceStreamBranchFileSelectionsProcedure is the fully-qualified name of the AiService's
+	// StreamBranchFileSelections RPC.
+	AiServiceStreamBranchFileSelectionsProcedure = "/aiserver.v1.AiService/StreamBranchFileSelections"
+	// AiServiceStreamBackgroundEditProcedure is the fully-qualified name of the AiService's
+	// StreamBackgroundEdit RPC.
+	AiServiceStreamBackgroundEditProcedure = "/aiserver.v1.AiService/StreamBackgroundEdit"
+	// AiServiceStreamGPTFourEditProcedure is the fully-qualified name of the AiService's
+	// StreamGPTFourEdit RPC.
+	AiServiceStreamGPTFourEditProcedure = "/aiserver.v1.AiService/StreamGPTFourEdit"
 	// AiServiceStreamChatProcedure is the fully-qualified name of the AiService's StreamChat RPC.
 	AiServiceStreamChatProcedure = "/aiserver.v1.AiService/StreamChat"
+	// AiServiceStreamChatWebProcedure is the fully-qualified name of the AiService's StreamChatWeb RPC.
+	AiServiceStreamChatWebProcedure = "/aiserver.v1.AiService/StreamChatWeb"
+	// AiServiceStreamEditProcedure is the fully-qualified name of the AiService's StreamEdit RPC.
+	AiServiceStreamEditProcedure = "/aiserver.v1.AiService/StreamEdit"
+	// AiServicePreloadEditProcedure is the fully-qualified name of the AiService's PreloadEdit RPC.
+	AiServicePreloadEditProcedure = "/aiserver.v1.AiService/PreloadEdit"
+	// AiServiceStreamFastEditProcedure is the fully-qualified name of the AiService's StreamFastEdit
+	// RPC.
+	AiServiceStreamFastEditProcedure = "/aiserver.v1.AiService/StreamFastEdit"
+	// AiServiceStreamGenerateProcedure is the fully-qualified name of the AiService's StreamGenerate
+	// RPC.
+	AiServiceStreamGenerateProcedure = "/aiserver.v1.AiService/StreamGenerate"
+	// AiServiceStreamInlineLongCompletionProcedure is the fully-qualified name of the AiService's
+	// StreamInlineLongCompletion RPC.
+	AiServiceStreamInlineLongCompletionProcedure = "/aiserver.v1.AiService/StreamInlineLongCompletion"
+	// AiServiceSlashEditProcedure is the fully-qualified name of the AiService's SlashEdit RPC.
+	AiServiceSlashEditProcedure = "/aiserver.v1.AiService/SlashEdit"
+	// AiServiceSlashEditFollowUpWithPreviousEditsProcedure is the fully-qualified name of the
+	// AiService's SlashEditFollowUpWithPreviousEdits RPC.
+	AiServiceSlashEditFollowUpWithPreviousEditsProcedure = "/aiserver.v1.AiService/SlashEditFollowUpWithPreviousEdits"
+	// AiServiceStreamAiPreviewsProcedure is the fully-qualified name of the AiService's
+	// StreamAiPreviews RPC.
+	AiServiceStreamAiPreviewsProcedure = "/aiserver.v1.AiService/StreamAiPreviews"
+	// AiServiceShouldTurnOnCppOnboardingProcedure is the fully-qualified name of the AiService's
+	// ShouldTurnOnCppOnboarding RPC.
+	AiServiceShouldTurnOnCppOnboardingProcedure = "/aiserver.v1.AiService/ShouldTurnOnCppOnboarding"
+	// AiServiceStreamReviewProcedure is the fully-qualified name of the AiService's StreamReview RPC.
+	AiServiceStreamReviewProcedure = "/aiserver.v1.AiService/StreamReview"
+	// AiServiceStreamReviewChatProcedure is the fully-qualified name of the AiService's
+	// StreamReviewChat RPC.
+	AiServiceStreamReviewChatProcedure = "/aiserver.v1.AiService/StreamReviewChat"
+	// AiServiceCheckQueuePositionProcedure is the fully-qualified name of the AiService's
+	// CheckQueuePosition RPC.
+	AiServiceCheckQueuePositionProcedure = "/aiserver.v1.AiService/CheckQueuePosition"
+	// AiServiceCheckUsageBasedPriceProcedure is the fully-qualified name of the AiService's
+	// CheckUsageBasedPrice RPC.
+	AiServiceCheckUsageBasedPriceProcedure = "/aiserver.v1.AiService/CheckUsageBasedPrice"
+	// AiServiceDoThisForMeCheckProcedure is the fully-qualified name of the AiService's
+	// DoThisForMeCheck RPC.
+	AiServiceDoThisForMeCheckProcedure = "/aiserver.v1.AiService/DoThisForMeCheck"
+	// AiServiceStreamDoThisForMeProcedure is the fully-qualified name of the AiService's
+	// StreamDoThisForMe RPC.
+	AiServiceStreamDoThisForMeProcedure = "/aiserver.v1.AiService/StreamDoThisForMe"
+	// AiServiceStreamChatToolformerProcedure is the fully-qualified name of the AiService's
+	// StreamChatToolformer RPC.
+	AiServiceStreamChatToolformerProcedure = "/aiserver.v1.AiService/StreamChatToolformer"
+	// AiServiceStreamChatToolformerContinueProcedure is the fully-qualified name of the AiService's
+	// StreamChatToolformerContinue RPC.
+	AiServiceStreamChatToolformerContinueProcedure = "/aiserver.v1.AiService/StreamChatToolformerContinue"
+	// AiServicePushAiThoughtProcedure is the fully-qualified name of the AiService's PushAiThought RPC.
+	AiServicePushAiThoughtProcedure = "/aiserver.v1.AiService/PushAiThought"
+	// AiServiceCheckDoableAsTaskProcedure is the fully-qualified name of the AiService's
+	// CheckDoableAsTask RPC.
+	AiServiceCheckDoableAsTaskProcedure = "/aiserver.v1.AiService/CheckDoableAsTask"
+	// AiServiceReportGroundTruthCandidateProcedure is the fully-qualified name of the AiService's
+	// ReportGroundTruthCandidate RPC.
+	AiServiceReportGroundTruthCandidateProcedure = "/aiserver.v1.AiService/ReportGroundTruthCandidate"
+	// AiServiceReportCmdKFateProcedure is the fully-qualified name of the AiService's ReportCmdKFate
+	// RPC.
+	AiServiceReportCmdKFateProcedure = "/aiserver.v1.AiService/ReportCmdKFate"
+	// AiServiceShowWelcomeScreenProcedure is the fully-qualified name of the AiService's
+	// ShowWelcomeScreen RPC.
+	AiServiceShowWelcomeScreenProcedure = "/aiserver.v1.AiService/ShowWelcomeScreen"
+	// AiServiceInterfaceAgentInitProcedure is the fully-qualified name of the AiService's
+	// InterfaceAgentInit RPC.
+	AiServiceInterfaceAgentInitProcedure = "/aiserver.v1.AiService/InterfaceAgentInit"
+	// AiServiceStreamInterfaceAgentStatusProcedure is the fully-qualified name of the AiService's
+	// StreamInterfaceAgentStatus RPC.
+	AiServiceStreamInterfaceAgentStatusProcedure = "/aiserver.v1.AiService/StreamInterfaceAgentStatus"
+	// AiServiceTaskGetInterfaceAgentStatusProcedure is the fully-qualified name of the AiService's
+	// TaskGetInterfaceAgentStatus RPC.
+	AiServiceTaskGetInterfaceAgentStatusProcedure = "/aiserver.v1.AiService/TaskGetInterfaceAgentStatus"
+	// AiServiceTaskInitProcedure is the fully-qualified name of the AiService's TaskInit RPC.
+	AiServiceTaskInitProcedure = "/aiserver.v1.AiService/TaskInit"
+	// AiServiceTaskPauseProcedure is the fully-qualified name of the AiService's TaskPause RPC.
+	AiServiceTaskPauseProcedure = "/aiserver.v1.AiService/TaskPause"
+	// AiServiceTaskInfoProcedure is the fully-qualified name of the AiService's TaskInfo RPC.
+	AiServiceTaskInfoProcedure = "/aiserver.v1.AiService/TaskInfo"
+	// AiServiceTaskStreamLogProcedure is the fully-qualified name of the AiService's TaskStreamLog RPC.
+	AiServiceTaskStreamLogProcedure = "/aiserver.v1.AiService/TaskStreamLog"
+	// AiServiceTaskSendMessageProcedure is the fully-qualified name of the AiService's TaskSendMessage
+	// RPC.
+	AiServiceTaskSendMessageProcedure = "/aiserver.v1.AiService/TaskSendMessage"
+	// AiServiceTaskProvideResultProcedure is the fully-qualified name of the AiService's
+	// TaskProvideResult RPC.
+	AiServiceTaskProvideResultProcedure = "/aiserver.v1.AiService/TaskProvideResult"
+	// AiServiceCreateExperimentalIndexProcedure is the fully-qualified name of the AiService's
+	// CreateExperimentalIndex RPC.
+	AiServiceCreateExperimentalIndexProcedure = "/aiserver.v1.AiService/CreateExperimentalIndex"
+	// AiServiceListExperimentalIndexFilesProcedure is the fully-qualified name of the AiService's
+	// ListExperimentalIndexFiles RPC.
+	AiServiceListExperimentalIndexFilesProcedure = "/aiserver.v1.AiService/ListExperimentalIndexFiles"
+	// AiServiceListenExperimentalIndexProcedure is the fully-qualified name of the AiService's
+	// ListenExperimentalIndex RPC.
+	AiServiceListenExperimentalIndexProcedure = "/aiserver.v1.AiService/ListenExperimentalIndex"
+	// AiServiceRegisterFileToIndexProcedure is the fully-qualified name of the AiService's
+	// RegisterFileToIndex RPC.
+	AiServiceRegisterFileToIndexProcedure = "/aiserver.v1.AiService/RegisterFileToIndex"
+	// AiServiceSetupIndexDependenciesProcedure is the fully-qualified name of the AiService's
+	// SetupIndexDependencies RPC.
+	AiServiceSetupIndexDependenciesProcedure = "/aiserver.v1.AiService/SetupIndexDependencies"
+	// AiServiceComputeIndexTopoSortProcedure is the fully-qualified name of the AiService's
+	// ComputeIndexTopoSort RPC.
+	AiServiceComputeIndexTopoSortProcedure = "/aiserver.v1.AiService/ComputeIndexTopoSort"
+	// AiServiceStreamChatDeepContextProcedure is the fully-qualified name of the AiService's
+	// StreamChatDeepContext RPC.
+	AiServiceStreamChatDeepContextProcedure = "/aiserver.v1.AiService/StreamChatDeepContext"
+	// AiServiceChooseCodeReferencesProcedure is the fully-qualified name of the AiService's
+	// ChooseCodeReferences RPC.
+	AiServiceChooseCodeReferencesProcedure = "/aiserver.v1.AiService/ChooseCodeReferences"
+	// AiServiceRegisterCodeReferencesProcedure is the fully-qualified name of the AiService's
+	// RegisterCodeReferences RPC.
+	AiServiceRegisterCodeReferencesProcedure = "/aiserver.v1.AiService/RegisterCodeReferences"
+	// AiServiceExtractPathsProcedure is the fully-qualified name of the AiService's ExtractPaths RPC.
+	AiServiceExtractPathsProcedure = "/aiserver.v1.AiService/ExtractPaths"
+	// AiServiceSummarizeWithReferencesProcedure is the fully-qualified name of the AiService's
+	// SummarizeWithReferences RPC.
+	AiServiceSummarizeWithReferencesProcedure = "/aiserver.v1.AiService/SummarizeWithReferences"
+	// AiServiceDocumentationQueryProcedure is the fully-qualified name of the AiService's
+	// DocumentationQuery RPC.
+	AiServiceDocumentationQueryProcedure = "/aiserver.v1.AiService/DocumentationQuery"
+	// AiServiceAvailableDocsProcedure is the fully-qualified name of the AiService's AvailableDocs RPC.
+	AiServiceAvailableDocsProcedure = "/aiserver.v1.AiService/AvailableDocs"
+	// AiServiceReportFeedbackProcedure is the fully-qualified name of the AiService's ReportFeedback
+	// RPC.
+	AiServiceReportFeedbackProcedure = "/aiserver.v1.AiService/ReportFeedback"
+	// AiServiceReportBugProcedure is the fully-qualified name of the AiService's ReportBug RPC.
+	AiServiceReportBugProcedure = "/aiserver.v1.AiService/ReportBug"
+	// AiServiceStreamChatContextProcedure is the fully-qualified name of the AiService's
+	// StreamChatContext RPC.
+	AiServiceStreamChatContextProcedure = "/aiserver.v1.AiService/StreamChatContext"
+	// AiServiceGenerateTldrProcedure is the fully-qualified name of the AiService's GenerateTldr RPC.
+	AiServiceGenerateTldrProcedure = "/aiserver.v1.AiService/GenerateTldr"
+	// AiServiceTaskStreamChatContextProcedure is the fully-qualified name of the AiService's
+	// TaskStreamChatContext RPC.
+	AiServiceTaskStreamChatContextProcedure = "/aiserver.v1.AiService/TaskStreamChatContext"
+	// AiServiceRerankResultsProcedure is the fully-qualified name of the AiService's RerankResults RPC.
+	AiServiceRerankResultsProcedure = "/aiserver.v1.AiService/RerankResults"
+	// AiServiceModelQueryProcedure is the fully-qualified name of the AiService's ModelQuery RPC.
+	AiServiceModelQueryProcedure = "/aiserver.v1.AiService/ModelQuery"
+	// AiServiceModelQueryV2Procedure is the fully-qualified name of the AiService's ModelQueryV2 RPC.
+	AiServiceModelQueryV2Procedure = "/aiserver.v1.AiService/ModelQueryV2"
+	// AiServiceIntentPredictionProcedure is the fully-qualified name of the AiService's
+	// IntentPrediction RPC.
+	AiServiceIntentPredictionProcedure = "/aiserver.v1.AiService/IntentPrediction"
+	// AiServiceStreamCursorTutorProcedure is the fully-qualified name of the AiService's
+	// StreamCursorTutor RPC.
+	AiServiceStreamCursorTutorProcedure = "/aiserver.v1.AiService/StreamCursorTutor"
+	// AiServiceCheckFeatureStatusProcedure is the fully-qualified name of the AiService's
+	// CheckFeatureStatus RPC.
+	AiServiceCheckFeatureStatusProcedure = "/aiserver.v1.AiService/CheckFeatureStatus"
+	// AiServiceGetEffectiveTokenLimitProcedure is the fully-qualified name of the AiService's
+	// GetEffectiveTokenLimit RPC.
+	AiServiceGetEffectiveTokenLimitProcedure = "/aiserver.v1.AiService/GetEffectiveTokenLimit"
+	// AiServiceGetContextScoresProcedure is the fully-qualified name of the AiService's
+	// GetContextScores RPC.
+	AiServiceGetContextScoresProcedure = "/aiserver.v1.AiService/GetContextScores"
+	// AiServiceStreamCppProcedure is the fully-qualified name of the AiService's StreamCpp RPC.
+	AiServiceStreamCppProcedure = "/aiserver.v1.AiService/StreamCpp"
+	// AiServiceCppConfigProcedure is the fully-qualified name of the AiService's CppConfig RPC.
+	AiServiceCppConfigProcedure = "/aiserver.v1.AiService/CppConfig"
+	// AiServiceCppEditHistoryStatusProcedure is the fully-qualified name of the AiService's
+	// CppEditHistoryStatus RPC.
+	AiServiceCppEditHistoryStatusProcedure = "/aiserver.v1.AiService/CppEditHistoryStatus"
+	// AiServiceCppAppendProcedure is the fully-qualified name of the AiService's CppAppend RPC.
+	AiServiceCppAppendProcedure = "/aiserver.v1.AiService/CppAppend"
+	// AiServiceCheckNumberConfigProcedure is the fully-qualified name of the AiService's
+	// CheckNumberConfig RPC.
+	AiServiceCheckNumberConfigProcedure = "/aiserver.v1.AiService/CheckNumberConfig"
+	// AiServiceStreamTerminalAutocompleteProcedure is the fully-qualified name of the AiService's
+	// StreamTerminalAutocomplete RPC.
+	AiServiceStreamTerminalAutocompleteProcedure = "/aiserver.v1.AiService/StreamTerminalAutocomplete"
+	// AiServiceStreamPseudocodeGeneratorProcedure is the fully-qualified name of the AiService's
+	// StreamPseudocodeGenerator RPC.
+	AiServiceStreamPseudocodeGeneratorProcedure = "/aiserver.v1.AiService/StreamPseudocodeGenerator"
+	// AiServiceStreamPseudocodeMapperProcedure is the fully-qualified name of the AiService's
+	// StreamPseudocodeMapper RPC.
+	AiServiceStreamPseudocodeMapperProcedure = "/aiserver.v1.AiService/StreamPseudocodeMapper"
+	// AiServiceStreamAiLintBugProcedure is the fully-qualified name of the AiService's StreamAiLintBug
+	// RPC.
+	AiServiceStreamAiLintBugProcedure = "/aiserver.v1.AiService/StreamAiLintBug"
+	// AiServiceStreamAiCursorHelpProcedure is the fully-qualified name of the AiService's
+	// StreamAiCursorHelp RPC.
+	AiServiceStreamAiCursorHelpProcedure = "/aiserver.v1.AiService/StreamAiCursorHelp"
+	// AiServiceLogUserLintReplyProcedure is the fully-qualified name of the AiService's
+	// LogUserLintReply RPC.
+	AiServiceLogUserLintReplyProcedure = "/aiserver.v1.AiService/LogUserLintReply"
+	// AiServiceLogLinterExplicitUserFeedbackProcedure is the fully-qualified name of the AiService's
+	// LogLinterExplicitUserFeedback RPC.
+	AiServiceLogLinterExplicitUserFeedbackProcedure = "/aiserver.v1.AiService/LogLinterExplicitUserFeedback"
+	// AiServiceStreamFixMarkersProcedure is the fully-qualified name of the AiService's
+	// StreamFixMarkers RPC.
+	AiServiceStreamFixMarkersProcedure = "/aiserver.v1.AiService/StreamFixMarkers"
+	// AiServiceReportInlineActionProcedure is the fully-qualified name of the AiService's
+	// ReportInlineAction RPC.
+	AiServiceReportInlineActionProcedure = "/aiserver.v1.AiService/ReportInlineAction"
+	// AiServiceStreamPriomptPromptProcedure is the fully-qualified name of the AiService's
+	// StreamPriomptPrompt RPC.
+	AiServiceStreamPriomptPromptProcedure = "/aiserver.v1.AiService/StreamPriomptPrompt"
+	// AiServiceStreamLintProcedure is the fully-qualified name of the AiService's StreamLint RPC.
+	AiServiceStreamLintProcedure = "/aiserver.v1.AiService/StreamLint"
+	// AiServiceStreamNewLintRuleProcedure is the fully-qualified name of the AiService's
+	// StreamNewLintRule RPC.
+	AiServiceStreamNewLintRuleProcedure = "/aiserver.v1.AiService/StreamNewLintRule"
+	// AiServiceAiProjectProcedure is the fully-qualified name of the AiService's AiProject RPC.
+	AiServiceAiProjectProcedure = "/aiserver.v1.AiService/AiProject"
+	// AiServiceToCamelCaseProcedure is the fully-qualified name of the AiService's ToCamelCase RPC.
+	AiServiceToCamelCaseProcedure = "/aiserver.v1.AiService/ToCamelCase"
+	// AiServiceReportGenerationFeedbackProcedure is the fully-qualified name of the AiService's
+	// ReportGenerationFeedback RPC.
+	AiServiceReportGenerationFeedbackProcedure = "/aiserver.v1.AiService/ReportGenerationFeedback"
+	// AiServiceGetThoughtAnnotationProcedure is the fully-qualified name of the AiService's
+	// GetThoughtAnnotation RPC.
+	AiServiceGetThoughtAnnotationProcedure = "/aiserver.v1.AiService/GetThoughtAnnotation"
+	// AiServiceStreamWebCmdKV1Procedure is the fully-qualified name of the AiService's StreamWebCmdKV1
+	// RPC.
+	AiServiceStreamWebCmdKV1Procedure = "/aiserver.v1.AiService/StreamWebCmdKV1"
+	// AiServiceStreamNextCursorPredictionProcedure is the fully-qualified name of the AiService's
+	// StreamNextCursorPrediction RPC.
+	AiServiceStreamNextCursorPredictionProcedure = "/aiserver.v1.AiService/StreamNextCursorPrediction"
+	// AiServiceIsCursorPredictionEnabledProcedure is the fully-qualified name of the AiService's
+	// IsCursorPredictionEnabled RPC.
+	AiServiceIsCursorPredictionEnabledProcedure = "/aiserver.v1.AiService/IsCursorPredictionEnabled"
+	// AiServiceGetCppEditClassificationProcedure is the fully-qualified name of the AiService's
+	// GetCppEditClassification RPC.
+	AiServiceGetCppEditClassificationProcedure = "/aiserver.v1.AiService/GetCppEditClassification"
+	// AiServiceGetTerminalCompletionProcedure is the fully-qualified name of the AiService's
+	// GetTerminalCompletion RPC.
+	AiServiceGetTerminalCompletionProcedure = "/aiserver.v1.AiService/GetTerminalCompletion"
+	// AiServiceTakeNotesOnCommitDiffProcedure is the fully-qualified name of the AiService's
+	// TakeNotesOnCommitDiff RPC.
+	AiServiceTakeNotesOnCommitDiffProcedure = "/aiserver.v1.AiService/TakeNotesOnCommitDiff"
+	// AiServiceBulkEmbedProcedure is the fully-qualified name of the AiService's BulkEmbed RPC.
+	AiServiceBulkEmbedProcedure = "/aiserver.v1.AiService/BulkEmbed"
+	// AiServiceContinueChatRequestWithCommitsProcedure is the fully-qualified name of the AiService's
+	// ContinueChatRequestWithCommits RPC.
+	AiServiceContinueChatRequestWithCommitsProcedure = "/aiserver.v1.AiService/ContinueChatRequestWithCommits"
+	// AiServiceBackgroundCmdKEvalProcedure is the fully-qualified name of the AiService's
+	// BackgroundCmdKEval RPC.
+	AiServiceBackgroundCmdKEvalProcedure = "/aiserver.v1.AiService/BackgroundCmdKEval"
+	// AiServiceBackgroundCmdKProcedure is the fully-qualified name of the AiService's BackgroundCmdK
+	// RPC.
+	AiServiceBackgroundCmdKProcedure = "/aiserver.v1.AiService/BackgroundCmdK"
+	// AiServiceStreamCursorMotionProcedure is the fully-qualified name of the AiService's
+	// StreamCursorMotion RPC.
+	AiServiceStreamCursorMotionProcedure = "/aiserver.v1.AiService/StreamCursorMotion"
+	// AiServiceCalculateAutoSelectionProcedure is the fully-qualified name of the AiService's
+	// CalculateAutoSelection RPC.
+	AiServiceCalculateAutoSelectionProcedure = "/aiserver.v1.AiService/CalculateAutoSelection"
+	// AiServiceGetAtSymbolSuggestionsProcedure is the fully-qualified name of the AiService's
+	// GetAtSymbolSuggestions RPC.
+	AiServiceGetAtSymbolSuggestionsProcedure = "/aiserver.v1.AiService/GetAtSymbolSuggestions"
+	// AiServiceGetCodebaseQuestionsProcedure is the fully-qualified name of the AiService's
+	// GetCodebaseQuestions RPC.
+	AiServiceGetCodebaseQuestionsProcedure = "/aiserver.v1.AiService/GetCodebaseQuestions"
+	// AiServiceGetRankedContextFromContextBankProcedure is the fully-qualified name of the AiService's
+	// GetRankedContextFromContextBank RPC.
+	AiServiceGetRankedContextFromContextBankProcedure = "/aiserver.v1.AiService/GetRankedContextFromContextBank"
+	// AiServiceCppEditHistoryAppendProcedure is the fully-qualified name of the AiService's
+	// CppEditHistoryAppend RPC.
+	AiServiceCppEditHistoryAppendProcedure = "/aiserver.v1.AiService/CppEditHistoryAppend"
+	// AiServiceDevOnlyGetPastRequestIdsProcedure is the fully-qualified name of the AiService's
+	// DevOnlyGetPastRequestIds RPC.
+	AiServiceDevOnlyGetPastRequestIdsProcedure = "/aiserver.v1.AiService/DevOnlyGetPastRequestIds"
+	// AiServiceGetFilesForComposerProcedure is the fully-qualified name of the AiService's
+	// GetFilesForComposer RPC.
+	AiServiceGetFilesForComposerProcedure = "/aiserver.v1.AiService/GetFilesForComposer"
+	// AiServiceTryParseTypeScriptTreeSitterProcedure is the fully-qualified name of the AiService's
+	// TryParseTypeScriptTreeSitter RPC.
+	AiServiceTryParseTypeScriptTreeSitterProcedure = "/aiserver.v1.AiService/TryParseTypeScriptTreeSitter"
+	// AiServiceNameTabProcedure is the fully-qualified name of the AiService's NameTab RPC.
+	AiServiceNameTabProcedure = "/aiserver.v1.AiService/NameTab"
+	// AiServiceTestModelStatusProcedure is the fully-qualified name of the AiService's TestModelStatus
+	// RPC.
+	AiServiceTestModelStatusProcedure = "/aiserver.v1.AiService/TestModelStatus"
+	// RepositoryServiceFastRepoInitHandshakeProcedure is the fully-qualified name of the
+	// RepositoryService's FastRepoInitHandshake RPC.
+	RepositoryServiceFastRepoInitHandshakeProcedure = "/aiserver.v1.RepositoryService/FastRepoInitHandshake"
+	// RepositoryServiceSyncMerkleSubtreeProcedure is the fully-qualified name of the
+	// RepositoryService's SyncMerkleSubtree RPC.
+	RepositoryServiceSyncMerkleSubtreeProcedure = "/aiserver.v1.RepositoryService/SyncMerkleSubtree"
+	// RepositoryServiceFastUpdateFileProcedure is the fully-qualified name of the RepositoryService's
+	// FastUpdateFile RPC.
+	RepositoryServiceFastUpdateFileProcedure = "/aiserver.v1.RepositoryService/FastUpdateFile"
+	// RepositoryServiceSearchRepositoryV2Procedure is the fully-qualified name of the
+	// RepositoryService's SearchRepositoryV2 RPC.
+	RepositoryServiceSearchRepositoryV2Procedure = "/aiserver.v1.RepositoryService/SearchRepositoryV2"
+	// RepositoryServiceRemoveRepositoryV2Procedure is the fully-qualified name of the
+	// RepositoryService's RemoveRepositoryV2 RPC.
+	RepositoryServiceRemoveRepositoryV2Procedure = "/aiserver.v1.RepositoryService/RemoveRepositoryV2"
+	// RepositoryServiceEnsureIndexCreatedProcedure is the fully-qualified name of the
+	// RepositoryService's EnsureIndexCreated RPC.
+	RepositoryServiceEnsureIndexCreatedProcedure = "/aiserver.v1.RepositoryService/EnsureIndexCreated"
+	// RepositoryServiceGetHighLevelFolderDescriptionProcedure is the fully-qualified name of the
+	// RepositoryService's GetHighLevelFolderDescription RPC.
+	RepositoryServiceGetHighLevelFolderDescriptionProcedure = "/aiserver.v1.RepositoryService/GetHighLevelFolderDescription"
+	// RepositoryServiceGetEmbeddingsProcedure is the fully-qualified name of the RepositoryService's
+	// GetEmbeddings RPC.
+	RepositoryServiceGetEmbeddingsProcedure = "/aiserver.v1.RepositoryService/GetEmbeddings"
+	// RepositoryServiceSearchRepositoryDeepContextProcedure is the fully-qualified name of the
+	// RepositoryService's SearchRepositoryDeepContext RPC.
+	RepositoryServiceSearchRepositoryDeepContextProcedure = "/aiserver.v1.RepositoryService/SearchRepositoryDeepContext"
+	// RepositoryServiceRepositoryStatusProcedure is the fully-qualified name of the RepositoryService's
+	// RepositoryStatus RPC.
+	RepositoryServiceRepositoryStatusProcedure = "/aiserver.v1.RepositoryService/RepositoryStatus"
+	// RepositoryServiceBatchRepositoryStatusProcedure is the fully-qualified name of the
+	// RepositoryService's BatchRepositoryStatus RPC.
+	RepositoryServiceBatchRepositoryStatusProcedure = "/aiserver.v1.RepositoryService/BatchRepositoryStatus"
+	// RepositoryServiceSearchRepositoryProcedure is the fully-qualified name of the RepositoryService's
+	// SearchRepository RPC.
+	RepositoryServiceSearchRepositoryProcedure = "/aiserver.v1.RepositoryService/SearchRepository"
+	// RepositoryServiceRemoveRepositoryProcedure is the fully-qualified name of the RepositoryService's
+	// RemoveRepository RPC.
+	RepositoryServiceRemoveRepositoryProcedure = "/aiserver.v1.RepositoryService/RemoveRepository"
+	// RepositoryServiceGetUploadLimitsProcedure is the fully-qualified name of the RepositoryService's
+	// GetUploadLimits RPC.
+	RepositoryServiceGetUploadLimitsProcedure = "/aiserver.v1.RepositoryService/GetUploadLimits"
+	// RepositoryServiceGetNumFilesToSendProcedure is the fully-qualified name of the
+	// RepositoryService's GetNumFilesToSend RPC.
+	RepositoryServiceGetNumFilesToSendProcedure = "/aiserver.v1.RepositoryService/GetNumFilesToSend"
+	// RepositoryServiceGetAvailableChunkingStrategiesProcedure is the fully-qualified name of the
+	// RepositoryService's GetAvailableChunkingStrategies RPC.
+	RepositoryServiceGetAvailableChunkingStrategiesProcedure = "/aiserver.v1.RepositoryService/GetAvailableChunkingStrategies"
+	// RepositoryServiceAdminRemoveRepositoryProcedure is the fully-qualified name of the
+	// RepositoryService's AdminRemoveRepository RPC.
+	RepositoryServiceAdminRemoveRepositoryProcedure = "/aiserver.v1.RepositoryService/AdminRemoveRepository"
+	// RepositoryServiceGetRepositoriesProcedure is the fully-qualified name of the RepositoryService's
+	// GetRepositories RPC.
+	RepositoryServiceGetRepositoriesProcedure = "/aiserver.v1.RepositoryService/GetRepositories"
+	// RepositoryServiceLoginUserProcedure is the fully-qualified name of the RepositoryService's
+	// LoginUser RPC.
+	RepositoryServiceLoginUserProcedure = "/aiserver.v1.RepositoryService/LoginUser"
+	// RepositoryServiceLogoutUserProcedure is the fully-qualified name of the RepositoryService's
+	// LogoutUser RPC.
+	RepositoryServiceLogoutUserProcedure = "/aiserver.v1.RepositoryService/LogoutUser"
+	// RepositoryServiceIsLoggedInProcedure is the fully-qualified name of the RepositoryService's
+	// IsLoggedIn RPC.
+	RepositoryServiceIsLoggedInProcedure = "/aiserver.v1.RepositoryService/IsLoggedIn"
+	// RepositoryServicePollLoggedInProcedure is the fully-qualified name of the RepositoryService's
+	// PollLoggedIn RPC.
+	RepositoryServicePollLoggedInProcedure = "/aiserver.v1.RepositoryService/PollLoggedIn"
+	// RepositoryServiceUpgradeScopeProcedure is the fully-qualified name of the RepositoryService's
+	// UpgradeScope RPC.
+	RepositoryServiceUpgradeScopeProcedure = "/aiserver.v1.RepositoryService/UpgradeScope"
+	// RepositoryServiceSyncRepositoryProcedure is the fully-qualified name of the RepositoryService's
+	// SyncRepository RPC.
+	RepositoryServiceSyncRepositoryProcedure = "/aiserver.v1.RepositoryService/SyncRepository"
+	// RepositoryServiceUploadRepositoryProcedure is the fully-qualified name of the RepositoryService's
+	// UploadRepository RPC.
+	RepositoryServiceUploadRepositoryProcedure = "/aiserver.v1.RepositoryService/UploadRepository"
+	// RepositoryServiceSubscribeRepositoryProcedure is the fully-qualified name of the
+	// RepositoryService's SubscribeRepository RPC.
+	RepositoryServiceSubscribeRepositoryProcedure = "/aiserver.v1.RepositoryService/SubscribeRepository"
+	// RepositoryServiceUnsubscribeRepositoryProcedure is the fully-qualified name of the
+	// RepositoryService's UnsubscribeRepository RPC.
+	RepositoryServiceUnsubscribeRepositoryProcedure = "/aiserver.v1.RepositoryService/UnsubscribeRepository"
 )
 
 // These variables are the protoreflect.Descriptor objects for the RPCs defined in this package.
 var (
-	aiServiceServiceDescriptor          = v1.File_aiserver_v1_aiserver_proto.Services().ByName("AiService")
-	aiServiceStreamChatMethodDescriptor = aiServiceServiceDescriptor.Methods().ByName("StreamChat")
+	aiServiceServiceDescriptor                                      = v1.File_aiserver_v1_aiserver_proto.Services().ByName("AiService")
+	aiServiceHealthCheckMethodDescriptor                            = aiServiceServiceDescriptor.Methods().ByName("HealthCheck")
+	aiServiceTimeLeftHealthCheckMethodDescriptor                    = aiServiceServiceDescriptor.Methods().ByName("TimeLeftHealthCheck")
+	aiServiceThrowErrorCheckMethodDescriptor                        = aiServiceServiceDescriptor.Methods().ByName("ThrowErrorCheck")
+	aiServiceAvailableModelsMethodDescriptor                        = aiServiceServiceDescriptor.Methods().ByName("AvailableModels")
+	aiServiceStreamChatTryReallyHardMethodDescriptor                = aiServiceServiceDescriptor.Methods().ByName("StreamChatTryReallyHard")
+	aiServiceRerankDocumentsMethodDescriptor                        = aiServiceServiceDescriptor.Methods().ByName("RerankDocuments")
+	aiServiceStreamComposerMethodDescriptor                         = aiServiceServiceDescriptor.Methods().ByName("StreamComposer")
+	aiServiceStreamComposerContextMethodDescriptor                  = aiServiceServiceDescriptor.Methods().ByName("StreamComposerContext")
+	aiServiceWarmComposerCacheMethodDescriptor                      = aiServiceServiceDescriptor.Methods().ByName("WarmComposerCache")
+	aiServiceGetChatTitleMethodDescriptor                           = aiServiceServiceDescriptor.Methods().ByName("GetChatTitle")
+	aiServiceGetCompletionMethodDescriptor                          = aiServiceServiceDescriptor.Methods().ByName("GetCompletion")
+	aiServiceGetSearchMethodDescriptor                              = aiServiceServiceDescriptor.Methods().ByName("GetSearch")
+	aiServiceStreamInlineEditsMethodDescriptor                      = aiServiceServiceDescriptor.Methods().ByName("StreamInlineEdits")
+	aiServiceSummarizeConversationMethodDescriptor                  = aiServiceServiceDescriptor.Methods().ByName("SummarizeConversation")
+	aiServiceIsolatedTreesitterMethodDescriptor                     = aiServiceServiceDescriptor.Methods().ByName("IsolatedTreesitter")
+	aiServiceGetSimplePromptMethodDescriptor                        = aiServiceServiceDescriptor.Methods().ByName("GetSimplePrompt")
+	aiServiceCheckLongFilesFitMethodDescriptor                      = aiServiceServiceDescriptor.Methods().ByName("CheckLongFilesFit")
+	aiServiceGetEvaluationPromptMethodDescriptor                    = aiServiceServiceDescriptor.Methods().ByName("GetEvaluationPrompt")
+	aiServiceGetUserInfoMethodDescriptor                            = aiServiceServiceDescriptor.Methods().ByName("GetUserInfo")
+	aiServiceClearAndRedoEntireBucketMethodDescriptor               = aiServiceServiceDescriptor.Methods().ByName("ClearAndRedoEntireBucket")
+	aiServiceStreamBranchGeminiMethodDescriptor                     = aiServiceServiceDescriptor.Methods().ByName("StreamBranchGemini")
+	aiServiceStreamBranchFileSelectionsMethodDescriptor             = aiServiceServiceDescriptor.Methods().ByName("StreamBranchFileSelections")
+	aiServiceStreamBackgroundEditMethodDescriptor                   = aiServiceServiceDescriptor.Methods().ByName("StreamBackgroundEdit")
+	aiServiceStreamGPTFourEditMethodDescriptor                      = aiServiceServiceDescriptor.Methods().ByName("StreamGPTFourEdit")
+	aiServiceStreamChatMethodDescriptor                             = aiServiceServiceDescriptor.Methods().ByName("StreamChat")
+	aiServiceStreamChatWebMethodDescriptor                          = aiServiceServiceDescriptor.Methods().ByName("StreamChatWeb")
+	aiServiceStreamEditMethodDescriptor                             = aiServiceServiceDescriptor.Methods().ByName("StreamEdit")
+	aiServicePreloadEditMethodDescriptor                            = aiServiceServiceDescriptor.Methods().ByName("PreloadEdit")
+	aiServiceStreamFastEditMethodDescriptor                         = aiServiceServiceDescriptor.Methods().ByName("StreamFastEdit")
+	aiServiceStreamGenerateMethodDescriptor                         = aiServiceServiceDescriptor.Methods().ByName("StreamGenerate")
+	aiServiceStreamInlineLongCompletionMethodDescriptor             = aiServiceServiceDescriptor.Methods().ByName("StreamInlineLongCompletion")
+	aiServiceSlashEditMethodDescriptor                              = aiServiceServiceDescriptor.Methods().ByName("SlashEdit")
+	aiServiceSlashEditFollowUpWithPreviousEditsMethodDescriptor     = aiServiceServiceDescriptor.Methods().ByName("SlashEditFollowUpWithPreviousEdits")
+	aiServiceStreamAiPreviewsMethodDescriptor                       = aiServiceServiceDescriptor.Methods().ByName("StreamAiPreviews")
+	aiServiceShouldTurnOnCppOnboardingMethodDescriptor              = aiServiceServiceDescriptor.Methods().ByName("ShouldTurnOnCppOnboarding")
+	aiServiceStreamReviewMethodDescriptor                           = aiServiceServiceDescriptor.Methods().ByName("StreamReview")
+	aiServiceStreamReviewChatMethodDescriptor                       = aiServiceServiceDescriptor.Methods().ByName("StreamReviewChat")
+	aiServiceCheckQueuePositionMethodDescriptor                     = aiServiceServiceDescriptor.Methods().ByName("CheckQueuePosition")
+	aiServiceCheckUsageBasedPriceMethodDescriptor                   = aiServiceServiceDescriptor.Methods().ByName("CheckUsageBasedPrice")
+	aiServiceDoThisForMeCheckMethodDescriptor                       = aiServiceServiceDescriptor.Methods().ByName("DoThisForMeCheck")
+	aiServiceStreamDoThisForMeMethodDescriptor                      = aiServiceServiceDescriptor.Methods().ByName("StreamDoThisForMe")
+	aiServiceStreamChatToolformerMethodDescriptor                   = aiServiceServiceDescriptor.Methods().ByName("StreamChatToolformer")
+	aiServiceStreamChatToolformerContinueMethodDescriptor           = aiServiceServiceDescriptor.Methods().ByName("StreamChatToolformerContinue")
+	aiServicePushAiThoughtMethodDescriptor                          = aiServiceServiceDescriptor.Methods().ByName("PushAiThought")
+	aiServiceCheckDoableAsTaskMethodDescriptor                      = aiServiceServiceDescriptor.Methods().ByName("CheckDoableAsTask")
+	aiServiceReportGroundTruthCandidateMethodDescriptor             = aiServiceServiceDescriptor.Methods().ByName("ReportGroundTruthCandidate")
+	aiServiceReportCmdKFateMethodDescriptor                         = aiServiceServiceDescriptor.Methods().ByName("ReportCmdKFate")
+	aiServiceShowWelcomeScreenMethodDescriptor                      = aiServiceServiceDescriptor.Methods().ByName("ShowWelcomeScreen")
+	aiServiceInterfaceAgentInitMethodDescriptor                     = aiServiceServiceDescriptor.Methods().ByName("InterfaceAgentInit")
+	aiServiceStreamInterfaceAgentStatusMethodDescriptor             = aiServiceServiceDescriptor.Methods().ByName("StreamInterfaceAgentStatus")
+	aiServiceTaskGetInterfaceAgentStatusMethodDescriptor            = aiServiceServiceDescriptor.Methods().ByName("TaskGetInterfaceAgentStatus")
+	aiServiceTaskInitMethodDescriptor                               = aiServiceServiceDescriptor.Methods().ByName("TaskInit")
+	aiServiceTaskPauseMethodDescriptor                              = aiServiceServiceDescriptor.Methods().ByName("TaskPause")
+	aiServiceTaskInfoMethodDescriptor                               = aiServiceServiceDescriptor.Methods().ByName("TaskInfo")
+	aiServiceTaskStreamLogMethodDescriptor                          = aiServiceServiceDescriptor.Methods().ByName("TaskStreamLog")
+	aiServiceTaskSendMessageMethodDescriptor                        = aiServiceServiceDescriptor.Methods().ByName("TaskSendMessage")
+	aiServiceTaskProvideResultMethodDescriptor                      = aiServiceServiceDescriptor.Methods().ByName("TaskProvideResult")
+	aiServiceCreateExperimentalIndexMethodDescriptor                = aiServiceServiceDescriptor.Methods().ByName("CreateExperimentalIndex")
+	aiServiceListExperimentalIndexFilesMethodDescriptor             = aiServiceServiceDescriptor.Methods().ByName("ListExperimentalIndexFiles")
+	aiServiceListenExperimentalIndexMethodDescriptor                = aiServiceServiceDescriptor.Methods().ByName("ListenExperimentalIndex")
+	aiServiceRegisterFileToIndexMethodDescriptor                    = aiServiceServiceDescriptor.Methods().ByName("RegisterFileToIndex")
+	aiServiceSetupIndexDependenciesMethodDescriptor                 = aiServiceServiceDescriptor.Methods().ByName("SetupIndexDependencies")
+	aiServiceComputeIndexTopoSortMethodDescriptor                   = aiServiceServiceDescriptor.Methods().ByName("ComputeIndexTopoSort")
+	aiServiceStreamChatDeepContextMethodDescriptor                  = aiServiceServiceDescriptor.Methods().ByName("StreamChatDeepContext")
+	aiServiceChooseCodeReferencesMethodDescriptor                   = aiServiceServiceDescriptor.Methods().ByName("ChooseCodeReferences")
+	aiServiceRegisterCodeReferencesMethodDescriptor                 = aiServiceServiceDescriptor.Methods().ByName("RegisterCodeReferences")
+	aiServiceExtractPathsMethodDescriptor                           = aiServiceServiceDescriptor.Methods().ByName("ExtractPaths")
+	aiServiceSummarizeWithReferencesMethodDescriptor                = aiServiceServiceDescriptor.Methods().ByName("SummarizeWithReferences")
+	aiServiceDocumentationQueryMethodDescriptor                     = aiServiceServiceDescriptor.Methods().ByName("DocumentationQuery")
+	aiServiceAvailableDocsMethodDescriptor                          = aiServiceServiceDescriptor.Methods().ByName("AvailableDocs")
+	aiServiceReportFeedbackMethodDescriptor                         = aiServiceServiceDescriptor.Methods().ByName("ReportFeedback")
+	aiServiceReportBugMethodDescriptor                              = aiServiceServiceDescriptor.Methods().ByName("ReportBug")
+	aiServiceStreamChatContextMethodDescriptor                      = aiServiceServiceDescriptor.Methods().ByName("StreamChatContext")
+	aiServiceGenerateTldrMethodDescriptor                           = aiServiceServiceDescriptor.Methods().ByName("GenerateTldr")
+	aiServiceTaskStreamChatContextMethodDescriptor                  = aiServiceServiceDescriptor.Methods().ByName("TaskStreamChatContext")
+	aiServiceRerankResultsMethodDescriptor                          = aiServiceServiceDescriptor.Methods().ByName("RerankResults")
+	aiServiceModelQueryMethodDescriptor                             = aiServiceServiceDescriptor.Methods().ByName("ModelQuery")
+	aiServiceModelQueryV2MethodDescriptor                           = aiServiceServiceDescriptor.Methods().ByName("ModelQueryV2")
+	aiServiceIntentPredictionMethodDescriptor                       = aiServiceServiceDescriptor.Methods().ByName("IntentPrediction")
+	aiServiceStreamCursorTutorMethodDescriptor                      = aiServiceServiceDescriptor.Methods().ByName("StreamCursorTutor")
+	aiServiceCheckFeatureStatusMethodDescriptor                     = aiServiceServiceDescriptor.Methods().ByName("CheckFeatureStatus")
+	aiServiceGetEffectiveTokenLimitMethodDescriptor                 = aiServiceServiceDescriptor.Methods().ByName("GetEffectiveTokenLimit")
+	aiServiceGetContextScoresMethodDescriptor                       = aiServiceServiceDescriptor.Methods().ByName("GetContextScores")
+	aiServiceStreamCppMethodDescriptor                              = aiServiceServiceDescriptor.Methods().ByName("StreamCpp")
+	aiServiceCppConfigMethodDescriptor                              = aiServiceServiceDescriptor.Methods().ByName("CppConfig")
+	aiServiceCppEditHistoryStatusMethodDescriptor                   = aiServiceServiceDescriptor.Methods().ByName("CppEditHistoryStatus")
+	aiServiceCppAppendMethodDescriptor                              = aiServiceServiceDescriptor.Methods().ByName("CppAppend")
+	aiServiceCheckNumberConfigMethodDescriptor                      = aiServiceServiceDescriptor.Methods().ByName("CheckNumberConfig")
+	aiServiceStreamTerminalAutocompleteMethodDescriptor             = aiServiceServiceDescriptor.Methods().ByName("StreamTerminalAutocomplete")
+	aiServiceStreamPseudocodeGeneratorMethodDescriptor              = aiServiceServiceDescriptor.Methods().ByName("StreamPseudocodeGenerator")
+	aiServiceStreamPseudocodeMapperMethodDescriptor                 = aiServiceServiceDescriptor.Methods().ByName("StreamPseudocodeMapper")
+	aiServiceStreamAiLintBugMethodDescriptor                        = aiServiceServiceDescriptor.Methods().ByName("StreamAiLintBug")
+	aiServiceStreamAiCursorHelpMethodDescriptor                     = aiServiceServiceDescriptor.Methods().ByName("StreamAiCursorHelp")
+	aiServiceLogUserLintReplyMethodDescriptor                       = aiServiceServiceDescriptor.Methods().ByName("LogUserLintReply")
+	aiServiceLogLinterExplicitUserFeedbackMethodDescriptor          = aiServiceServiceDescriptor.Methods().ByName("LogLinterExplicitUserFeedback")
+	aiServiceStreamFixMarkersMethodDescriptor                       = aiServiceServiceDescriptor.Methods().ByName("StreamFixMarkers")
+	aiServiceReportInlineActionMethodDescriptor                     = aiServiceServiceDescriptor.Methods().ByName("ReportInlineAction")
+	aiServiceStreamPriomptPromptMethodDescriptor                    = aiServiceServiceDescriptor.Methods().ByName("StreamPriomptPrompt")
+	aiServiceStreamLintMethodDescriptor                             = aiServiceServiceDescriptor.Methods().ByName("StreamLint")
+	aiServiceStreamNewLintRuleMethodDescriptor                      = aiServiceServiceDescriptor.Methods().ByName("StreamNewLintRule")
+	aiServiceAiProjectMethodDescriptor                              = aiServiceServiceDescriptor.Methods().ByName("AiProject")
+	aiServiceToCamelCaseMethodDescriptor                            = aiServiceServiceDescriptor.Methods().ByName("ToCamelCase")
+	aiServiceReportGenerationFeedbackMethodDescriptor               = aiServiceServiceDescriptor.Methods().ByName("ReportGenerationFeedback")
+	aiServiceGetThoughtAnnotationMethodDescriptor                   = aiServiceServiceDescriptor.Methods().ByName("GetThoughtAnnotation")
+	aiServiceStreamWebCmdKV1MethodDescriptor                        = aiServiceServiceDescriptor.Methods().ByName("StreamWebCmdKV1")
+	aiServiceStreamNextCursorPredictionMethodDescriptor             = aiServiceServiceDescriptor.Methods().ByName("StreamNextCursorPrediction")
+	aiServiceIsCursorPredictionEnabledMethodDescriptor              = aiServiceServiceDescriptor.Methods().ByName("IsCursorPredictionEnabled")
+	aiServiceGetCppEditClassificationMethodDescriptor               = aiServiceServiceDescriptor.Methods().ByName("GetCppEditClassification")
+	aiServiceGetTerminalCompletionMethodDescriptor                  = aiServiceServiceDescriptor.Methods().ByName("GetTerminalCompletion")
+	aiServiceTakeNotesOnCommitDiffMethodDescriptor                  = aiServiceServiceDescriptor.Methods().ByName("TakeNotesOnCommitDiff")
+	aiServiceBulkEmbedMethodDescriptor                              = aiServiceServiceDescriptor.Methods().ByName("BulkEmbed")
+	aiServiceContinueChatRequestWithCommitsMethodDescriptor         = aiServiceServiceDescriptor.Methods().ByName("ContinueChatRequestWithCommits")
+	aiServiceBackgroundCmdKEvalMethodDescriptor                     = aiServiceServiceDescriptor.Methods().ByName("BackgroundCmdKEval")
+	aiServiceBackgroundCmdKMethodDescriptor                         = aiServiceServiceDescriptor.Methods().ByName("BackgroundCmdK")
+	aiServiceStreamCursorMotionMethodDescriptor                     = aiServiceServiceDescriptor.Methods().ByName("StreamCursorMotion")
+	aiServiceCalculateAutoSelectionMethodDescriptor                 = aiServiceServiceDescriptor.Methods().ByName("CalculateAutoSelection")
+	aiServiceGetAtSymbolSuggestionsMethodDescriptor                 = aiServiceServiceDescriptor.Methods().ByName("GetAtSymbolSuggestions")
+	aiServiceGetCodebaseQuestionsMethodDescriptor                   = aiServiceServiceDescriptor.Methods().ByName("GetCodebaseQuestions")
+	aiServiceGetRankedContextFromContextBankMethodDescriptor        = aiServiceServiceDescriptor.Methods().ByName("GetRankedContextFromContextBank")
+	aiServiceCppEditHistoryAppendMethodDescriptor                   = aiServiceServiceDescriptor.Methods().ByName("CppEditHistoryAppend")
+	aiServiceDevOnlyGetPastRequestIdsMethodDescriptor               = aiServiceServiceDescriptor.Methods().ByName("DevOnlyGetPastRequestIds")
+	aiServiceGetFilesForComposerMethodDescriptor                    = aiServiceServiceDescriptor.Methods().ByName("GetFilesForComposer")
+	aiServiceTryParseTypeScriptTreeSitterMethodDescriptor           = aiServiceServiceDescriptor.Methods().ByName("TryParseTypeScriptTreeSitter")
+	aiServiceNameTabMethodDescriptor                                = aiServiceServiceDescriptor.Methods().ByName("NameTab")
+	aiServiceTestModelStatusMethodDescriptor                        = aiServiceServiceDescriptor.Methods().ByName("TestModelStatus")
+	repositoryServiceServiceDescriptor                              = v1.File_aiserver_v1_aiserver_proto.Services().ByName("RepositoryService")
+	repositoryServiceFastRepoInitHandshakeMethodDescriptor          = repositoryServiceServiceDescriptor.Methods().ByName("FastRepoInitHandshake")
+	repositoryServiceSyncMerkleSubtreeMethodDescriptor              = repositoryServiceServiceDescriptor.Methods().ByName("SyncMerkleSubtree")
+	repositoryServiceFastUpdateFileMethodDescriptor                 = repositoryServiceServiceDescriptor.Methods().ByName("FastUpdateFile")
+	repositoryServiceSearchRepositoryV2MethodDescriptor             = repositoryServiceServiceDescriptor.Methods().ByName("SearchRepositoryV2")
+	repositoryServiceRemoveRepositoryV2MethodDescriptor             = repositoryServiceServiceDescriptor.Methods().ByName("RemoveRepositoryV2")
+	repositoryServiceEnsureIndexCreatedMethodDescriptor             = repositoryServiceServiceDescriptor.Methods().ByName("EnsureIndexCreated")
+	repositoryServiceGetHighLevelFolderDescriptionMethodDescriptor  = repositoryServiceServiceDescriptor.Methods().ByName("GetHighLevelFolderDescription")
+	repositoryServiceGetEmbeddingsMethodDescriptor                  = repositoryServiceServiceDescriptor.Methods().ByName("GetEmbeddings")
+	repositoryServiceSearchRepositoryDeepContextMethodDescriptor    = repositoryServiceServiceDescriptor.Methods().ByName("SearchRepositoryDeepContext")
+	repositoryServiceRepositoryStatusMethodDescriptor               = repositoryServiceServiceDescriptor.Methods().ByName("RepositoryStatus")
+	repositoryServiceBatchRepositoryStatusMethodDescriptor          = repositoryServiceServiceDescriptor.Methods().ByName("BatchRepositoryStatus")
+	repositoryServiceSearchRepositoryMethodDescriptor               = repositoryServiceServiceDescriptor.Methods().ByName("SearchRepository")
+	repositoryServiceRemoveRepositoryMethodDescriptor               = repositoryServiceServiceDescriptor.Methods().ByName("RemoveRepository")
+	repositoryServiceGetUploadLimitsMethodDescriptor                = repositoryServiceServiceDescriptor.Methods().ByName("GetUploadLimits")
+	repositoryServiceGetNumFilesToSendMethodDescriptor              = repositoryServiceServiceDescriptor.Methods().ByName("GetNumFilesToSend")
+	repositoryServiceGetAvailableChunkingStrategiesMethodDescriptor = repositoryServiceServiceDescriptor.Methods().ByName("GetAvailableChunkingStrategies")
+	repositoryServiceAdminRemoveRepositoryMethodDescriptor          = repositoryServiceServiceDescriptor.Methods().ByName("AdminRemoveRepository")
+	repositoryServiceGetRepositoriesMethodDescriptor                = repositoryServiceServiceDescriptor.Methods().ByName("GetRepositories")
+	repositoryServiceLoginUserMethodDescriptor                      = repositoryServiceServiceDescriptor.Methods().ByName("LoginUser")
+	repositoryServiceLogoutUserMethodDescriptor                     = repositoryServiceServiceDescriptor.Methods().ByName("LogoutUser")
+	repositoryServiceIsLoggedInMethodDescriptor                     = repositoryServiceServiceDescriptor.Methods().ByName("IsLoggedIn")
+	repositoryServicePollLoggedInMethodDescriptor                   = repositoryServiceServiceDescriptor.Methods().ByName("PollLoggedIn")
+	repositoryServiceUpgradeScopeMethodDescriptor                   = repositoryServiceServiceDescriptor.Methods().ByName("UpgradeScope")
+	repositoryServiceSyncRepositoryMethodDescriptor                 = repositoryServiceServiceDescriptor.Methods().ByName("SyncRepository")
+	repositoryServiceUploadRepositoryMethodDescriptor               = repositoryServiceServiceDescriptor.Methods().ByName("UploadRepository")
+	repositoryServiceSubscribeRepositoryMethodDescriptor            = repositoryServiceServiceDescriptor.Methods().ByName("SubscribeRepository")
+	repositoryServiceUnsubscribeRepositoryMethodDescriptor          = repositoryServiceServiceDescriptor.Methods().ByName("UnsubscribeRepository")
 )
 
 // AiServiceClient is a client for the aiserver.v1.AiService service.
 type AiServiceClient interface {
+	HealthCheck(context.Context, *connect.Request[v1.HealthCheckRequest]) (*connect.Response[v1.HealthCheckResponse], error)
+	TimeLeftHealthCheck(context.Context, *connect.Request[v1.HealthCheckRequest]) (*connect.Response[v1.TimeLeftHealthCheckResponse], error)
+	ThrowErrorCheck(context.Context, *connect.Request[v1.ThrowErrorCheckRequest]) (*connect.Response[v1.ThrowErrorCheckResponse], error)
+	AvailableModels(context.Context, *connect.Request[v1.AvailableModelsRequest]) (*connect.Response[v1.AvailableModelsResponse], error)
+	StreamChatTryReallyHard(context.Context, *connect.Request[v1.GetChatRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error)
+	RerankDocuments(context.Context, *connect.Request[v1.RerankDocumentsRequest]) (*connect.Response[v1.RerankDocumentsResponse], error)
+	StreamComposer(context.Context, *connect.Request[v1.GetComposerChatRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error)
+	StreamComposerContext(context.Context, *connect.Request[v1.StreamChatContextRequest]) (*connect.ServerStreamForClient[v1.StreamChatContextResponse], error)
+	WarmComposerCache(context.Context, *connect.Request[v1.GetComposerChatRequest]) (*connect.Response[v1.WarmComposerCacheResponse], error)
+	GetChatTitle(context.Context, *connect.Request[v1.GetChatTitleRequest]) (*connect.Response[v1.GetChatTitleResponse], error)
+	GetCompletion(context.Context, *connect.Request[v1.GetCompletionRequest]) (*connect.Response[v1.GetCompletionResponse], error)
+	GetSearch(context.Context, *connect.Request[v1.GetSearchRequest]) (*connect.Response[v1.GetSearchResponse], error)
+	StreamInlineEdits(context.Context, *connect.Request[v1.StreamInlineEditsRequest]) (*connect.ServerStreamForClient[v1.StreamInlineEditsResponse], error)
+	SummarizeConversation(context.Context, *connect.Request[v1.GetChatRequest]) (*connect.Response[v1.SummarizeConversationResponse], error)
+	IsolatedTreesitter(context.Context, *connect.Request[v1.IsolatedTreesitterRequest]) (*connect.Response[v1.IsolatedTreesitterResponse], error)
+	GetSimplePrompt(context.Context, *connect.Request[v1.GetSimplePromptRequest]) (*connect.Response[v1.GetSimplePromptResponse], error)
+	CheckLongFilesFit(context.Context, *connect.Request[v1.GetChatRequest]) (*connect.Response[v1.CheckLongFilesFitResponse], error)
+	GetEvaluationPrompt(context.Context, *connect.Request[v1.GetEvaluationPromptRequest]) (*connect.Response[v1.GetEvaluationPromptResponse], error)
+	GetUserInfo(context.Context, *connect.Request[v1.GetUserInfoRequest]) (*connect.Response[v1.GetUserInfoResponse], error)
+	ClearAndRedoEntireBucket(context.Context, *connect.Request[v1.ClearAndRedoEntireBucketRequest]) (*connect.Response[v1.ClearAndRedoEntireBucketResponse], error)
+	StreamBranchGemini(context.Context, *connect.Request[v1.StreamBranchGeminiRequest]) (*connect.ServerStreamForClient[v1.StreamBranchGeminiResponse], error)
+	StreamBranchFileSelections(context.Context, *connect.Request[v1.StreamBranchFileSelectionsRequest]) (*connect.ServerStreamForClient[v1.StreamBranchFileSelectionsResponse], error)
+	StreamBackgroundEdit(context.Context, *connect.Request[v1.StreamBackgroundEditRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error)
+	StreamGPTFourEdit(context.Context, *connect.Request[v1.StreamGPTFourEditRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error)
 	StreamChat(context.Context, *connect.Request[v1.GetChatRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error)
+	StreamChatWeb(context.Context, *connect.Request[v1.GetChatRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error)
+	StreamEdit(context.Context, *connect.Request[v1.StreamEditRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error)
+	PreloadEdit(context.Context, *connect.Request[v1.PreloadEditRequest]) (*connect.Response[v1.PreloadEditResponse], error)
+	StreamFastEdit(context.Context, *connect.Request[v1.StreamFastEditRequest]) (*connect.ServerStreamForClient[v1.StreamFastEditResponse], error)
+	StreamGenerate(context.Context, *connect.Request[v1.StreamGenerateRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error)
+	StreamInlineLongCompletion(context.Context, *connect.Request[v1.StreamInlineLongCompletionRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error)
+	SlashEdit(context.Context, *connect.Request[v1.SlashEditRequest]) (*connect.ServerStreamForClient[v1.SlashEditResponse], error)
+	SlashEditFollowUpWithPreviousEdits(context.Context, *connect.Request[v1.SlashEditFollowUpWithPreviousEditsRequest]) (*connect.ServerStreamForClient[v1.StreamSlashEditFollowUpWithPreviousEditsResponse], error)
+	StreamAiPreviews(context.Context, *connect.Request[v1.StreamAiPreviewsRequest]) (*connect.ServerStreamForClient[v1.StreamAiPreviewsResponse], error)
+	ShouldTurnOnCppOnboarding(context.Context, *connect.Request[v1.ShouldTurnOnCppOnboardingRequest]) (*connect.Response[v1.ShouldTurnOnCppOnboardingResponse], error)
+	StreamReview(context.Context, *connect.Request[v1.ReviewRequest]) (*connect.ServerStreamForClient[v1.ReviewResponse], error)
+	StreamReviewChat(context.Context, *connect.Request[v1.ReviewChatRequest]) (*connect.ServerStreamForClient[v1.ReviewChatResponse], error)
+	CheckQueuePosition(context.Context, *connect.Request[v1.CheckQueuePositionRequest]) (*connect.Response[v1.CheckQueuePositionResponse], error)
+	CheckUsageBasedPrice(context.Context, *connect.Request[v1.CheckUsageBasedPriceRequest]) (*connect.Response[v1.CheckUsageBasedPriceResponse], error)
+	DoThisForMeCheck(context.Context, *connect.Request[v1.DoThisForMeCheckRequest]) (*connect.Response[v1.DoThisForMeCheckResponse], error)
+	StreamDoThisForMe(context.Context, *connect.Request[v1.DoThisForMeRequest]) (*connect.ServerStreamForClient[v1.DoThisForMeResponseWrapped], error)
+	StreamChatToolformer(context.Context, *connect.Request[v1.GetChatRequest]) (*connect.ServerStreamForClient[v1.StreamChatToolformerResponse], error)
+	StreamChatToolformerContinue(context.Context, *connect.Request[v1.StreamChatToolformerContinueRequest]) (*connect.ServerStreamForClient[v1.StreamChatToolformerResponse], error)
+	PushAiThought(context.Context, *connect.Request[v1.PushAiThoughtRequest]) (*connect.Response[v1.PushAiThoughtResponse], error)
+	CheckDoableAsTask(context.Context, *connect.Request[v1.CheckDoableAsTaskRequest]) (*connect.Response[v1.CheckDoableAsTaskResponse], error)
+	ReportGroundTruthCandidate(context.Context, *connect.Request[v1.ReportGroundTruthCandidateRequest]) (*connect.Response[v1.ReportGroundTruthCandidateResponse], error)
+	ReportCmdKFate(context.Context, *connect.Request[v1.ReportCmdKFateRequest]) (*connect.Response[v1.ReportCmdKFateResponse], error)
+	ShowWelcomeScreen(context.Context, *connect.Request[v1.ShowWelcomeScreenRequest]) (*connect.Response[v1.ShowWelcomeScreenResponse], error)
+	InterfaceAgentInit(context.Context, *connect.Request[v1.InterfaceAgentInitRequest]) (*connect.Response[v1.InterfaceAgentInitResponse], error)
+	StreamInterfaceAgentStatus(context.Context, *connect.Request[v1.StreamInterfaceAgentStatusRequest]) (*connect.ServerStreamForClient[v1.StreamInterfaceAgentStatusResponse], error)
+	TaskGetInterfaceAgentStatus(context.Context, *connect.Request[v1.TaskGetInterfaceAgentStatusRequest]) (*connect.ServerStreamForClient[v1.TaskGetInterfaceAgentStatusResponseWrapped], error)
+	TaskInit(context.Context, *connect.Request[v1.TaskInitRequest]) (*connect.Response[v1.TaskInitResponse], error)
+	TaskPause(context.Context, *connect.Request[v1.TaskPauseRequest]) (*connect.Response[v1.TaskPauseResponse], error)
+	TaskInfo(context.Context, *connect.Request[v1.TaskInfoRequest]) (*connect.Response[v1.TaskInfoResponse], error)
+	TaskStreamLog(context.Context, *connect.Request[v1.TaskStreamLogRequest]) (*connect.ServerStreamForClient[v1.TaskStreamLogResponse], error)
+	TaskSendMessage(context.Context, *connect.Request[v1.TaskSendMessageRequest]) (*connect.Response[v1.TaskSendMessageResponse], error)
+	TaskProvideResult(context.Context, *connect.Request[v1.TaskProvideResultRequest]) (*connect.Response[v1.TaskProvideResultResponse], error)
+	CreateExperimentalIndex(context.Context, *connect.Request[v1.CreateExperimentalIndexRequest]) (*connect.Response[v1.CreateExperimentalIndexResponse], error)
+	ListExperimentalIndexFiles(context.Context, *connect.Request[v1.ListExperimentalIndexFilesRequest]) (*connect.Response[v1.ListExperimentalIndexFilesResponse], error)
+	ListenExperimentalIndex(context.Context, *connect.Request[v1.ListenExperimentalIndexRequest]) (*connect.ServerStreamForClient[v1.ListenExperimentalIndexResponse], error)
+	RegisterFileToIndex(context.Context, *connect.Request[v1.RegisterFileToIndexRequest]) (*connect.Response[v1.RequestReceivedResponse], error)
+	SetupIndexDependencies(context.Context, *connect.Request[v1.SetupIndexDependenciesRequest]) (*connect.Response[v1.SetupIndexDependenciesResponse], error)
+	ComputeIndexTopoSort(context.Context, *connect.Request[v1.ComputeIndexTopoSortRequest]) (*connect.Response[v1.ComputeIndexTopoSortResponse], error)
+	StreamChatDeepContext(context.Context, *connect.Request[v1.StreamChatDeepContextRequest]) (*connect.ServerStreamForClient[v1.StreamChatDeepContextResponse], error)
+	ChooseCodeReferences(context.Context, *connect.Request[v1.ChooseCodeReferencesRequest]) (*connect.Response[v1.RequestReceivedResponse], error)
+	RegisterCodeReferences(context.Context, *connect.Request[v1.RegisterCodeReferencesRequest]) (*connect.Response[v1.RegisterCodeReferencesResponse], error)
+	ExtractPaths(context.Context, *connect.Request[v1.ExtractPathsRequest]) (*connect.Response[v1.ExtractPathsResponse], error)
+	SummarizeWithReferences(context.Context, *connect.Request[v1.SummarizeWithReferencesRequest]) (*connect.Response[v1.RequestReceivedResponse], error)
+	DocumentationQuery(context.Context, *connect.Request[v1.DocumentationQueryRequest]) (*connect.Response[v1.DocumentationQueryResponse], error)
+	AvailableDocs(context.Context, *connect.Request[v1.AvailableDocsRequest]) (*connect.Response[v1.AvailableDocsResponse], error)
+	ReportFeedback(context.Context, *connect.Request[v1.ReportFeedbackRequest]) (*connect.Response[v1.ReportFeedbackResponse], error)
+	ReportBug(context.Context, *connect.Request[v1.ReportBugRequest]) (*connect.Response[v1.ReportBugResponse], error)
+	StreamChatContext(context.Context, *connect.Request[v1.StreamChatContextRequest]) (*connect.ServerStreamForClient[v1.StreamChatContextResponse], error)
+	GenerateTldr(context.Context, *connect.Request[v1.GenerateTldrRequest]) (*connect.Response[v1.GenerateTldrResponse], error)
+	TaskStreamChatContext(context.Context, *connect.Request[v1.TaskStreamChatContextRequest]) (*connect.ServerStreamForClient[v1.TaskStreamChatContextResponseWrapped], error)
+	RerankResults(context.Context, *connect.Request[v1.RerankerRequest]) (*connect.Response[v1.RerankerResponse], error)
+	ModelQuery(context.Context, *connect.Request[v1.ModelQueryRequest]) (*connect.Response[v1.ModelQueryResponse], error)
+	ModelQueryV2(context.Context, *connect.Request[v1.ModelQueryRequest]) (*connect.ServerStreamForClient[v1.ModelQueryResponseV2], error)
+	IntentPrediction(context.Context, *connect.Request[v1.IntentPredictionRequest]) (*connect.Response[v1.IntentPredictionResponse], error)
+	StreamCursorTutor(context.Context, *connect.Request[v1.StreamCursorTutorRequest]) (*connect.ServerStreamForClient[v1.StreamCursorTutorResponse], error)
+	CheckFeatureStatus(context.Context, *connect.Request[v1.CheckFeatureStatusRequest]) (*connect.Response[v1.CheckFeatureStatusResponse], error)
+	GetEffectiveTokenLimit(context.Context, *connect.Request[v1.GetEffectiveTokenLimitRequest]) (*connect.Response[v1.GetEffectiveTokenLimitResponse], error)
+	GetContextScores(context.Context, *connect.Request[v1.ContextScoresRequest]) (*connect.Response[v1.ContextScoresResponse], error)
+	StreamCpp(context.Context, *connect.Request[v1.StreamCppRequest]) (*connect.ServerStreamForClient[v1.StreamCppResponse], error)
+	CppConfig(context.Context, *connect.Request[v1.CppConfigRequest]) (*connect.Response[v1.CppConfigResponse], error)
+	CppEditHistoryStatus(context.Context, *connect.Request[v1.CppEditHistoryStatusRequest]) (*connect.Response[v1.CppEditHistoryStatusResponse], error)
+	CppAppend(context.Context, *connect.Request[v1.CppAppendRequest]) (*connect.Response[v1.CppAppendResponse], error)
+	CheckNumberConfig(context.Context, *connect.Request[v1.CheckNumberConfigRequest]) (*connect.Response[v1.CheckNumberConfigResponse], error)
+	StreamTerminalAutocomplete(context.Context, *connect.Request[v1.StreamTerminalAutocompleteRequest]) (*connect.ServerStreamForClient[v1.StreamTerminalAutocompleteResponse], error)
+	StreamPseudocodeGenerator(context.Context, *connect.Request[v1.StreamPseudocodeGeneratorRequest]) (*connect.ServerStreamForClient[v1.StreamPseudocodeGeneratorResponse], error)
+	StreamPseudocodeMapper(context.Context, *connect.Request[v1.StreamPseudocodeMapperRequest]) (*connect.ServerStreamForClient[v1.StreamPseudocodeMapperResponse], error)
+	StreamAiLintBug(context.Context, *connect.Request[v1.StreamAiLintBugRequest]) (*connect.ServerStreamForClient[v1.StreamAiLintBugResponse], error)
+	StreamAiCursorHelp(context.Context, *connect.Request[v1.StreamAiCursorHelpRequest]) (*connect.ServerStreamForClient[v1.StreamAiCursorHelpResponse], error)
+	LogUserLintReply(context.Context, *connect.Request[v1.LogUserLintReplyRequest]) (*connect.Response[v1.LogUserLintReplyResponse], error)
+	LogLinterExplicitUserFeedback(context.Context, *connect.Request[v1.LogLinterExplicitUserFeedbackRequest]) (*connect.Response[v1.LogLinterExplicitUserFeedbackResponse], error)
+	StreamFixMarkers(context.Context, *connect.Request[v1.FixMarkersRequest]) (*connect.ServerStreamForClient[v1.FixMarkersResponse], error)
+	ReportInlineAction(context.Context, *connect.Request[v1.ReportInlineActionRequest]) (*connect.Response[v1.ReportInlineActionResponse], error)
+	StreamPriomptPrompt(context.Context, *connect.Request[v1.StreamPriomptPromptRequest]) (*connect.ServerStreamForClient[v1.StreamPriomptPromptResponse], error)
+	StreamLint(context.Context, *connect.Request[v1.StreamLintRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error)
+	StreamNewLintRule(context.Context, *connect.Request[v1.StreamNewRuleRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error)
+	AiProject(context.Context, *connect.Request[v1.AiProjectRequest]) (*connect.ServerStreamForClient[v1.AiProjectResponse], error)
+	ToCamelCase(context.Context, *connect.Request[v1.ToCamelCaseRequest]) (*connect.Response[v1.ToCamelCaseResponse], error)
+	ReportGenerationFeedback(context.Context, *connect.Request[v1.ReportGenerationFeedbackRequest]) (*connect.Response[v1.ReportGenerationFeedbackResponse], error)
+	GetThoughtAnnotation(context.Context, *connect.Request[v1.GetThoughtAnnotationRequest]) (*connect.Response[v1.GetThoughtAnnotationResponse], error)
+	StreamWebCmdKV1(context.Context, *connect.Request[v1.StreamWebCmdKV1Request]) (*connect.ServerStreamForClient[v1.StreamWebCmdKV1Response], error)
+	StreamNextCursorPrediction(context.Context, *connect.Request[v1.StreamNextCursorPredictionRequest]) (*connect.ServerStreamForClient[v1.StreamNextCursorPredictionResponse], error)
+	IsCursorPredictionEnabled(context.Context, *connect.Request[v1.IsCursorPredictionEnabledRequest]) (*connect.Response[v1.IsCursorPredictionEnabledResponse], error)
+	GetCppEditClassification(context.Context, *connect.Request[v1.GetCppEditClassificationRequest]) (*connect.Response[v1.GetCppEditClassificationResponse], error)
+	GetTerminalCompletion(context.Context, *connect.Request[v1.GetTerminalCompletionRequest]) (*connect.Response[v1.GetTerminalCompletionResponse], error)
+	TakeNotesOnCommitDiff(context.Context, *connect.Request[v1.TakeNotesOnCommitDiffRequest]) (*connect.Response[v1.TakeNotesOnCommitDiffResponse], error)
+	BulkEmbed(context.Context, *connect.Request[v1.BulkEmbedRequest]) (*connect.Response[v1.BulkEmbedResponse], error)
+	ContinueChatRequestWithCommits(context.Context, *connect.Request[v1.ContinueChatRequestWithCommitsRequest]) (*connect.Response[v1.EmptyResponse], error)
+	BackgroundCmdKEval(context.Context, *connect.Request[v1.BackgroundCmdKEvalRequest]) (*connect.ServerStreamForClient[v1.BackgroundCmdKEvalResponse], error)
+	BackgroundCmdK(context.Context, *connect.Request[v1.BackgroundCmdKRequest]) (*connect.ServerStreamForClient[v1.BackgroundCmdKResponse], error)
+	StreamCursorMotion(context.Context, *connect.Request[v1.StreamCursorMotionRequest]) (*connect.ServerStreamForClient[v1.StreamCursorMotionResponse], error)
+	CalculateAutoSelection(context.Context, *connect.Request[v1.CalculateAutoSelectionRequest]) (*connect.Response[v1.CalculateAutoSelectionResponse], error)
+	GetAtSymbolSuggestions(context.Context, *connect.Request[v1.GetAtSymbolSuggestionsRequest]) (*connect.Response[v1.GetAtSymbolSuggestionsResponse], error)
+	GetCodebaseQuestions(context.Context, *connect.Request[v1.GetChatRequest]) (*connect.Response[v1.GetCodebaseQuestionsResponse], error)
+	GetRankedContextFromContextBank(context.Context, *connect.Request[v1.GetRankedContextFromContextBankRequest]) (*connect.Response[v1.GetRankedContextFromContextBankResponse], error)
+	CppEditHistoryAppend(context.Context, *connect.Request[v1.EditHistoryAppendChangesRequest]) (*connect.Response[v1.EditHistoryAppendChangesResponse], error)
+	DevOnlyGetPastRequestIds(context.Context, *connect.Request[v1.DevOnlyGetPastRequestIdsRequest]) (*connect.Response[v1.DevOnlyGetPastRequestIdsResponse], error)
+	GetFilesForComposer(context.Context, *connect.Request[v1.GetFilesForComposerRequest]) (*connect.Response[v1.GetFilesForComposerResponse], error)
+	TryParseTypeScriptTreeSitter(context.Context, *connect.Request[v1.TryParseTypeScriptTreeSitterRequest]) (*connect.Response[v1.TryParseTypeScriptTreeSitterResponse], error)
+	NameTab(context.Context, *connect.Request[v1.NameTabRequest]) (*connect.Response[v1.NameTabResponse], error)
+	TestModelStatus(context.Context, *connect.Request[v1.TestModelStatusRequest]) (*connect.Response[v1.TestModelStatusResponse], error)
 }
 
 // NewAiServiceClient constructs a client for the aiserver.v1.AiService service. By default, it uses
@@ -58,10 +759,754 @@ type AiServiceClient interface {
 func NewAiServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) AiServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
 	return &aiServiceClient{
+		healthCheck: connect.NewClient[v1.HealthCheckRequest, v1.HealthCheckResponse](
+			httpClient,
+			baseURL+AiServiceHealthCheckProcedure,
+			connect.WithSchema(aiServiceHealthCheckMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		timeLeftHealthCheck: connect.NewClient[v1.HealthCheckRequest, v1.TimeLeftHealthCheckResponse](
+			httpClient,
+			baseURL+AiServiceTimeLeftHealthCheckProcedure,
+			connect.WithSchema(aiServiceTimeLeftHealthCheckMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		throwErrorCheck: connect.NewClient[v1.ThrowErrorCheckRequest, v1.ThrowErrorCheckResponse](
+			httpClient,
+			baseURL+AiServiceThrowErrorCheckProcedure,
+			connect.WithSchema(aiServiceThrowErrorCheckMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		availableModels: connect.NewClient[v1.AvailableModelsRequest, v1.AvailableModelsResponse](
+			httpClient,
+			baseURL+AiServiceAvailableModelsProcedure,
+			connect.WithSchema(aiServiceAvailableModelsMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamChatTryReallyHard: connect.NewClient[v1.GetChatRequest, v1.StreamChatResponse](
+			httpClient,
+			baseURL+AiServiceStreamChatTryReallyHardProcedure,
+			connect.WithSchema(aiServiceStreamChatTryReallyHardMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		rerankDocuments: connect.NewClient[v1.RerankDocumentsRequest, v1.RerankDocumentsResponse](
+			httpClient,
+			baseURL+AiServiceRerankDocumentsProcedure,
+			connect.WithSchema(aiServiceRerankDocumentsMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamComposer: connect.NewClient[v1.GetComposerChatRequest, v1.StreamChatResponse](
+			httpClient,
+			baseURL+AiServiceStreamComposerProcedure,
+			connect.WithSchema(aiServiceStreamComposerMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamComposerContext: connect.NewClient[v1.StreamChatContextRequest, v1.StreamChatContextResponse](
+			httpClient,
+			baseURL+AiServiceStreamComposerContextProcedure,
+			connect.WithSchema(aiServiceStreamComposerContextMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		warmComposerCache: connect.NewClient[v1.GetComposerChatRequest, v1.WarmComposerCacheResponse](
+			httpClient,
+			baseURL+AiServiceWarmComposerCacheProcedure,
+			connect.WithSchema(aiServiceWarmComposerCacheMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getChatTitle: connect.NewClient[v1.GetChatTitleRequest, v1.GetChatTitleResponse](
+			httpClient,
+			baseURL+AiServiceGetChatTitleProcedure,
+			connect.WithSchema(aiServiceGetChatTitleMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getCompletion: connect.NewClient[v1.GetCompletionRequest, v1.GetCompletionResponse](
+			httpClient,
+			baseURL+AiServiceGetCompletionProcedure,
+			connect.WithSchema(aiServiceGetCompletionMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getSearch: connect.NewClient[v1.GetSearchRequest, v1.GetSearchResponse](
+			httpClient,
+			baseURL+AiServiceGetSearchProcedure,
+			connect.WithSchema(aiServiceGetSearchMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamInlineEdits: connect.NewClient[v1.StreamInlineEditsRequest, v1.StreamInlineEditsResponse](
+			httpClient,
+			baseURL+AiServiceStreamInlineEditsProcedure,
+			connect.WithSchema(aiServiceStreamInlineEditsMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		summarizeConversation: connect.NewClient[v1.GetChatRequest, v1.SummarizeConversationResponse](
+			httpClient,
+			baseURL+AiServiceSummarizeConversationProcedure,
+			connect.WithSchema(aiServiceSummarizeConversationMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		isolatedTreesitter: connect.NewClient[v1.IsolatedTreesitterRequest, v1.IsolatedTreesitterResponse](
+			httpClient,
+			baseURL+AiServiceIsolatedTreesitterProcedure,
+			connect.WithSchema(aiServiceIsolatedTreesitterMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getSimplePrompt: connect.NewClient[v1.GetSimplePromptRequest, v1.GetSimplePromptResponse](
+			httpClient,
+			baseURL+AiServiceGetSimplePromptProcedure,
+			connect.WithSchema(aiServiceGetSimplePromptMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		checkLongFilesFit: connect.NewClient[v1.GetChatRequest, v1.CheckLongFilesFitResponse](
+			httpClient,
+			baseURL+AiServiceCheckLongFilesFitProcedure,
+			connect.WithSchema(aiServiceCheckLongFilesFitMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getEvaluationPrompt: connect.NewClient[v1.GetEvaluationPromptRequest, v1.GetEvaluationPromptResponse](
+			httpClient,
+			baseURL+AiServiceGetEvaluationPromptProcedure,
+			connect.WithSchema(aiServiceGetEvaluationPromptMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getUserInfo: connect.NewClient[v1.GetUserInfoRequest, v1.GetUserInfoResponse](
+			httpClient,
+			baseURL+AiServiceGetUserInfoProcedure,
+			connect.WithSchema(aiServiceGetUserInfoMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		clearAndRedoEntireBucket: connect.NewClient[v1.ClearAndRedoEntireBucketRequest, v1.ClearAndRedoEntireBucketResponse](
+			httpClient,
+			baseURL+AiServiceClearAndRedoEntireBucketProcedure,
+			connect.WithSchema(aiServiceClearAndRedoEntireBucketMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamBranchGemini: connect.NewClient[v1.StreamBranchGeminiRequest, v1.StreamBranchGeminiResponse](
+			httpClient,
+			baseURL+AiServiceStreamBranchGeminiProcedure,
+			connect.WithSchema(aiServiceStreamBranchGeminiMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamBranchFileSelections: connect.NewClient[v1.StreamBranchFileSelectionsRequest, v1.StreamBranchFileSelectionsResponse](
+			httpClient,
+			baseURL+AiServiceStreamBranchFileSelectionsProcedure,
+			connect.WithSchema(aiServiceStreamBranchFileSelectionsMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamBackgroundEdit: connect.NewClient[v1.StreamBackgroundEditRequest, v1.StreamChatResponse](
+			httpClient,
+			baseURL+AiServiceStreamBackgroundEditProcedure,
+			connect.WithSchema(aiServiceStreamBackgroundEditMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamGPTFourEdit: connect.NewClient[v1.StreamGPTFourEditRequest, v1.StreamChatResponse](
+			httpClient,
+			baseURL+AiServiceStreamGPTFourEditProcedure,
+			connect.WithSchema(aiServiceStreamGPTFourEditMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
 		streamChat: connect.NewClient[v1.GetChatRequest, v1.StreamChatResponse](
 			httpClient,
 			baseURL+AiServiceStreamChatProcedure,
 			connect.WithSchema(aiServiceStreamChatMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamChatWeb: connect.NewClient[v1.GetChatRequest, v1.StreamChatResponse](
+			httpClient,
+			baseURL+AiServiceStreamChatWebProcedure,
+			connect.WithSchema(aiServiceStreamChatWebMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamEdit: connect.NewClient[v1.StreamEditRequest, v1.StreamChatResponse](
+			httpClient,
+			baseURL+AiServiceStreamEditProcedure,
+			connect.WithSchema(aiServiceStreamEditMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		preloadEdit: connect.NewClient[v1.PreloadEditRequest, v1.PreloadEditResponse](
+			httpClient,
+			baseURL+AiServicePreloadEditProcedure,
+			connect.WithSchema(aiServicePreloadEditMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamFastEdit: connect.NewClient[v1.StreamFastEditRequest, v1.StreamFastEditResponse](
+			httpClient,
+			baseURL+AiServiceStreamFastEditProcedure,
+			connect.WithSchema(aiServiceStreamFastEditMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamGenerate: connect.NewClient[v1.StreamGenerateRequest, v1.StreamChatResponse](
+			httpClient,
+			baseURL+AiServiceStreamGenerateProcedure,
+			connect.WithSchema(aiServiceStreamGenerateMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamInlineLongCompletion: connect.NewClient[v1.StreamInlineLongCompletionRequest, v1.StreamChatResponse](
+			httpClient,
+			baseURL+AiServiceStreamInlineLongCompletionProcedure,
+			connect.WithSchema(aiServiceStreamInlineLongCompletionMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		slashEdit: connect.NewClient[v1.SlashEditRequest, v1.SlashEditResponse](
+			httpClient,
+			baseURL+AiServiceSlashEditProcedure,
+			connect.WithSchema(aiServiceSlashEditMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		slashEditFollowUpWithPreviousEdits: connect.NewClient[v1.SlashEditFollowUpWithPreviousEditsRequest, v1.StreamSlashEditFollowUpWithPreviousEditsResponse](
+			httpClient,
+			baseURL+AiServiceSlashEditFollowUpWithPreviousEditsProcedure,
+			connect.WithSchema(aiServiceSlashEditFollowUpWithPreviousEditsMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamAiPreviews: connect.NewClient[v1.StreamAiPreviewsRequest, v1.StreamAiPreviewsResponse](
+			httpClient,
+			baseURL+AiServiceStreamAiPreviewsProcedure,
+			connect.WithSchema(aiServiceStreamAiPreviewsMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		shouldTurnOnCppOnboarding: connect.NewClient[v1.ShouldTurnOnCppOnboardingRequest, v1.ShouldTurnOnCppOnboardingResponse](
+			httpClient,
+			baseURL+AiServiceShouldTurnOnCppOnboardingProcedure,
+			connect.WithSchema(aiServiceShouldTurnOnCppOnboardingMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamReview: connect.NewClient[v1.ReviewRequest, v1.ReviewResponse](
+			httpClient,
+			baseURL+AiServiceStreamReviewProcedure,
+			connect.WithSchema(aiServiceStreamReviewMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamReviewChat: connect.NewClient[v1.ReviewChatRequest, v1.ReviewChatResponse](
+			httpClient,
+			baseURL+AiServiceStreamReviewChatProcedure,
+			connect.WithSchema(aiServiceStreamReviewChatMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		checkQueuePosition: connect.NewClient[v1.CheckQueuePositionRequest, v1.CheckQueuePositionResponse](
+			httpClient,
+			baseURL+AiServiceCheckQueuePositionProcedure,
+			connect.WithSchema(aiServiceCheckQueuePositionMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		checkUsageBasedPrice: connect.NewClient[v1.CheckUsageBasedPriceRequest, v1.CheckUsageBasedPriceResponse](
+			httpClient,
+			baseURL+AiServiceCheckUsageBasedPriceProcedure,
+			connect.WithSchema(aiServiceCheckUsageBasedPriceMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		doThisForMeCheck: connect.NewClient[v1.DoThisForMeCheckRequest, v1.DoThisForMeCheckResponse](
+			httpClient,
+			baseURL+AiServiceDoThisForMeCheckProcedure,
+			connect.WithSchema(aiServiceDoThisForMeCheckMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamDoThisForMe: connect.NewClient[v1.DoThisForMeRequest, v1.DoThisForMeResponseWrapped](
+			httpClient,
+			baseURL+AiServiceStreamDoThisForMeProcedure,
+			connect.WithSchema(aiServiceStreamDoThisForMeMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamChatToolformer: connect.NewClient[v1.GetChatRequest, v1.StreamChatToolformerResponse](
+			httpClient,
+			baseURL+AiServiceStreamChatToolformerProcedure,
+			connect.WithSchema(aiServiceStreamChatToolformerMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamChatToolformerContinue: connect.NewClient[v1.StreamChatToolformerContinueRequest, v1.StreamChatToolformerResponse](
+			httpClient,
+			baseURL+AiServiceStreamChatToolformerContinueProcedure,
+			connect.WithSchema(aiServiceStreamChatToolformerContinueMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		pushAiThought: connect.NewClient[v1.PushAiThoughtRequest, v1.PushAiThoughtResponse](
+			httpClient,
+			baseURL+AiServicePushAiThoughtProcedure,
+			connect.WithSchema(aiServicePushAiThoughtMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		checkDoableAsTask: connect.NewClient[v1.CheckDoableAsTaskRequest, v1.CheckDoableAsTaskResponse](
+			httpClient,
+			baseURL+AiServiceCheckDoableAsTaskProcedure,
+			connect.WithSchema(aiServiceCheckDoableAsTaskMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		reportGroundTruthCandidate: connect.NewClient[v1.ReportGroundTruthCandidateRequest, v1.ReportGroundTruthCandidateResponse](
+			httpClient,
+			baseURL+AiServiceReportGroundTruthCandidateProcedure,
+			connect.WithSchema(aiServiceReportGroundTruthCandidateMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		reportCmdKFate: connect.NewClient[v1.ReportCmdKFateRequest, v1.ReportCmdKFateResponse](
+			httpClient,
+			baseURL+AiServiceReportCmdKFateProcedure,
+			connect.WithSchema(aiServiceReportCmdKFateMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		showWelcomeScreen: connect.NewClient[v1.ShowWelcomeScreenRequest, v1.ShowWelcomeScreenResponse](
+			httpClient,
+			baseURL+AiServiceShowWelcomeScreenProcedure,
+			connect.WithSchema(aiServiceShowWelcomeScreenMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		interfaceAgentInit: connect.NewClient[v1.InterfaceAgentInitRequest, v1.InterfaceAgentInitResponse](
+			httpClient,
+			baseURL+AiServiceInterfaceAgentInitProcedure,
+			connect.WithSchema(aiServiceInterfaceAgentInitMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamInterfaceAgentStatus: connect.NewClient[v1.StreamInterfaceAgentStatusRequest, v1.StreamInterfaceAgentStatusResponse](
+			httpClient,
+			baseURL+AiServiceStreamInterfaceAgentStatusProcedure,
+			connect.WithSchema(aiServiceStreamInterfaceAgentStatusMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		taskGetInterfaceAgentStatus: connect.NewClient[v1.TaskGetInterfaceAgentStatusRequest, v1.TaskGetInterfaceAgentStatusResponseWrapped](
+			httpClient,
+			baseURL+AiServiceTaskGetInterfaceAgentStatusProcedure,
+			connect.WithSchema(aiServiceTaskGetInterfaceAgentStatusMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		taskInit: connect.NewClient[v1.TaskInitRequest, v1.TaskInitResponse](
+			httpClient,
+			baseURL+AiServiceTaskInitProcedure,
+			connect.WithSchema(aiServiceTaskInitMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		taskPause: connect.NewClient[v1.TaskPauseRequest, v1.TaskPauseResponse](
+			httpClient,
+			baseURL+AiServiceTaskPauseProcedure,
+			connect.WithSchema(aiServiceTaskPauseMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		taskInfo: connect.NewClient[v1.TaskInfoRequest, v1.TaskInfoResponse](
+			httpClient,
+			baseURL+AiServiceTaskInfoProcedure,
+			connect.WithSchema(aiServiceTaskInfoMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		taskStreamLog: connect.NewClient[v1.TaskStreamLogRequest, v1.TaskStreamLogResponse](
+			httpClient,
+			baseURL+AiServiceTaskStreamLogProcedure,
+			connect.WithSchema(aiServiceTaskStreamLogMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		taskSendMessage: connect.NewClient[v1.TaskSendMessageRequest, v1.TaskSendMessageResponse](
+			httpClient,
+			baseURL+AiServiceTaskSendMessageProcedure,
+			connect.WithSchema(aiServiceTaskSendMessageMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		taskProvideResult: connect.NewClient[v1.TaskProvideResultRequest, v1.TaskProvideResultResponse](
+			httpClient,
+			baseURL+AiServiceTaskProvideResultProcedure,
+			connect.WithSchema(aiServiceTaskProvideResultMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		createExperimentalIndex: connect.NewClient[v1.CreateExperimentalIndexRequest, v1.CreateExperimentalIndexResponse](
+			httpClient,
+			baseURL+AiServiceCreateExperimentalIndexProcedure,
+			connect.WithSchema(aiServiceCreateExperimentalIndexMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		listExperimentalIndexFiles: connect.NewClient[v1.ListExperimentalIndexFilesRequest, v1.ListExperimentalIndexFilesResponse](
+			httpClient,
+			baseURL+AiServiceListExperimentalIndexFilesProcedure,
+			connect.WithSchema(aiServiceListExperimentalIndexFilesMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		listenExperimentalIndex: connect.NewClient[v1.ListenExperimentalIndexRequest, v1.ListenExperimentalIndexResponse](
+			httpClient,
+			baseURL+AiServiceListenExperimentalIndexProcedure,
+			connect.WithSchema(aiServiceListenExperimentalIndexMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		registerFileToIndex: connect.NewClient[v1.RegisterFileToIndexRequest, v1.RequestReceivedResponse](
+			httpClient,
+			baseURL+AiServiceRegisterFileToIndexProcedure,
+			connect.WithSchema(aiServiceRegisterFileToIndexMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		setupIndexDependencies: connect.NewClient[v1.SetupIndexDependenciesRequest, v1.SetupIndexDependenciesResponse](
+			httpClient,
+			baseURL+AiServiceSetupIndexDependenciesProcedure,
+			connect.WithSchema(aiServiceSetupIndexDependenciesMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		computeIndexTopoSort: connect.NewClient[v1.ComputeIndexTopoSortRequest, v1.ComputeIndexTopoSortResponse](
+			httpClient,
+			baseURL+AiServiceComputeIndexTopoSortProcedure,
+			connect.WithSchema(aiServiceComputeIndexTopoSortMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamChatDeepContext: connect.NewClient[v1.StreamChatDeepContextRequest, v1.StreamChatDeepContextResponse](
+			httpClient,
+			baseURL+AiServiceStreamChatDeepContextProcedure,
+			connect.WithSchema(aiServiceStreamChatDeepContextMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		chooseCodeReferences: connect.NewClient[v1.ChooseCodeReferencesRequest, v1.RequestReceivedResponse](
+			httpClient,
+			baseURL+AiServiceChooseCodeReferencesProcedure,
+			connect.WithSchema(aiServiceChooseCodeReferencesMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		registerCodeReferences: connect.NewClient[v1.RegisterCodeReferencesRequest, v1.RegisterCodeReferencesResponse](
+			httpClient,
+			baseURL+AiServiceRegisterCodeReferencesProcedure,
+			connect.WithSchema(aiServiceRegisterCodeReferencesMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		extractPaths: connect.NewClient[v1.ExtractPathsRequest, v1.ExtractPathsResponse](
+			httpClient,
+			baseURL+AiServiceExtractPathsProcedure,
+			connect.WithSchema(aiServiceExtractPathsMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		summarizeWithReferences: connect.NewClient[v1.SummarizeWithReferencesRequest, v1.RequestReceivedResponse](
+			httpClient,
+			baseURL+AiServiceSummarizeWithReferencesProcedure,
+			connect.WithSchema(aiServiceSummarizeWithReferencesMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		documentationQuery: connect.NewClient[v1.DocumentationQueryRequest, v1.DocumentationQueryResponse](
+			httpClient,
+			baseURL+AiServiceDocumentationQueryProcedure,
+			connect.WithSchema(aiServiceDocumentationQueryMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		availableDocs: connect.NewClient[v1.AvailableDocsRequest, v1.AvailableDocsResponse](
+			httpClient,
+			baseURL+AiServiceAvailableDocsProcedure,
+			connect.WithSchema(aiServiceAvailableDocsMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		reportFeedback: connect.NewClient[v1.ReportFeedbackRequest, v1.ReportFeedbackResponse](
+			httpClient,
+			baseURL+AiServiceReportFeedbackProcedure,
+			connect.WithSchema(aiServiceReportFeedbackMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		reportBug: connect.NewClient[v1.ReportBugRequest, v1.ReportBugResponse](
+			httpClient,
+			baseURL+AiServiceReportBugProcedure,
+			connect.WithSchema(aiServiceReportBugMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamChatContext: connect.NewClient[v1.StreamChatContextRequest, v1.StreamChatContextResponse](
+			httpClient,
+			baseURL+AiServiceStreamChatContextProcedure,
+			connect.WithSchema(aiServiceStreamChatContextMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		generateTldr: connect.NewClient[v1.GenerateTldrRequest, v1.GenerateTldrResponse](
+			httpClient,
+			baseURL+AiServiceGenerateTldrProcedure,
+			connect.WithSchema(aiServiceGenerateTldrMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		taskStreamChatContext: connect.NewClient[v1.TaskStreamChatContextRequest, v1.TaskStreamChatContextResponseWrapped](
+			httpClient,
+			baseURL+AiServiceTaskStreamChatContextProcedure,
+			connect.WithSchema(aiServiceTaskStreamChatContextMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		rerankResults: connect.NewClient[v1.RerankerRequest, v1.RerankerResponse](
+			httpClient,
+			baseURL+AiServiceRerankResultsProcedure,
+			connect.WithSchema(aiServiceRerankResultsMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		modelQuery: connect.NewClient[v1.ModelQueryRequest, v1.ModelQueryResponse](
+			httpClient,
+			baseURL+AiServiceModelQueryProcedure,
+			connect.WithSchema(aiServiceModelQueryMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		modelQueryV2: connect.NewClient[v1.ModelQueryRequest, v1.ModelQueryResponseV2](
+			httpClient,
+			baseURL+AiServiceModelQueryV2Procedure,
+			connect.WithSchema(aiServiceModelQueryV2MethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		intentPrediction: connect.NewClient[v1.IntentPredictionRequest, v1.IntentPredictionResponse](
+			httpClient,
+			baseURL+AiServiceIntentPredictionProcedure,
+			connect.WithSchema(aiServiceIntentPredictionMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamCursorTutor: connect.NewClient[v1.StreamCursorTutorRequest, v1.StreamCursorTutorResponse](
+			httpClient,
+			baseURL+AiServiceStreamCursorTutorProcedure,
+			connect.WithSchema(aiServiceStreamCursorTutorMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		checkFeatureStatus: connect.NewClient[v1.CheckFeatureStatusRequest, v1.CheckFeatureStatusResponse](
+			httpClient,
+			baseURL+AiServiceCheckFeatureStatusProcedure,
+			connect.WithSchema(aiServiceCheckFeatureStatusMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getEffectiveTokenLimit: connect.NewClient[v1.GetEffectiveTokenLimitRequest, v1.GetEffectiveTokenLimitResponse](
+			httpClient,
+			baseURL+AiServiceGetEffectiveTokenLimitProcedure,
+			connect.WithSchema(aiServiceGetEffectiveTokenLimitMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getContextScores: connect.NewClient[v1.ContextScoresRequest, v1.ContextScoresResponse](
+			httpClient,
+			baseURL+AiServiceGetContextScoresProcedure,
+			connect.WithSchema(aiServiceGetContextScoresMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamCpp: connect.NewClient[v1.StreamCppRequest, v1.StreamCppResponse](
+			httpClient,
+			baseURL+AiServiceStreamCppProcedure,
+			connect.WithSchema(aiServiceStreamCppMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		cppConfig: connect.NewClient[v1.CppConfigRequest, v1.CppConfigResponse](
+			httpClient,
+			baseURL+AiServiceCppConfigProcedure,
+			connect.WithSchema(aiServiceCppConfigMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		cppEditHistoryStatus: connect.NewClient[v1.CppEditHistoryStatusRequest, v1.CppEditHistoryStatusResponse](
+			httpClient,
+			baseURL+AiServiceCppEditHistoryStatusProcedure,
+			connect.WithSchema(aiServiceCppEditHistoryStatusMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		cppAppend: connect.NewClient[v1.CppAppendRequest, v1.CppAppendResponse](
+			httpClient,
+			baseURL+AiServiceCppAppendProcedure,
+			connect.WithSchema(aiServiceCppAppendMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		checkNumberConfig: connect.NewClient[v1.CheckNumberConfigRequest, v1.CheckNumberConfigResponse](
+			httpClient,
+			baseURL+AiServiceCheckNumberConfigProcedure,
+			connect.WithSchema(aiServiceCheckNumberConfigMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamTerminalAutocomplete: connect.NewClient[v1.StreamTerminalAutocompleteRequest, v1.StreamTerminalAutocompleteResponse](
+			httpClient,
+			baseURL+AiServiceStreamTerminalAutocompleteProcedure,
+			connect.WithSchema(aiServiceStreamTerminalAutocompleteMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamPseudocodeGenerator: connect.NewClient[v1.StreamPseudocodeGeneratorRequest, v1.StreamPseudocodeGeneratorResponse](
+			httpClient,
+			baseURL+AiServiceStreamPseudocodeGeneratorProcedure,
+			connect.WithSchema(aiServiceStreamPseudocodeGeneratorMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamPseudocodeMapper: connect.NewClient[v1.StreamPseudocodeMapperRequest, v1.StreamPseudocodeMapperResponse](
+			httpClient,
+			baseURL+AiServiceStreamPseudocodeMapperProcedure,
+			connect.WithSchema(aiServiceStreamPseudocodeMapperMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamAiLintBug: connect.NewClient[v1.StreamAiLintBugRequest, v1.StreamAiLintBugResponse](
+			httpClient,
+			baseURL+AiServiceStreamAiLintBugProcedure,
+			connect.WithSchema(aiServiceStreamAiLintBugMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamAiCursorHelp: connect.NewClient[v1.StreamAiCursorHelpRequest, v1.StreamAiCursorHelpResponse](
+			httpClient,
+			baseURL+AiServiceStreamAiCursorHelpProcedure,
+			connect.WithSchema(aiServiceStreamAiCursorHelpMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		logUserLintReply: connect.NewClient[v1.LogUserLintReplyRequest, v1.LogUserLintReplyResponse](
+			httpClient,
+			baseURL+AiServiceLogUserLintReplyProcedure,
+			connect.WithSchema(aiServiceLogUserLintReplyMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		logLinterExplicitUserFeedback: connect.NewClient[v1.LogLinterExplicitUserFeedbackRequest, v1.LogLinterExplicitUserFeedbackResponse](
+			httpClient,
+			baseURL+AiServiceLogLinterExplicitUserFeedbackProcedure,
+			connect.WithSchema(aiServiceLogLinterExplicitUserFeedbackMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamFixMarkers: connect.NewClient[v1.FixMarkersRequest, v1.FixMarkersResponse](
+			httpClient,
+			baseURL+AiServiceStreamFixMarkersProcedure,
+			connect.WithSchema(aiServiceStreamFixMarkersMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		reportInlineAction: connect.NewClient[v1.ReportInlineActionRequest, v1.ReportInlineActionResponse](
+			httpClient,
+			baseURL+AiServiceReportInlineActionProcedure,
+			connect.WithSchema(aiServiceReportInlineActionMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamPriomptPrompt: connect.NewClient[v1.StreamPriomptPromptRequest, v1.StreamPriomptPromptResponse](
+			httpClient,
+			baseURL+AiServiceStreamPriomptPromptProcedure,
+			connect.WithSchema(aiServiceStreamPriomptPromptMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamLint: connect.NewClient[v1.StreamLintRequest, v1.StreamChatResponse](
+			httpClient,
+			baseURL+AiServiceStreamLintProcedure,
+			connect.WithSchema(aiServiceStreamLintMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamNewLintRule: connect.NewClient[v1.StreamNewRuleRequest, v1.StreamChatResponse](
+			httpClient,
+			baseURL+AiServiceStreamNewLintRuleProcedure,
+			connect.WithSchema(aiServiceStreamNewLintRuleMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		aiProject: connect.NewClient[v1.AiProjectRequest, v1.AiProjectResponse](
+			httpClient,
+			baseURL+AiServiceAiProjectProcedure,
+			connect.WithSchema(aiServiceAiProjectMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		toCamelCase: connect.NewClient[v1.ToCamelCaseRequest, v1.ToCamelCaseResponse](
+			httpClient,
+			baseURL+AiServiceToCamelCaseProcedure,
+			connect.WithSchema(aiServiceToCamelCaseMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		reportGenerationFeedback: connect.NewClient[v1.ReportGenerationFeedbackRequest, v1.ReportGenerationFeedbackResponse](
+			httpClient,
+			baseURL+AiServiceReportGenerationFeedbackProcedure,
+			connect.WithSchema(aiServiceReportGenerationFeedbackMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getThoughtAnnotation: connect.NewClient[v1.GetThoughtAnnotationRequest, v1.GetThoughtAnnotationResponse](
+			httpClient,
+			baseURL+AiServiceGetThoughtAnnotationProcedure,
+			connect.WithSchema(aiServiceGetThoughtAnnotationMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamWebCmdKV1: connect.NewClient[v1.StreamWebCmdKV1Request, v1.StreamWebCmdKV1Response](
+			httpClient,
+			baseURL+AiServiceStreamWebCmdKV1Procedure,
+			connect.WithSchema(aiServiceStreamWebCmdKV1MethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamNextCursorPrediction: connect.NewClient[v1.StreamNextCursorPredictionRequest, v1.StreamNextCursorPredictionResponse](
+			httpClient,
+			baseURL+AiServiceStreamNextCursorPredictionProcedure,
+			connect.WithSchema(aiServiceStreamNextCursorPredictionMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		isCursorPredictionEnabled: connect.NewClient[v1.IsCursorPredictionEnabledRequest, v1.IsCursorPredictionEnabledResponse](
+			httpClient,
+			baseURL+AiServiceIsCursorPredictionEnabledProcedure,
+			connect.WithSchema(aiServiceIsCursorPredictionEnabledMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getCppEditClassification: connect.NewClient[v1.GetCppEditClassificationRequest, v1.GetCppEditClassificationResponse](
+			httpClient,
+			baseURL+AiServiceGetCppEditClassificationProcedure,
+			connect.WithSchema(aiServiceGetCppEditClassificationMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getTerminalCompletion: connect.NewClient[v1.GetTerminalCompletionRequest, v1.GetTerminalCompletionResponse](
+			httpClient,
+			baseURL+AiServiceGetTerminalCompletionProcedure,
+			connect.WithSchema(aiServiceGetTerminalCompletionMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		takeNotesOnCommitDiff: connect.NewClient[v1.TakeNotesOnCommitDiffRequest, v1.TakeNotesOnCommitDiffResponse](
+			httpClient,
+			baseURL+AiServiceTakeNotesOnCommitDiffProcedure,
+			connect.WithSchema(aiServiceTakeNotesOnCommitDiffMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		bulkEmbed: connect.NewClient[v1.BulkEmbedRequest, v1.BulkEmbedResponse](
+			httpClient,
+			baseURL+AiServiceBulkEmbedProcedure,
+			connect.WithSchema(aiServiceBulkEmbedMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		continueChatRequestWithCommits: connect.NewClient[v1.ContinueChatRequestWithCommitsRequest, v1.EmptyResponse](
+			httpClient,
+			baseURL+AiServiceContinueChatRequestWithCommitsProcedure,
+			connect.WithSchema(aiServiceContinueChatRequestWithCommitsMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		backgroundCmdKEval: connect.NewClient[v1.BackgroundCmdKEvalRequest, v1.BackgroundCmdKEvalResponse](
+			httpClient,
+			baseURL+AiServiceBackgroundCmdKEvalProcedure,
+			connect.WithSchema(aiServiceBackgroundCmdKEvalMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		backgroundCmdK: connect.NewClient[v1.BackgroundCmdKRequest, v1.BackgroundCmdKResponse](
+			httpClient,
+			baseURL+AiServiceBackgroundCmdKProcedure,
+			connect.WithSchema(aiServiceBackgroundCmdKMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		streamCursorMotion: connect.NewClient[v1.StreamCursorMotionRequest, v1.StreamCursorMotionResponse](
+			httpClient,
+			baseURL+AiServiceStreamCursorMotionProcedure,
+			connect.WithSchema(aiServiceStreamCursorMotionMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		calculateAutoSelection: connect.NewClient[v1.CalculateAutoSelectionRequest, v1.CalculateAutoSelectionResponse](
+			httpClient,
+			baseURL+AiServiceCalculateAutoSelectionProcedure,
+			connect.WithSchema(aiServiceCalculateAutoSelectionMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getAtSymbolSuggestions: connect.NewClient[v1.GetAtSymbolSuggestionsRequest, v1.GetAtSymbolSuggestionsResponse](
+			httpClient,
+			baseURL+AiServiceGetAtSymbolSuggestionsProcedure,
+			connect.WithSchema(aiServiceGetAtSymbolSuggestionsMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getCodebaseQuestions: connect.NewClient[v1.GetChatRequest, v1.GetCodebaseQuestionsResponse](
+			httpClient,
+			baseURL+AiServiceGetCodebaseQuestionsProcedure,
+			connect.WithSchema(aiServiceGetCodebaseQuestionsMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getRankedContextFromContextBank: connect.NewClient[v1.GetRankedContextFromContextBankRequest, v1.GetRankedContextFromContextBankResponse](
+			httpClient,
+			baseURL+AiServiceGetRankedContextFromContextBankProcedure,
+			connect.WithSchema(aiServiceGetRankedContextFromContextBankMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		cppEditHistoryAppend: connect.NewClient[v1.EditHistoryAppendChangesRequest, v1.EditHistoryAppendChangesResponse](
+			httpClient,
+			baseURL+AiServiceCppEditHistoryAppendProcedure,
+			connect.WithSchema(aiServiceCppEditHistoryAppendMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		devOnlyGetPastRequestIds: connect.NewClient[v1.DevOnlyGetPastRequestIdsRequest, v1.DevOnlyGetPastRequestIdsResponse](
+			httpClient,
+			baseURL+AiServiceDevOnlyGetPastRequestIdsProcedure,
+			connect.WithSchema(aiServiceDevOnlyGetPastRequestIdsMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getFilesForComposer: connect.NewClient[v1.GetFilesForComposerRequest, v1.GetFilesForComposerResponse](
+			httpClient,
+			baseURL+AiServiceGetFilesForComposerProcedure,
+			connect.WithSchema(aiServiceGetFilesForComposerMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		tryParseTypeScriptTreeSitter: connect.NewClient[v1.TryParseTypeScriptTreeSitterRequest, v1.TryParseTypeScriptTreeSitterResponse](
+			httpClient,
+			baseURL+AiServiceTryParseTypeScriptTreeSitterProcedure,
+			connect.WithSchema(aiServiceTryParseTypeScriptTreeSitterMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		nameTab: connect.NewClient[v1.NameTabRequest, v1.NameTabResponse](
+			httpClient,
+			baseURL+AiServiceNameTabProcedure,
+			connect.WithSchema(aiServiceNameTabMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		testModelStatus: connect.NewClient[v1.TestModelStatusRequest, v1.TestModelStatusResponse](
+			httpClient,
+			baseURL+AiServiceTestModelStatusProcedure,
+			connect.WithSchema(aiServiceTestModelStatusMethodDescriptor),
 			connect.WithClientOptions(opts...),
 		),
 	}
@@ -69,7 +1514,251 @@ func NewAiServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...c
 
 // aiServiceClient implements AiServiceClient.
 type aiServiceClient struct {
-	streamChat *connect.Client[v1.GetChatRequest, v1.StreamChatResponse]
+	healthCheck                        *connect.Client[v1.HealthCheckRequest, v1.HealthCheckResponse]
+	timeLeftHealthCheck                *connect.Client[v1.HealthCheckRequest, v1.TimeLeftHealthCheckResponse]
+	throwErrorCheck                    *connect.Client[v1.ThrowErrorCheckRequest, v1.ThrowErrorCheckResponse]
+	availableModels                    *connect.Client[v1.AvailableModelsRequest, v1.AvailableModelsResponse]
+	streamChatTryReallyHard            *connect.Client[v1.GetChatRequest, v1.StreamChatResponse]
+	rerankDocuments                    *connect.Client[v1.RerankDocumentsRequest, v1.RerankDocumentsResponse]
+	streamComposer                     *connect.Client[v1.GetComposerChatRequest, v1.StreamChatResponse]
+	streamComposerContext              *connect.Client[v1.StreamChatContextRequest, v1.StreamChatContextResponse]
+	warmComposerCache                  *connect.Client[v1.GetComposerChatRequest, v1.WarmComposerCacheResponse]
+	getChatTitle                       *connect.Client[v1.GetChatTitleRequest, v1.GetChatTitleResponse]
+	getCompletion                      *connect.Client[v1.GetCompletionRequest, v1.GetCompletionResponse]
+	getSearch                          *connect.Client[v1.GetSearchRequest, v1.GetSearchResponse]
+	streamInlineEdits                  *connect.Client[v1.StreamInlineEditsRequest, v1.StreamInlineEditsResponse]
+	summarizeConversation              *connect.Client[v1.GetChatRequest, v1.SummarizeConversationResponse]
+	isolatedTreesitter                 *connect.Client[v1.IsolatedTreesitterRequest, v1.IsolatedTreesitterResponse]
+	getSimplePrompt                    *connect.Client[v1.GetSimplePromptRequest, v1.GetSimplePromptResponse]
+	checkLongFilesFit                  *connect.Client[v1.GetChatRequest, v1.CheckLongFilesFitResponse]
+	getEvaluationPrompt                *connect.Client[v1.GetEvaluationPromptRequest, v1.GetEvaluationPromptResponse]
+	getUserInfo                        *connect.Client[v1.GetUserInfoRequest, v1.GetUserInfoResponse]
+	clearAndRedoEntireBucket           *connect.Client[v1.ClearAndRedoEntireBucketRequest, v1.ClearAndRedoEntireBucketResponse]
+	streamBranchGemini                 *connect.Client[v1.StreamBranchGeminiRequest, v1.StreamBranchGeminiResponse]
+	streamBranchFileSelections         *connect.Client[v1.StreamBranchFileSelectionsRequest, v1.StreamBranchFileSelectionsResponse]
+	streamBackgroundEdit               *connect.Client[v1.StreamBackgroundEditRequest, v1.StreamChatResponse]
+	streamGPTFourEdit                  *connect.Client[v1.StreamGPTFourEditRequest, v1.StreamChatResponse]
+	streamChat                         *connect.Client[v1.GetChatRequest, v1.StreamChatResponse]
+	streamChatWeb                      *connect.Client[v1.GetChatRequest, v1.StreamChatResponse]
+	streamEdit                         *connect.Client[v1.StreamEditRequest, v1.StreamChatResponse]
+	preloadEdit                        *connect.Client[v1.PreloadEditRequest, v1.PreloadEditResponse]
+	streamFastEdit                     *connect.Client[v1.StreamFastEditRequest, v1.StreamFastEditResponse]
+	streamGenerate                     *connect.Client[v1.StreamGenerateRequest, v1.StreamChatResponse]
+	streamInlineLongCompletion         *connect.Client[v1.StreamInlineLongCompletionRequest, v1.StreamChatResponse]
+	slashEdit                          *connect.Client[v1.SlashEditRequest, v1.SlashEditResponse]
+	slashEditFollowUpWithPreviousEdits *connect.Client[v1.SlashEditFollowUpWithPreviousEditsRequest, v1.StreamSlashEditFollowUpWithPreviousEditsResponse]
+	streamAiPreviews                   *connect.Client[v1.StreamAiPreviewsRequest, v1.StreamAiPreviewsResponse]
+	shouldTurnOnCppOnboarding          *connect.Client[v1.ShouldTurnOnCppOnboardingRequest, v1.ShouldTurnOnCppOnboardingResponse]
+	streamReview                       *connect.Client[v1.ReviewRequest, v1.ReviewResponse]
+	streamReviewChat                   *connect.Client[v1.ReviewChatRequest, v1.ReviewChatResponse]
+	checkQueuePosition                 *connect.Client[v1.CheckQueuePositionRequest, v1.CheckQueuePositionResponse]
+	checkUsageBasedPrice               *connect.Client[v1.CheckUsageBasedPriceRequest, v1.CheckUsageBasedPriceResponse]
+	doThisForMeCheck                   *connect.Client[v1.DoThisForMeCheckRequest, v1.DoThisForMeCheckResponse]
+	streamDoThisForMe                  *connect.Client[v1.DoThisForMeRequest, v1.DoThisForMeResponseWrapped]
+	streamChatToolformer               *connect.Client[v1.GetChatRequest, v1.StreamChatToolformerResponse]
+	streamChatToolformerContinue       *connect.Client[v1.StreamChatToolformerContinueRequest, v1.StreamChatToolformerResponse]
+	pushAiThought                      *connect.Client[v1.PushAiThoughtRequest, v1.PushAiThoughtResponse]
+	checkDoableAsTask                  *connect.Client[v1.CheckDoableAsTaskRequest, v1.CheckDoableAsTaskResponse]
+	reportGroundTruthCandidate         *connect.Client[v1.ReportGroundTruthCandidateRequest, v1.ReportGroundTruthCandidateResponse]
+	reportCmdKFate                     *connect.Client[v1.ReportCmdKFateRequest, v1.ReportCmdKFateResponse]
+	showWelcomeScreen                  *connect.Client[v1.ShowWelcomeScreenRequest, v1.ShowWelcomeScreenResponse]
+	interfaceAgentInit                 *connect.Client[v1.InterfaceAgentInitRequest, v1.InterfaceAgentInitResponse]
+	streamInterfaceAgentStatus         *connect.Client[v1.StreamInterfaceAgentStatusRequest, v1.StreamInterfaceAgentStatusResponse]
+	taskGetInterfaceAgentStatus        *connect.Client[v1.TaskGetInterfaceAgentStatusRequest, v1.TaskGetInterfaceAgentStatusResponseWrapped]
+	taskInit                           *connect.Client[v1.TaskInitRequest, v1.TaskInitResponse]
+	taskPause                          *connect.Client[v1.TaskPauseRequest, v1.TaskPauseResponse]
+	taskInfo                           *connect.Client[v1.TaskInfoRequest, v1.TaskInfoResponse]
+	taskStreamLog                      *connect.Client[v1.TaskStreamLogRequest, v1.TaskStreamLogResponse]
+	taskSendMessage                    *connect.Client[v1.TaskSendMessageRequest, v1.TaskSendMessageResponse]
+	taskProvideResult                  *connect.Client[v1.TaskProvideResultRequest, v1.TaskProvideResultResponse]
+	createExperimentalIndex            *connect.Client[v1.CreateExperimentalIndexRequest, v1.CreateExperimentalIndexResponse]
+	listExperimentalIndexFiles         *connect.Client[v1.ListExperimentalIndexFilesRequest, v1.ListExperimentalIndexFilesResponse]
+	listenExperimentalIndex            *connect.Client[v1.ListenExperimentalIndexRequest, v1.ListenExperimentalIndexResponse]
+	registerFileToIndex                *connect.Client[v1.RegisterFileToIndexRequest, v1.RequestReceivedResponse]
+	setupIndexDependencies             *connect.Client[v1.SetupIndexDependenciesRequest, v1.SetupIndexDependenciesResponse]
+	computeIndexTopoSort               *connect.Client[v1.ComputeIndexTopoSortRequest, v1.ComputeIndexTopoSortResponse]
+	streamChatDeepContext              *connect.Client[v1.StreamChatDeepContextRequest, v1.StreamChatDeepContextResponse]
+	chooseCodeReferences               *connect.Client[v1.ChooseCodeReferencesRequest, v1.RequestReceivedResponse]
+	registerCodeReferences             *connect.Client[v1.RegisterCodeReferencesRequest, v1.RegisterCodeReferencesResponse]
+	extractPaths                       *connect.Client[v1.ExtractPathsRequest, v1.ExtractPathsResponse]
+	summarizeWithReferences            *connect.Client[v1.SummarizeWithReferencesRequest, v1.RequestReceivedResponse]
+	documentationQuery                 *connect.Client[v1.DocumentationQueryRequest, v1.DocumentationQueryResponse]
+	availableDocs                      *connect.Client[v1.AvailableDocsRequest, v1.AvailableDocsResponse]
+	reportFeedback                     *connect.Client[v1.ReportFeedbackRequest, v1.ReportFeedbackResponse]
+	reportBug                          *connect.Client[v1.ReportBugRequest, v1.ReportBugResponse]
+	streamChatContext                  *connect.Client[v1.StreamChatContextRequest, v1.StreamChatContextResponse]
+	generateTldr                       *connect.Client[v1.GenerateTldrRequest, v1.GenerateTldrResponse]
+	taskStreamChatContext              *connect.Client[v1.TaskStreamChatContextRequest, v1.TaskStreamChatContextResponseWrapped]
+	rerankResults                      *connect.Client[v1.RerankerRequest, v1.RerankerResponse]
+	modelQuery                         *connect.Client[v1.ModelQueryRequest, v1.ModelQueryResponse]
+	modelQueryV2                       *connect.Client[v1.ModelQueryRequest, v1.ModelQueryResponseV2]
+	intentPrediction                   *connect.Client[v1.IntentPredictionRequest, v1.IntentPredictionResponse]
+	streamCursorTutor                  *connect.Client[v1.StreamCursorTutorRequest, v1.StreamCursorTutorResponse]
+	checkFeatureStatus                 *connect.Client[v1.CheckFeatureStatusRequest, v1.CheckFeatureStatusResponse]
+	getEffectiveTokenLimit             *connect.Client[v1.GetEffectiveTokenLimitRequest, v1.GetEffectiveTokenLimitResponse]
+	getContextScores                   *connect.Client[v1.ContextScoresRequest, v1.ContextScoresResponse]
+	streamCpp                          *connect.Client[v1.StreamCppRequest, v1.StreamCppResponse]
+	cppConfig                          *connect.Client[v1.CppConfigRequest, v1.CppConfigResponse]
+	cppEditHistoryStatus               *connect.Client[v1.CppEditHistoryStatusRequest, v1.CppEditHistoryStatusResponse]
+	cppAppend                          *connect.Client[v1.CppAppendRequest, v1.CppAppendResponse]
+	checkNumberConfig                  *connect.Client[v1.CheckNumberConfigRequest, v1.CheckNumberConfigResponse]
+	streamTerminalAutocomplete         *connect.Client[v1.StreamTerminalAutocompleteRequest, v1.StreamTerminalAutocompleteResponse]
+	streamPseudocodeGenerator          *connect.Client[v1.StreamPseudocodeGeneratorRequest, v1.StreamPseudocodeGeneratorResponse]
+	streamPseudocodeMapper             *connect.Client[v1.StreamPseudocodeMapperRequest, v1.StreamPseudocodeMapperResponse]
+	streamAiLintBug                    *connect.Client[v1.StreamAiLintBugRequest, v1.StreamAiLintBugResponse]
+	streamAiCursorHelp                 *connect.Client[v1.StreamAiCursorHelpRequest, v1.StreamAiCursorHelpResponse]
+	logUserLintReply                   *connect.Client[v1.LogUserLintReplyRequest, v1.LogUserLintReplyResponse]
+	logLinterExplicitUserFeedback      *connect.Client[v1.LogLinterExplicitUserFeedbackRequest, v1.LogLinterExplicitUserFeedbackResponse]
+	streamFixMarkers                   *connect.Client[v1.FixMarkersRequest, v1.FixMarkersResponse]
+	reportInlineAction                 *connect.Client[v1.ReportInlineActionRequest, v1.ReportInlineActionResponse]
+	streamPriomptPrompt                *connect.Client[v1.StreamPriomptPromptRequest, v1.StreamPriomptPromptResponse]
+	streamLint                         *connect.Client[v1.StreamLintRequest, v1.StreamChatResponse]
+	streamNewLintRule                  *connect.Client[v1.StreamNewRuleRequest, v1.StreamChatResponse]
+	aiProject                          *connect.Client[v1.AiProjectRequest, v1.AiProjectResponse]
+	toCamelCase                        *connect.Client[v1.ToCamelCaseRequest, v1.ToCamelCaseResponse]
+	reportGenerationFeedback           *connect.Client[v1.ReportGenerationFeedbackRequest, v1.ReportGenerationFeedbackResponse]
+	getThoughtAnnotation               *connect.Client[v1.GetThoughtAnnotationRequest, v1.GetThoughtAnnotationResponse]
+	streamWebCmdKV1                    *connect.Client[v1.StreamWebCmdKV1Request, v1.StreamWebCmdKV1Response]
+	streamNextCursorPrediction         *connect.Client[v1.StreamNextCursorPredictionRequest, v1.StreamNextCursorPredictionResponse]
+	isCursorPredictionEnabled          *connect.Client[v1.IsCursorPredictionEnabledRequest, v1.IsCursorPredictionEnabledResponse]
+	getCppEditClassification           *connect.Client[v1.GetCppEditClassificationRequest, v1.GetCppEditClassificationResponse]
+	getTerminalCompletion              *connect.Client[v1.GetTerminalCompletionRequest, v1.GetTerminalCompletionResponse]
+	takeNotesOnCommitDiff              *connect.Client[v1.TakeNotesOnCommitDiffRequest, v1.TakeNotesOnCommitDiffResponse]
+	bulkEmbed                          *connect.Client[v1.BulkEmbedRequest, v1.BulkEmbedResponse]
+	continueChatRequestWithCommits     *connect.Client[v1.ContinueChatRequestWithCommitsRequest, v1.EmptyResponse]
+	backgroundCmdKEval                 *connect.Client[v1.BackgroundCmdKEvalRequest, v1.BackgroundCmdKEvalResponse]
+	backgroundCmdK                     *connect.Client[v1.BackgroundCmdKRequest, v1.BackgroundCmdKResponse]
+	streamCursorMotion                 *connect.Client[v1.StreamCursorMotionRequest, v1.StreamCursorMotionResponse]
+	calculateAutoSelection             *connect.Client[v1.CalculateAutoSelectionRequest, v1.CalculateAutoSelectionResponse]
+	getAtSymbolSuggestions             *connect.Client[v1.GetAtSymbolSuggestionsRequest, v1.GetAtSymbolSuggestionsResponse]
+	getCodebaseQuestions               *connect.Client[v1.GetChatRequest, v1.GetCodebaseQuestionsResponse]
+	getRankedContextFromContextBank    *connect.Client[v1.GetRankedContextFromContextBankRequest, v1.GetRankedContextFromContextBankResponse]
+	cppEditHistoryAppend               *connect.Client[v1.EditHistoryAppendChangesRequest, v1.EditHistoryAppendChangesResponse]
+	devOnlyGetPastRequestIds           *connect.Client[v1.DevOnlyGetPastRequestIdsRequest, v1.DevOnlyGetPastRequestIdsResponse]
+	getFilesForComposer                *connect.Client[v1.GetFilesForComposerRequest, v1.GetFilesForComposerResponse]
+	tryParseTypeScriptTreeSitter       *connect.Client[v1.TryParseTypeScriptTreeSitterRequest, v1.TryParseTypeScriptTreeSitterResponse]
+	nameTab                            *connect.Client[v1.NameTabRequest, v1.NameTabResponse]
+	testModelStatus                    *connect.Client[v1.TestModelStatusRequest, v1.TestModelStatusResponse]
+}
+
+// HealthCheck calls aiserver.v1.AiService.HealthCheck.
+func (c *aiServiceClient) HealthCheck(ctx context.Context, req *connect.Request[v1.HealthCheckRequest]) (*connect.Response[v1.HealthCheckResponse], error) {
+	return c.healthCheck.CallUnary(ctx, req)
+}
+
+// TimeLeftHealthCheck calls aiserver.v1.AiService.TimeLeftHealthCheck.
+func (c *aiServiceClient) TimeLeftHealthCheck(ctx context.Context, req *connect.Request[v1.HealthCheckRequest]) (*connect.Response[v1.TimeLeftHealthCheckResponse], error) {
+	return c.timeLeftHealthCheck.CallUnary(ctx, req)
+}
+
+// ThrowErrorCheck calls aiserver.v1.AiService.ThrowErrorCheck.
+func (c *aiServiceClient) ThrowErrorCheck(ctx context.Context, req *connect.Request[v1.ThrowErrorCheckRequest]) (*connect.Response[v1.ThrowErrorCheckResponse], error) {
+	return c.throwErrorCheck.CallUnary(ctx, req)
+}
+
+// AvailableModels calls aiserver.v1.AiService.AvailableModels.
+func (c *aiServiceClient) AvailableModels(ctx context.Context, req *connect.Request[v1.AvailableModelsRequest]) (*connect.Response[v1.AvailableModelsResponse], error) {
+	return c.availableModels.CallUnary(ctx, req)
+}
+
+// StreamChatTryReallyHard calls aiserver.v1.AiService.StreamChatTryReallyHard.
+func (c *aiServiceClient) StreamChatTryReallyHard(ctx context.Context, req *connect.Request[v1.GetChatRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error) {
+	return c.streamChatTryReallyHard.CallServerStream(ctx, req)
+}
+
+// RerankDocuments calls aiserver.v1.AiService.RerankDocuments.
+func (c *aiServiceClient) RerankDocuments(ctx context.Context, req *connect.Request[v1.RerankDocumentsRequest]) (*connect.Response[v1.RerankDocumentsResponse], error) {
+	return c.rerankDocuments.CallUnary(ctx, req)
+}
+
+// StreamComposer calls aiserver.v1.AiService.StreamComposer.
+func (c *aiServiceClient) StreamComposer(ctx context.Context, req *connect.Request[v1.GetComposerChatRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error) {
+	return c.streamComposer.CallServerStream(ctx, req)
+}
+
+// StreamComposerContext calls aiserver.v1.AiService.StreamComposerContext.
+func (c *aiServiceClient) StreamComposerContext(ctx context.Context, req *connect.Request[v1.StreamChatContextRequest]) (*connect.ServerStreamForClient[v1.StreamChatContextResponse], error) {
+	return c.streamComposerContext.CallServerStream(ctx, req)
+}
+
+// WarmComposerCache calls aiserver.v1.AiService.WarmComposerCache.
+func (c *aiServiceClient) WarmComposerCache(ctx context.Context, req *connect.Request[v1.GetComposerChatRequest]) (*connect.Response[v1.WarmComposerCacheResponse], error) {
+	return c.warmComposerCache.CallUnary(ctx, req)
+}
+
+// GetChatTitle calls aiserver.v1.AiService.GetChatTitle.
+func (c *aiServiceClient) GetChatTitle(ctx context.Context, req *connect.Request[v1.GetChatTitleRequest]) (*connect.Response[v1.GetChatTitleResponse], error) {
+	return c.getChatTitle.CallUnary(ctx, req)
+}
+
+// GetCompletion calls aiserver.v1.AiService.GetCompletion.
+func (c *aiServiceClient) GetCompletion(ctx context.Context, req *connect.Request[v1.GetCompletionRequest]) (*connect.Response[v1.GetCompletionResponse], error) {
+	return c.getCompletion.CallUnary(ctx, req)
+}
+
+// GetSearch calls aiserver.v1.AiService.GetSearch.
+func (c *aiServiceClient) GetSearch(ctx context.Context, req *connect.Request[v1.GetSearchRequest]) (*connect.Response[v1.GetSearchResponse], error) {
+	return c.getSearch.CallUnary(ctx, req)
+}
+
+// StreamInlineEdits calls aiserver.v1.AiService.StreamInlineEdits.
+func (c *aiServiceClient) StreamInlineEdits(ctx context.Context, req *connect.Request[v1.StreamInlineEditsRequest]) (*connect.ServerStreamForClient[v1.StreamInlineEditsResponse], error) {
+	return c.streamInlineEdits.CallServerStream(ctx, req)
+}
+
+// SummarizeConversation calls aiserver.v1.AiService.SummarizeConversation.
+func (c *aiServiceClient) SummarizeConversation(ctx context.Context, req *connect.Request[v1.GetChatRequest]) (*connect.Response[v1.SummarizeConversationResponse], error) {
+	return c.summarizeConversation.CallUnary(ctx, req)
+}
+
+// IsolatedTreesitter calls aiserver.v1.AiService.IsolatedTreesitter.
+func (c *aiServiceClient) IsolatedTreesitter(ctx context.Context, req *connect.Request[v1.IsolatedTreesitterRequest]) (*connect.Response[v1.IsolatedTreesitterResponse], error) {
+	return c.isolatedTreesitter.CallUnary(ctx, req)
+}
+
+// GetSimplePrompt calls aiserver.v1.AiService.GetSimplePrompt.
+func (c *aiServiceClient) GetSimplePrompt(ctx context.Context, req *connect.Request[v1.GetSimplePromptRequest]) (*connect.Response[v1.GetSimplePromptResponse], error) {
+	return c.getSimplePrompt.CallUnary(ctx, req)
+}
+
+// CheckLongFilesFit calls aiserver.v1.AiService.CheckLongFilesFit.
+func (c *aiServiceClient) CheckLongFilesFit(ctx context.Context, req *connect.Request[v1.GetChatRequest]) (*connect.Response[v1.CheckLongFilesFitResponse], error) {
+	return c.checkLongFilesFit.CallUnary(ctx, req)
+}
+
+// GetEvaluationPrompt calls aiserver.v1.AiService.GetEvaluationPrompt.
+func (c *aiServiceClient) GetEvaluationPrompt(ctx context.Context, req *connect.Request[v1.GetEvaluationPromptRequest]) (*connect.Response[v1.GetEvaluationPromptResponse], error) {
+	return c.getEvaluationPrompt.CallUnary(ctx, req)
+}
+
+// GetUserInfo calls aiserver.v1.AiService.GetUserInfo.
+func (c *aiServiceClient) GetUserInfo(ctx context.Context, req *connect.Request[v1.GetUserInfoRequest]) (*connect.Response[v1.GetUserInfoResponse], error) {
+	return c.getUserInfo.CallUnary(ctx, req)
+}
+
+// ClearAndRedoEntireBucket calls aiserver.v1.AiService.ClearAndRedoEntireBucket.
+func (c *aiServiceClient) ClearAndRedoEntireBucket(ctx context.Context, req *connect.Request[v1.ClearAndRedoEntireBucketRequest]) (*connect.Response[v1.ClearAndRedoEntireBucketResponse], error) {
+	return c.clearAndRedoEntireBucket.CallUnary(ctx, req)
+}
+
+// StreamBranchGemini calls aiserver.v1.AiService.StreamBranchGemini.
+func (c *aiServiceClient) StreamBranchGemini(ctx context.Context, req *connect.Request[v1.StreamBranchGeminiRequest]) (*connect.ServerStreamForClient[v1.StreamBranchGeminiResponse], error) {
+	return c.streamBranchGemini.CallServerStream(ctx, req)
+}
+
+// StreamBranchFileSelections calls aiserver.v1.AiService.StreamBranchFileSelections.
+func (c *aiServiceClient) StreamBranchFileSelections(ctx context.Context, req *connect.Request[v1.StreamBranchFileSelectionsRequest]) (*connect.ServerStreamForClient[v1.StreamBranchFileSelectionsResponse], error) {
+	return c.streamBranchFileSelections.CallServerStream(ctx, req)
+}
+
+// StreamBackgroundEdit calls aiserver.v1.AiService.StreamBackgroundEdit.
+func (c *aiServiceClient) StreamBackgroundEdit(ctx context.Context, req *connect.Request[v1.StreamBackgroundEditRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error) {
+	return c.streamBackgroundEdit.CallServerStream(ctx, req)
+}
+
+// StreamGPTFourEdit calls aiserver.v1.AiService.StreamGPTFourEdit.
+func (c *aiServiceClient) StreamGPTFourEdit(ctx context.Context, req *connect.Request[v1.StreamGPTFourEditRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error) {
+	return c.streamGPTFourEdit.CallServerStream(ctx, req)
 }
 
 // StreamChat calls aiserver.v1.AiService.StreamChat.
@@ -77,9 +1766,634 @@ func (c *aiServiceClient) StreamChat(ctx context.Context, req *connect.Request[v
 	return c.streamChat.CallServerStream(ctx, req)
 }
 
+// StreamChatWeb calls aiserver.v1.AiService.StreamChatWeb.
+func (c *aiServiceClient) StreamChatWeb(ctx context.Context, req *connect.Request[v1.GetChatRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error) {
+	return c.streamChatWeb.CallServerStream(ctx, req)
+}
+
+// StreamEdit calls aiserver.v1.AiService.StreamEdit.
+func (c *aiServiceClient) StreamEdit(ctx context.Context, req *connect.Request[v1.StreamEditRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error) {
+	return c.streamEdit.CallServerStream(ctx, req)
+}
+
+// PreloadEdit calls aiserver.v1.AiService.PreloadEdit.
+func (c *aiServiceClient) PreloadEdit(ctx context.Context, req *connect.Request[v1.PreloadEditRequest]) (*connect.Response[v1.PreloadEditResponse], error) {
+	return c.preloadEdit.CallUnary(ctx, req)
+}
+
+// StreamFastEdit calls aiserver.v1.AiService.StreamFastEdit.
+func (c *aiServiceClient) StreamFastEdit(ctx context.Context, req *connect.Request[v1.StreamFastEditRequest]) (*connect.ServerStreamForClient[v1.StreamFastEditResponse], error) {
+	return c.streamFastEdit.CallServerStream(ctx, req)
+}
+
+// StreamGenerate calls aiserver.v1.AiService.StreamGenerate.
+func (c *aiServiceClient) StreamGenerate(ctx context.Context, req *connect.Request[v1.StreamGenerateRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error) {
+	return c.streamGenerate.CallServerStream(ctx, req)
+}
+
+// StreamInlineLongCompletion calls aiserver.v1.AiService.StreamInlineLongCompletion.
+func (c *aiServiceClient) StreamInlineLongCompletion(ctx context.Context, req *connect.Request[v1.StreamInlineLongCompletionRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error) {
+	return c.streamInlineLongCompletion.CallServerStream(ctx, req)
+}
+
+// SlashEdit calls aiserver.v1.AiService.SlashEdit.
+func (c *aiServiceClient) SlashEdit(ctx context.Context, req *connect.Request[v1.SlashEditRequest]) (*connect.ServerStreamForClient[v1.SlashEditResponse], error) {
+	return c.slashEdit.CallServerStream(ctx, req)
+}
+
+// SlashEditFollowUpWithPreviousEdits calls
+// aiserver.v1.AiService.SlashEditFollowUpWithPreviousEdits.
+func (c *aiServiceClient) SlashEditFollowUpWithPreviousEdits(ctx context.Context, req *connect.Request[v1.SlashEditFollowUpWithPreviousEditsRequest]) (*connect.ServerStreamForClient[v1.StreamSlashEditFollowUpWithPreviousEditsResponse], error) {
+	return c.slashEditFollowUpWithPreviousEdits.CallServerStream(ctx, req)
+}
+
+// StreamAiPreviews calls aiserver.v1.AiService.StreamAiPreviews.
+func (c *aiServiceClient) StreamAiPreviews(ctx context.Context, req *connect.Request[v1.StreamAiPreviewsRequest]) (*connect.ServerStreamForClient[v1.StreamAiPreviewsResponse], error) {
+	return c.streamAiPreviews.CallServerStream(ctx, req)
+}
+
+// ShouldTurnOnCppOnboarding calls aiserver.v1.AiService.ShouldTurnOnCppOnboarding.
+func (c *aiServiceClient) ShouldTurnOnCppOnboarding(ctx context.Context, req *connect.Request[v1.ShouldTurnOnCppOnboardingRequest]) (*connect.Response[v1.ShouldTurnOnCppOnboardingResponse], error) {
+	return c.shouldTurnOnCppOnboarding.CallUnary(ctx, req)
+}
+
+// StreamReview calls aiserver.v1.AiService.StreamReview.
+func (c *aiServiceClient) StreamReview(ctx context.Context, req *connect.Request[v1.ReviewRequest]) (*connect.ServerStreamForClient[v1.ReviewResponse], error) {
+	return c.streamReview.CallServerStream(ctx, req)
+}
+
+// StreamReviewChat calls aiserver.v1.AiService.StreamReviewChat.
+func (c *aiServiceClient) StreamReviewChat(ctx context.Context, req *connect.Request[v1.ReviewChatRequest]) (*connect.ServerStreamForClient[v1.ReviewChatResponse], error) {
+	return c.streamReviewChat.CallServerStream(ctx, req)
+}
+
+// CheckQueuePosition calls aiserver.v1.AiService.CheckQueuePosition.
+func (c *aiServiceClient) CheckQueuePosition(ctx context.Context, req *connect.Request[v1.CheckQueuePositionRequest]) (*connect.Response[v1.CheckQueuePositionResponse], error) {
+	return c.checkQueuePosition.CallUnary(ctx, req)
+}
+
+// CheckUsageBasedPrice calls aiserver.v1.AiService.CheckUsageBasedPrice.
+func (c *aiServiceClient) CheckUsageBasedPrice(ctx context.Context, req *connect.Request[v1.CheckUsageBasedPriceRequest]) (*connect.Response[v1.CheckUsageBasedPriceResponse], error) {
+	return c.checkUsageBasedPrice.CallUnary(ctx, req)
+}
+
+// DoThisForMeCheck calls aiserver.v1.AiService.DoThisForMeCheck.
+func (c *aiServiceClient) DoThisForMeCheck(ctx context.Context, req *connect.Request[v1.DoThisForMeCheckRequest]) (*connect.Response[v1.DoThisForMeCheckResponse], error) {
+	return c.doThisForMeCheck.CallUnary(ctx, req)
+}
+
+// StreamDoThisForMe calls aiserver.v1.AiService.StreamDoThisForMe.
+func (c *aiServiceClient) StreamDoThisForMe(ctx context.Context, req *connect.Request[v1.DoThisForMeRequest]) (*connect.ServerStreamForClient[v1.DoThisForMeResponseWrapped], error) {
+	return c.streamDoThisForMe.CallServerStream(ctx, req)
+}
+
+// StreamChatToolformer calls aiserver.v1.AiService.StreamChatToolformer.
+func (c *aiServiceClient) StreamChatToolformer(ctx context.Context, req *connect.Request[v1.GetChatRequest]) (*connect.ServerStreamForClient[v1.StreamChatToolformerResponse], error) {
+	return c.streamChatToolformer.CallServerStream(ctx, req)
+}
+
+// StreamChatToolformerContinue calls aiserver.v1.AiService.StreamChatToolformerContinue.
+func (c *aiServiceClient) StreamChatToolformerContinue(ctx context.Context, req *connect.Request[v1.StreamChatToolformerContinueRequest]) (*connect.ServerStreamForClient[v1.StreamChatToolformerResponse], error) {
+	return c.streamChatToolformerContinue.CallServerStream(ctx, req)
+}
+
+// PushAiThought calls aiserver.v1.AiService.PushAiThought.
+func (c *aiServiceClient) PushAiThought(ctx context.Context, req *connect.Request[v1.PushAiThoughtRequest]) (*connect.Response[v1.PushAiThoughtResponse], error) {
+	return c.pushAiThought.CallUnary(ctx, req)
+}
+
+// CheckDoableAsTask calls aiserver.v1.AiService.CheckDoableAsTask.
+func (c *aiServiceClient) CheckDoableAsTask(ctx context.Context, req *connect.Request[v1.CheckDoableAsTaskRequest]) (*connect.Response[v1.CheckDoableAsTaskResponse], error) {
+	return c.checkDoableAsTask.CallUnary(ctx, req)
+}
+
+// ReportGroundTruthCandidate calls aiserver.v1.AiService.ReportGroundTruthCandidate.
+func (c *aiServiceClient) ReportGroundTruthCandidate(ctx context.Context, req *connect.Request[v1.ReportGroundTruthCandidateRequest]) (*connect.Response[v1.ReportGroundTruthCandidateResponse], error) {
+	return c.reportGroundTruthCandidate.CallUnary(ctx, req)
+}
+
+// ReportCmdKFate calls aiserver.v1.AiService.ReportCmdKFate.
+func (c *aiServiceClient) ReportCmdKFate(ctx context.Context, req *connect.Request[v1.ReportCmdKFateRequest]) (*connect.Response[v1.ReportCmdKFateResponse], error) {
+	return c.reportCmdKFate.CallUnary(ctx, req)
+}
+
+// ShowWelcomeScreen calls aiserver.v1.AiService.ShowWelcomeScreen.
+func (c *aiServiceClient) ShowWelcomeScreen(ctx context.Context, req *connect.Request[v1.ShowWelcomeScreenRequest]) (*connect.Response[v1.ShowWelcomeScreenResponse], error) {
+	return c.showWelcomeScreen.CallUnary(ctx, req)
+}
+
+// InterfaceAgentInit calls aiserver.v1.AiService.InterfaceAgentInit.
+func (c *aiServiceClient) InterfaceAgentInit(ctx context.Context, req *connect.Request[v1.InterfaceAgentInitRequest]) (*connect.Response[v1.InterfaceAgentInitResponse], error) {
+	return c.interfaceAgentInit.CallUnary(ctx, req)
+}
+
+// StreamInterfaceAgentStatus calls aiserver.v1.AiService.StreamInterfaceAgentStatus.
+func (c *aiServiceClient) StreamInterfaceAgentStatus(ctx context.Context, req *connect.Request[v1.StreamInterfaceAgentStatusRequest]) (*connect.ServerStreamForClient[v1.StreamInterfaceAgentStatusResponse], error) {
+	return c.streamInterfaceAgentStatus.CallServerStream(ctx, req)
+}
+
+// TaskGetInterfaceAgentStatus calls aiserver.v1.AiService.TaskGetInterfaceAgentStatus.
+func (c *aiServiceClient) TaskGetInterfaceAgentStatus(ctx context.Context, req *connect.Request[v1.TaskGetInterfaceAgentStatusRequest]) (*connect.ServerStreamForClient[v1.TaskGetInterfaceAgentStatusResponseWrapped], error) {
+	return c.taskGetInterfaceAgentStatus.CallServerStream(ctx, req)
+}
+
+// TaskInit calls aiserver.v1.AiService.TaskInit.
+func (c *aiServiceClient) TaskInit(ctx context.Context, req *connect.Request[v1.TaskInitRequest]) (*connect.Response[v1.TaskInitResponse], error) {
+	return c.taskInit.CallUnary(ctx, req)
+}
+
+// TaskPause calls aiserver.v1.AiService.TaskPause.
+func (c *aiServiceClient) TaskPause(ctx context.Context, req *connect.Request[v1.TaskPauseRequest]) (*connect.Response[v1.TaskPauseResponse], error) {
+	return c.taskPause.CallUnary(ctx, req)
+}
+
+// TaskInfo calls aiserver.v1.AiService.TaskInfo.
+func (c *aiServiceClient) TaskInfo(ctx context.Context, req *connect.Request[v1.TaskInfoRequest]) (*connect.Response[v1.TaskInfoResponse], error) {
+	return c.taskInfo.CallUnary(ctx, req)
+}
+
+// TaskStreamLog calls aiserver.v1.AiService.TaskStreamLog.
+func (c *aiServiceClient) TaskStreamLog(ctx context.Context, req *connect.Request[v1.TaskStreamLogRequest]) (*connect.ServerStreamForClient[v1.TaskStreamLogResponse], error) {
+	return c.taskStreamLog.CallServerStream(ctx, req)
+}
+
+// TaskSendMessage calls aiserver.v1.AiService.TaskSendMessage.
+func (c *aiServiceClient) TaskSendMessage(ctx context.Context, req *connect.Request[v1.TaskSendMessageRequest]) (*connect.Response[v1.TaskSendMessageResponse], error) {
+	return c.taskSendMessage.CallUnary(ctx, req)
+}
+
+// TaskProvideResult calls aiserver.v1.AiService.TaskProvideResult.
+func (c *aiServiceClient) TaskProvideResult(ctx context.Context, req *connect.Request[v1.TaskProvideResultRequest]) (*connect.Response[v1.TaskProvideResultResponse], error) {
+	return c.taskProvideResult.CallUnary(ctx, req)
+}
+
+// CreateExperimentalIndex calls aiserver.v1.AiService.CreateExperimentalIndex.
+func (c *aiServiceClient) CreateExperimentalIndex(ctx context.Context, req *connect.Request[v1.CreateExperimentalIndexRequest]) (*connect.Response[v1.CreateExperimentalIndexResponse], error) {
+	return c.createExperimentalIndex.CallUnary(ctx, req)
+}
+
+// ListExperimentalIndexFiles calls aiserver.v1.AiService.ListExperimentalIndexFiles.
+func (c *aiServiceClient) ListExperimentalIndexFiles(ctx context.Context, req *connect.Request[v1.ListExperimentalIndexFilesRequest]) (*connect.Response[v1.ListExperimentalIndexFilesResponse], error) {
+	return c.listExperimentalIndexFiles.CallUnary(ctx, req)
+}
+
+// ListenExperimentalIndex calls aiserver.v1.AiService.ListenExperimentalIndex.
+func (c *aiServiceClient) ListenExperimentalIndex(ctx context.Context, req *connect.Request[v1.ListenExperimentalIndexRequest]) (*connect.ServerStreamForClient[v1.ListenExperimentalIndexResponse], error) {
+	return c.listenExperimentalIndex.CallServerStream(ctx, req)
+}
+
+// RegisterFileToIndex calls aiserver.v1.AiService.RegisterFileToIndex.
+func (c *aiServiceClient) RegisterFileToIndex(ctx context.Context, req *connect.Request[v1.RegisterFileToIndexRequest]) (*connect.Response[v1.RequestReceivedResponse], error) {
+	return c.registerFileToIndex.CallUnary(ctx, req)
+}
+
+// SetupIndexDependencies calls aiserver.v1.AiService.SetupIndexDependencies.
+func (c *aiServiceClient) SetupIndexDependencies(ctx context.Context, req *connect.Request[v1.SetupIndexDependenciesRequest]) (*connect.Response[v1.SetupIndexDependenciesResponse], error) {
+	return c.setupIndexDependencies.CallUnary(ctx, req)
+}
+
+// ComputeIndexTopoSort calls aiserver.v1.AiService.ComputeIndexTopoSort.
+func (c *aiServiceClient) ComputeIndexTopoSort(ctx context.Context, req *connect.Request[v1.ComputeIndexTopoSortRequest]) (*connect.Response[v1.ComputeIndexTopoSortResponse], error) {
+	return c.computeIndexTopoSort.CallUnary(ctx, req)
+}
+
+// StreamChatDeepContext calls aiserver.v1.AiService.StreamChatDeepContext.
+func (c *aiServiceClient) StreamChatDeepContext(ctx context.Context, req *connect.Request[v1.StreamChatDeepContextRequest]) (*connect.ServerStreamForClient[v1.StreamChatDeepContextResponse], error) {
+	return c.streamChatDeepContext.CallServerStream(ctx, req)
+}
+
+// ChooseCodeReferences calls aiserver.v1.AiService.ChooseCodeReferences.
+func (c *aiServiceClient) ChooseCodeReferences(ctx context.Context, req *connect.Request[v1.ChooseCodeReferencesRequest]) (*connect.Response[v1.RequestReceivedResponse], error) {
+	return c.chooseCodeReferences.CallUnary(ctx, req)
+}
+
+// RegisterCodeReferences calls aiserver.v1.AiService.RegisterCodeReferences.
+func (c *aiServiceClient) RegisterCodeReferences(ctx context.Context, req *connect.Request[v1.RegisterCodeReferencesRequest]) (*connect.Response[v1.RegisterCodeReferencesResponse], error) {
+	return c.registerCodeReferences.CallUnary(ctx, req)
+}
+
+// ExtractPaths calls aiserver.v1.AiService.ExtractPaths.
+func (c *aiServiceClient) ExtractPaths(ctx context.Context, req *connect.Request[v1.ExtractPathsRequest]) (*connect.Response[v1.ExtractPathsResponse], error) {
+	return c.extractPaths.CallUnary(ctx, req)
+}
+
+// SummarizeWithReferences calls aiserver.v1.AiService.SummarizeWithReferences.
+func (c *aiServiceClient) SummarizeWithReferences(ctx context.Context, req *connect.Request[v1.SummarizeWithReferencesRequest]) (*connect.Response[v1.RequestReceivedResponse], error) {
+	return c.summarizeWithReferences.CallUnary(ctx, req)
+}
+
+// DocumentationQuery calls aiserver.v1.AiService.DocumentationQuery.
+func (c *aiServiceClient) DocumentationQuery(ctx context.Context, req *connect.Request[v1.DocumentationQueryRequest]) (*connect.Response[v1.DocumentationQueryResponse], error) {
+	return c.documentationQuery.CallUnary(ctx, req)
+}
+
+// AvailableDocs calls aiserver.v1.AiService.AvailableDocs.
+func (c *aiServiceClient) AvailableDocs(ctx context.Context, req *connect.Request[v1.AvailableDocsRequest]) (*connect.Response[v1.AvailableDocsResponse], error) {
+	return c.availableDocs.CallUnary(ctx, req)
+}
+
+// ReportFeedback calls aiserver.v1.AiService.ReportFeedback.
+func (c *aiServiceClient) ReportFeedback(ctx context.Context, req *connect.Request[v1.ReportFeedbackRequest]) (*connect.Response[v1.ReportFeedbackResponse], error) {
+	return c.reportFeedback.CallUnary(ctx, req)
+}
+
+// ReportBug calls aiserver.v1.AiService.ReportBug.
+func (c *aiServiceClient) ReportBug(ctx context.Context, req *connect.Request[v1.ReportBugRequest]) (*connect.Response[v1.ReportBugResponse], error) {
+	return c.reportBug.CallUnary(ctx, req)
+}
+
+// StreamChatContext calls aiserver.v1.AiService.StreamChatContext.
+func (c *aiServiceClient) StreamChatContext(ctx context.Context, req *connect.Request[v1.StreamChatContextRequest]) (*connect.ServerStreamForClient[v1.StreamChatContextResponse], error) {
+	return c.streamChatContext.CallServerStream(ctx, req)
+}
+
+// GenerateTldr calls aiserver.v1.AiService.GenerateTldr.
+func (c *aiServiceClient) GenerateTldr(ctx context.Context, req *connect.Request[v1.GenerateTldrRequest]) (*connect.Response[v1.GenerateTldrResponse], error) {
+	return c.generateTldr.CallUnary(ctx, req)
+}
+
+// TaskStreamChatContext calls aiserver.v1.AiService.TaskStreamChatContext.
+func (c *aiServiceClient) TaskStreamChatContext(ctx context.Context, req *connect.Request[v1.TaskStreamChatContextRequest]) (*connect.ServerStreamForClient[v1.TaskStreamChatContextResponseWrapped], error) {
+	return c.taskStreamChatContext.CallServerStream(ctx, req)
+}
+
+// RerankResults calls aiserver.v1.AiService.RerankResults.
+func (c *aiServiceClient) RerankResults(ctx context.Context, req *connect.Request[v1.RerankerRequest]) (*connect.Response[v1.RerankerResponse], error) {
+	return c.rerankResults.CallUnary(ctx, req)
+}
+
+// ModelQuery calls aiserver.v1.AiService.ModelQuery.
+func (c *aiServiceClient) ModelQuery(ctx context.Context, req *connect.Request[v1.ModelQueryRequest]) (*connect.Response[v1.ModelQueryResponse], error) {
+	return c.modelQuery.CallUnary(ctx, req)
+}
+
+// ModelQueryV2 calls aiserver.v1.AiService.ModelQueryV2.
+func (c *aiServiceClient) ModelQueryV2(ctx context.Context, req *connect.Request[v1.ModelQueryRequest]) (*connect.ServerStreamForClient[v1.ModelQueryResponseV2], error) {
+	return c.modelQueryV2.CallServerStream(ctx, req)
+}
+
+// IntentPrediction calls aiserver.v1.AiService.IntentPrediction.
+func (c *aiServiceClient) IntentPrediction(ctx context.Context, req *connect.Request[v1.IntentPredictionRequest]) (*connect.Response[v1.IntentPredictionResponse], error) {
+	return c.intentPrediction.CallUnary(ctx, req)
+}
+
+// StreamCursorTutor calls aiserver.v1.AiService.StreamCursorTutor.
+func (c *aiServiceClient) StreamCursorTutor(ctx context.Context, req *connect.Request[v1.StreamCursorTutorRequest]) (*connect.ServerStreamForClient[v1.StreamCursorTutorResponse], error) {
+	return c.streamCursorTutor.CallServerStream(ctx, req)
+}
+
+// CheckFeatureStatus calls aiserver.v1.AiService.CheckFeatureStatus.
+func (c *aiServiceClient) CheckFeatureStatus(ctx context.Context, req *connect.Request[v1.CheckFeatureStatusRequest]) (*connect.Response[v1.CheckFeatureStatusResponse], error) {
+	return c.checkFeatureStatus.CallUnary(ctx, req)
+}
+
+// GetEffectiveTokenLimit calls aiserver.v1.AiService.GetEffectiveTokenLimit.
+func (c *aiServiceClient) GetEffectiveTokenLimit(ctx context.Context, req *connect.Request[v1.GetEffectiveTokenLimitRequest]) (*connect.Response[v1.GetEffectiveTokenLimitResponse], error) {
+	return c.getEffectiveTokenLimit.CallUnary(ctx, req)
+}
+
+// GetContextScores calls aiserver.v1.AiService.GetContextScores.
+func (c *aiServiceClient) GetContextScores(ctx context.Context, req *connect.Request[v1.ContextScoresRequest]) (*connect.Response[v1.ContextScoresResponse], error) {
+	return c.getContextScores.CallUnary(ctx, req)
+}
+
+// StreamCpp calls aiserver.v1.AiService.StreamCpp.
+func (c *aiServiceClient) StreamCpp(ctx context.Context, req *connect.Request[v1.StreamCppRequest]) (*connect.ServerStreamForClient[v1.StreamCppResponse], error) {
+	return c.streamCpp.CallServerStream(ctx, req)
+}
+
+// CppConfig calls aiserver.v1.AiService.CppConfig.
+func (c *aiServiceClient) CppConfig(ctx context.Context, req *connect.Request[v1.CppConfigRequest]) (*connect.Response[v1.CppConfigResponse], error) {
+	return c.cppConfig.CallUnary(ctx, req)
+}
+
+// CppEditHistoryStatus calls aiserver.v1.AiService.CppEditHistoryStatus.
+func (c *aiServiceClient) CppEditHistoryStatus(ctx context.Context, req *connect.Request[v1.CppEditHistoryStatusRequest]) (*connect.Response[v1.CppEditHistoryStatusResponse], error) {
+	return c.cppEditHistoryStatus.CallUnary(ctx, req)
+}
+
+// CppAppend calls aiserver.v1.AiService.CppAppend.
+func (c *aiServiceClient) CppAppend(ctx context.Context, req *connect.Request[v1.CppAppendRequest]) (*connect.Response[v1.CppAppendResponse], error) {
+	return c.cppAppend.CallUnary(ctx, req)
+}
+
+// CheckNumberConfig calls aiserver.v1.AiService.CheckNumberConfig.
+func (c *aiServiceClient) CheckNumberConfig(ctx context.Context, req *connect.Request[v1.CheckNumberConfigRequest]) (*connect.Response[v1.CheckNumberConfigResponse], error) {
+	return c.checkNumberConfig.CallUnary(ctx, req)
+}
+
+// StreamTerminalAutocomplete calls aiserver.v1.AiService.StreamTerminalAutocomplete.
+func (c *aiServiceClient) StreamTerminalAutocomplete(ctx context.Context, req *connect.Request[v1.StreamTerminalAutocompleteRequest]) (*connect.ServerStreamForClient[v1.StreamTerminalAutocompleteResponse], error) {
+	return c.streamTerminalAutocomplete.CallServerStream(ctx, req)
+}
+
+// StreamPseudocodeGenerator calls aiserver.v1.AiService.StreamPseudocodeGenerator.
+func (c *aiServiceClient) StreamPseudocodeGenerator(ctx context.Context, req *connect.Request[v1.StreamPseudocodeGeneratorRequest]) (*connect.ServerStreamForClient[v1.StreamPseudocodeGeneratorResponse], error) {
+	return c.streamPseudocodeGenerator.CallServerStream(ctx, req)
+}
+
+// StreamPseudocodeMapper calls aiserver.v1.AiService.StreamPseudocodeMapper.
+func (c *aiServiceClient) StreamPseudocodeMapper(ctx context.Context, req *connect.Request[v1.StreamPseudocodeMapperRequest]) (*connect.ServerStreamForClient[v1.StreamPseudocodeMapperResponse], error) {
+	return c.streamPseudocodeMapper.CallServerStream(ctx, req)
+}
+
+// StreamAiLintBug calls aiserver.v1.AiService.StreamAiLintBug.
+func (c *aiServiceClient) StreamAiLintBug(ctx context.Context, req *connect.Request[v1.StreamAiLintBugRequest]) (*connect.ServerStreamForClient[v1.StreamAiLintBugResponse], error) {
+	return c.streamAiLintBug.CallServerStream(ctx, req)
+}
+
+// StreamAiCursorHelp calls aiserver.v1.AiService.StreamAiCursorHelp.
+func (c *aiServiceClient) StreamAiCursorHelp(ctx context.Context, req *connect.Request[v1.StreamAiCursorHelpRequest]) (*connect.ServerStreamForClient[v1.StreamAiCursorHelpResponse], error) {
+	return c.streamAiCursorHelp.CallServerStream(ctx, req)
+}
+
+// LogUserLintReply calls aiserver.v1.AiService.LogUserLintReply.
+func (c *aiServiceClient) LogUserLintReply(ctx context.Context, req *connect.Request[v1.LogUserLintReplyRequest]) (*connect.Response[v1.LogUserLintReplyResponse], error) {
+	return c.logUserLintReply.CallUnary(ctx, req)
+}
+
+// LogLinterExplicitUserFeedback calls aiserver.v1.AiService.LogLinterExplicitUserFeedback.
+func (c *aiServiceClient) LogLinterExplicitUserFeedback(ctx context.Context, req *connect.Request[v1.LogLinterExplicitUserFeedbackRequest]) (*connect.Response[v1.LogLinterExplicitUserFeedbackResponse], error) {
+	return c.logLinterExplicitUserFeedback.CallUnary(ctx, req)
+}
+
+// StreamFixMarkers calls aiserver.v1.AiService.StreamFixMarkers.
+func (c *aiServiceClient) StreamFixMarkers(ctx context.Context, req *connect.Request[v1.FixMarkersRequest]) (*connect.ServerStreamForClient[v1.FixMarkersResponse], error) {
+	return c.streamFixMarkers.CallServerStream(ctx, req)
+}
+
+// ReportInlineAction calls aiserver.v1.AiService.ReportInlineAction.
+func (c *aiServiceClient) ReportInlineAction(ctx context.Context, req *connect.Request[v1.ReportInlineActionRequest]) (*connect.Response[v1.ReportInlineActionResponse], error) {
+	return c.reportInlineAction.CallUnary(ctx, req)
+}
+
+// StreamPriomptPrompt calls aiserver.v1.AiService.StreamPriomptPrompt.
+func (c *aiServiceClient) StreamPriomptPrompt(ctx context.Context, req *connect.Request[v1.StreamPriomptPromptRequest]) (*connect.ServerStreamForClient[v1.StreamPriomptPromptResponse], error) {
+	return c.streamPriomptPrompt.CallServerStream(ctx, req)
+}
+
+// StreamLint calls aiserver.v1.AiService.StreamLint.
+func (c *aiServiceClient) StreamLint(ctx context.Context, req *connect.Request[v1.StreamLintRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error) {
+	return c.streamLint.CallServerStream(ctx, req)
+}
+
+// StreamNewLintRule calls aiserver.v1.AiService.StreamNewLintRule.
+func (c *aiServiceClient) StreamNewLintRule(ctx context.Context, req *connect.Request[v1.StreamNewRuleRequest]) (*connect.ServerStreamForClient[v1.StreamChatResponse], error) {
+	return c.streamNewLintRule.CallServerStream(ctx, req)
+}
+
+// AiProject calls aiserver.v1.AiService.AiProject.
+func (c *aiServiceClient) AiProject(ctx context.Context, req *connect.Request[v1.AiProjectRequest]) (*connect.ServerStreamForClient[v1.AiProjectResponse], error) {
+	return c.aiProject.CallServerStream(ctx, req)
+}
+
+// ToCamelCase calls aiserver.v1.AiService.ToCamelCase.
+func (c *aiServiceClient) ToCamelCase(ctx context.Context, req *connect.Request[v1.ToCamelCaseRequest]) (*connect.Response[v1.ToCamelCaseResponse], error) {
+	return c.toCamelCase.CallUnary(ctx, req)
+}
+
+// ReportGenerationFeedback calls aiserver.v1.AiService.ReportGenerationFeedback.
+func (c *aiServiceClient) ReportGenerationFeedback(ctx context.Context, req *connect.Request[v1.ReportGenerationFeedbackRequest]) (*connect.Response[v1.ReportGenerationFeedbackResponse], error) {
+	return c.reportGenerationFeedback.CallUnary(ctx, req)
+}
+
+// GetThoughtAnnotation calls aiserver.v1.AiService.GetThoughtAnnotation.
+func (c *aiServiceClient) GetThoughtAnnotation(ctx context.Context, req *connect.Request[v1.GetThoughtAnnotationRequest]) (*connect.Response[v1.GetThoughtAnnotationResponse], error) {
+	return c.getThoughtAnnotation.CallUnary(ctx, req)
+}
+
+// StreamWebCmdKV1 calls aiserver.v1.AiService.StreamWebCmdKV1.
+func (c *aiServiceClient) StreamWebCmdKV1(ctx context.Context, req *connect.Request[v1.StreamWebCmdKV1Request]) (*connect.ServerStreamForClient[v1.StreamWebCmdKV1Response], error) {
+	return c.streamWebCmdKV1.CallServerStream(ctx, req)
+}
+
+// StreamNextCursorPrediction calls aiserver.v1.AiService.StreamNextCursorPrediction.
+func (c *aiServiceClient) StreamNextCursorPrediction(ctx context.Context, req *connect.Request[v1.StreamNextCursorPredictionRequest]) (*connect.ServerStreamForClient[v1.StreamNextCursorPredictionResponse], error) {
+	return c.streamNextCursorPrediction.CallServerStream(ctx, req)
+}
+
+// IsCursorPredictionEnabled calls aiserver.v1.AiService.IsCursorPredictionEnabled.
+func (c *aiServiceClient) IsCursorPredictionEnabled(ctx context.Context, req *connect.Request[v1.IsCursorPredictionEnabledRequest]) (*connect.Response[v1.IsCursorPredictionEnabledResponse], error) {
+	return c.isCursorPredictionEnabled.CallUnary(ctx, req)
+}
+
+// GetCppEditClassification calls aiserver.v1.AiService.GetCppEditClassification.
+func (c *aiServiceClient) GetCppEditClassification(ctx context.Context, req *connect.Request[v1.GetCppEditClassificationRequest]) (*connect.Response[v1.GetCppEditClassificationResponse], error) {
+	return c.getCppEditClassification.CallUnary(ctx, req)
+}
+
+// GetTerminalCompletion calls aiserver.v1.AiService.GetTerminalCompletion.
+func (c *aiServiceClient) GetTerminalCompletion(ctx context.Context, req *connect.Request[v1.GetTerminalCompletionRequest]) (*connect.Response[v1.GetTerminalCompletionResponse], error) {
+	return c.getTerminalCompletion.CallUnary(ctx, req)
+}
+
+// TakeNotesOnCommitDiff calls aiserver.v1.AiService.TakeNotesOnCommitDiff.
+func (c *aiServiceClient) TakeNotesOnCommitDiff(ctx context.Context, req *connect.Request[v1.TakeNotesOnCommitDiffRequest]) (*connect.Response[v1.TakeNotesOnCommitDiffResponse], error) {
+	return c.takeNotesOnCommitDiff.CallUnary(ctx, req)
+}
+
+// BulkEmbed calls aiserver.v1.AiService.BulkEmbed.
+func (c *aiServiceClient) BulkEmbed(ctx context.Context, req *connect.Request[v1.BulkEmbedRequest]) (*connect.Response[v1.BulkEmbedResponse], error) {
+	return c.bulkEmbed.CallUnary(ctx, req)
+}
+
+// ContinueChatRequestWithCommits calls aiserver.v1.AiService.ContinueChatRequestWithCommits.
+func (c *aiServiceClient) ContinueChatRequestWithCommits(ctx context.Context, req *connect.Request[v1.ContinueChatRequestWithCommitsRequest]) (*connect.Response[v1.EmptyResponse], error) {
+	return c.continueChatRequestWithCommits.CallUnary(ctx, req)
+}
+
+// BackgroundCmdKEval calls aiserver.v1.AiService.BackgroundCmdKEval.
+func (c *aiServiceClient) BackgroundCmdKEval(ctx context.Context, req *connect.Request[v1.BackgroundCmdKEvalRequest]) (*connect.ServerStreamForClient[v1.BackgroundCmdKEvalResponse], error) {
+	return c.backgroundCmdKEval.CallServerStream(ctx, req)
+}
+
+// BackgroundCmdK calls aiserver.v1.AiService.BackgroundCmdK.
+func (c *aiServiceClient) BackgroundCmdK(ctx context.Context, req *connect.Request[v1.BackgroundCmdKRequest]) (*connect.ServerStreamForClient[v1.BackgroundCmdKResponse], error) {
+	return c.backgroundCmdK.CallServerStream(ctx, req)
+}
+
+// StreamCursorMotion calls aiserver.v1.AiService.StreamCursorMotion.
+func (c *aiServiceClient) StreamCursorMotion(ctx context.Context, req *connect.Request[v1.StreamCursorMotionRequest]) (*connect.ServerStreamForClient[v1.StreamCursorMotionResponse], error) {
+	return c.streamCursorMotion.CallServerStream(ctx, req)
+}
+
+// CalculateAutoSelection calls aiserver.v1.AiService.CalculateAutoSelection.
+func (c *aiServiceClient) CalculateAutoSelection(ctx context.Context, req *connect.Request[v1.CalculateAutoSelectionRequest]) (*connect.Response[v1.CalculateAutoSelectionResponse], error) {
+	return c.calculateAutoSelection.CallUnary(ctx, req)
+}
+
+// GetAtSymbolSuggestions calls aiserver.v1.AiService.GetAtSymbolSuggestions.
+func (c *aiServiceClient) GetAtSymbolSuggestions(ctx context.Context, req *connect.Request[v1.GetAtSymbolSuggestionsRequest]) (*connect.Response[v1.GetAtSymbolSuggestionsResponse], error) {
+	return c.getAtSymbolSuggestions.CallUnary(ctx, req)
+}
+
+// GetCodebaseQuestions calls aiserver.v1.AiService.GetCodebaseQuestions.
+func (c *aiServiceClient) GetCodebaseQuestions(ctx context.Context, req *connect.Request[v1.GetChatRequest]) (*connect.Response[v1.GetCodebaseQuestionsResponse], error) {
+	return c.getCodebaseQuestions.CallUnary(ctx, req)
+}
+
+// GetRankedContextFromContextBank calls aiserver.v1.AiService.GetRankedContextFromContextBank.
+func (c *aiServiceClient) GetRankedContextFromContextBank(ctx context.Context, req *connect.Request[v1.GetRankedContextFromContextBankRequest]) (*connect.Response[v1.GetRankedContextFromContextBankResponse], error) {
+	return c.getRankedContextFromContextBank.CallUnary(ctx, req)
+}
+
+// CppEditHistoryAppend calls aiserver.v1.AiService.CppEditHistoryAppend.
+func (c *aiServiceClient) CppEditHistoryAppend(ctx context.Context, req *connect.Request[v1.EditHistoryAppendChangesRequest]) (*connect.Response[v1.EditHistoryAppendChangesResponse], error) {
+	return c.cppEditHistoryAppend.CallUnary(ctx, req)
+}
+
+// DevOnlyGetPastRequestIds calls aiserver.v1.AiService.DevOnlyGetPastRequestIds.
+func (c *aiServiceClient) DevOnlyGetPastRequestIds(ctx context.Context, req *connect.Request[v1.DevOnlyGetPastRequestIdsRequest]) (*connect.Response[v1.DevOnlyGetPastRequestIdsResponse], error) {
+	return c.devOnlyGetPastRequestIds.CallUnary(ctx, req)
+}
+
+// GetFilesForComposer calls aiserver.v1.AiService.GetFilesForComposer.
+func (c *aiServiceClient) GetFilesForComposer(ctx context.Context, req *connect.Request[v1.GetFilesForComposerRequest]) (*connect.Response[v1.GetFilesForComposerResponse], error) {
+	return c.getFilesForComposer.CallUnary(ctx, req)
+}
+
+// TryParseTypeScriptTreeSitter calls aiserver.v1.AiService.TryParseTypeScriptTreeSitter.
+func (c *aiServiceClient) TryParseTypeScriptTreeSitter(ctx context.Context, req *connect.Request[v1.TryParseTypeScriptTreeSitterRequest]) (*connect.Response[v1.TryParseTypeScriptTreeSitterResponse], error) {
+	return c.tryParseTypeScriptTreeSitter.CallUnary(ctx, req)
+}
+
+// NameTab calls aiserver.v1.AiService.NameTab.
+func (c *aiServiceClient) NameTab(ctx context.Context, req *connect.Request[v1.NameTabRequest]) (*connect.Response[v1.NameTabResponse], error) {
+	return c.nameTab.CallUnary(ctx, req)
+}
+
+// TestModelStatus calls aiserver.v1.AiService.TestModelStatus.
+func (c *aiServiceClient) TestModelStatus(ctx context.Context, req *connect.Request[v1.TestModelStatusRequest]) (*connect.Response[v1.TestModelStatusResponse], error) {
+	return c.testModelStatus.CallUnary(ctx, req)
+}
+
 // AiServiceHandler is an implementation of the aiserver.v1.AiService service.
 type AiServiceHandler interface {
+	HealthCheck(context.Context, *connect.Request[v1.HealthCheckRequest]) (*connect.Response[v1.HealthCheckResponse], error)
+	TimeLeftHealthCheck(context.Context, *connect.Request[v1.HealthCheckRequest]) (*connect.Response[v1.TimeLeftHealthCheckResponse], error)
+	ThrowErrorCheck(context.Context, *connect.Request[v1.ThrowErrorCheckRequest]) (*connect.Response[v1.ThrowErrorCheckResponse], error)
+	AvailableModels(context.Context, *connect.Request[v1.AvailableModelsRequest]) (*connect.Response[v1.AvailableModelsResponse], error)
+	StreamChatTryReallyHard(context.Context, *connect.Request[v1.GetChatRequest], *connect.ServerStream[v1.StreamChatResponse]) error
+	RerankDocuments(context.Context, *connect.Request[v1.RerankDocumentsRequest]) (*connect.Response[v1.RerankDocumentsResponse], error)
+	StreamComposer(context.Context, *connect.Request[v1.GetComposerChatRequest], *connect.ServerStream[v1.StreamChatResponse]) error
+	StreamComposerContext(context.Context, *connect.Request[v1.StreamChatContextRequest], *connect.ServerStream[v1.StreamChatContextResponse]) error
+	WarmComposerCache(context.Context, *connect.Request[v1.GetComposerChatRequest]) (*connect.Response[v1.WarmComposerCacheResponse], error)
+	GetChatTitle(context.Context, *connect.Request[v1.GetChatTitleRequest]) (*connect.Response[v1.GetChatTitleResponse], error)
+	GetCompletion(context.Context, *connect.Request[v1.GetCompletionRequest]) (*connect.Response[v1.GetCompletionResponse], error)
+	GetSearch(context.Context, *connect.Request[v1.GetSearchRequest]) (*connect.Response[v1.GetSearchResponse], error)
+	StreamInlineEdits(context.Context, *connect.Request[v1.StreamInlineEditsRequest], *connect.ServerStream[v1.StreamInlineEditsResponse]) error
+	SummarizeConversation(context.Context, *connect.Request[v1.GetChatRequest]) (*connect.Response[v1.SummarizeConversationResponse], error)
+	IsolatedTreesitter(context.Context, *connect.Request[v1.IsolatedTreesitterRequest]) (*connect.Response[v1.IsolatedTreesitterResponse], error)
+	GetSimplePrompt(context.Context, *connect.Request[v1.GetSimplePromptRequest]) (*connect.Response[v1.GetSimplePromptResponse], error)
+	CheckLongFilesFit(context.Context, *connect.Request[v1.GetChatRequest]) (*connect.Response[v1.CheckLongFilesFitResponse], error)
+	GetEvaluationPrompt(context.Context, *connect.Request[v1.GetEvaluationPromptRequest]) (*connect.Response[v1.GetEvaluationPromptResponse], error)
+	GetUserInfo(context.Context, *connect.Request[v1.GetUserInfoRequest]) (*connect.Response[v1.GetUserInfoResponse], error)
+	ClearAndRedoEntireBucket(context.Context, *connect.Request[v1.ClearAndRedoEntireBucketRequest]) (*connect.Response[v1.ClearAndRedoEntireBucketResponse], error)
+	StreamBranchGemini(context.Context, *connect.Request[v1.StreamBranchGeminiRequest], *connect.ServerStream[v1.StreamBranchGeminiResponse]) error
+	StreamBranchFileSelections(context.Context, *connect.Request[v1.StreamBranchFileSelectionsRequest], *connect.ServerStream[v1.StreamBranchFileSelectionsResponse]) error
+	StreamBackgroundEdit(context.Context, *connect.Request[v1.StreamBackgroundEditRequest], *connect.ServerStream[v1.StreamChatResponse]) error
+	StreamGPTFourEdit(context.Context, *connect.Request[v1.StreamGPTFourEditRequest], *connect.ServerStream[v1.StreamChatResponse]) error
 	StreamChat(context.Context, *connect.Request[v1.GetChatRequest], *connect.ServerStream[v1.StreamChatResponse]) error
+	StreamChatWeb(context.Context, *connect.Request[v1.GetChatRequest], *connect.ServerStream[v1.StreamChatResponse]) error
+	StreamEdit(context.Context, *connect.Request[v1.StreamEditRequest], *connect.ServerStream[v1.StreamChatResponse]) error
+	PreloadEdit(context.Context, *connect.Request[v1.PreloadEditRequest]) (*connect.Response[v1.PreloadEditResponse], error)
+	StreamFastEdit(context.Context, *connect.Request[v1.StreamFastEditRequest], *connect.ServerStream[v1.StreamFastEditResponse]) error
+	StreamGenerate(context.Context, *connect.Request[v1.StreamGenerateRequest], *connect.ServerStream[v1.StreamChatResponse]) error
+	StreamInlineLongCompletion(context.Context, *connect.Request[v1.StreamInlineLongCompletionRequest], *connect.ServerStream[v1.StreamChatResponse]) error
+	SlashEdit(context.Context, *connect.Request[v1.SlashEditRequest], *connect.ServerStream[v1.SlashEditResponse]) error
+	SlashEditFollowUpWithPreviousEdits(context.Context, *connect.Request[v1.SlashEditFollowUpWithPreviousEditsRequest], *connect.ServerStream[v1.StreamSlashEditFollowUpWithPreviousEditsResponse]) error
+	StreamAiPreviews(context.Context, *connect.Request[v1.StreamAiPreviewsRequest], *connect.ServerStream[v1.StreamAiPreviewsResponse]) error
+	ShouldTurnOnCppOnboarding(context.Context, *connect.Request[v1.ShouldTurnOnCppOnboardingRequest]) (*connect.Response[v1.ShouldTurnOnCppOnboardingResponse], error)
+	StreamReview(context.Context, *connect.Request[v1.ReviewRequest], *connect.ServerStream[v1.ReviewResponse]) error
+	StreamReviewChat(context.Context, *connect.Request[v1.ReviewChatRequest], *connect.ServerStream[v1.ReviewChatResponse]) error
+	CheckQueuePosition(context.Context, *connect.Request[v1.CheckQueuePositionRequest]) (*connect.Response[v1.CheckQueuePositionResponse], error)
+	CheckUsageBasedPrice(context.Context, *connect.Request[v1.CheckUsageBasedPriceRequest]) (*connect.Response[v1.CheckUsageBasedPriceResponse], error)
+	DoThisForMeCheck(context.Context, *connect.Request[v1.DoThisForMeCheckRequest]) (*connect.Response[v1.DoThisForMeCheckResponse], error)
+	StreamDoThisForMe(context.Context, *connect.Request[v1.DoThisForMeRequest], *connect.ServerStream[v1.DoThisForMeResponseWrapped]) error
+	StreamChatToolformer(context.Context, *connect.Request[v1.GetChatRequest], *connect.ServerStream[v1.StreamChatToolformerResponse]) error
+	StreamChatToolformerContinue(context.Context, *connect.Request[v1.StreamChatToolformerContinueRequest], *connect.ServerStream[v1.StreamChatToolformerResponse]) error
+	PushAiThought(context.Context, *connect.Request[v1.PushAiThoughtRequest]) (*connect.Response[v1.PushAiThoughtResponse], error)
+	CheckDoableAsTask(context.Context, *connect.Request[v1.CheckDoableAsTaskRequest]) (*connect.Response[v1.CheckDoableAsTaskResponse], error)
+	ReportGroundTruthCandidate(context.Context, *connect.Request[v1.ReportGroundTruthCandidateRequest]) (*connect.Response[v1.ReportGroundTruthCandidateResponse], error)
+	ReportCmdKFate(context.Context, *connect.Request[v1.ReportCmdKFateRequest]) (*connect.Response[v1.ReportCmdKFateResponse], error)
+	ShowWelcomeScreen(context.Context, *connect.Request[v1.ShowWelcomeScreenRequest]) (*connect.Response[v1.ShowWelcomeScreenResponse], error)
+	InterfaceAgentInit(context.Context, *connect.Request[v1.InterfaceAgentInitRequest]) (*connect.Response[v1.InterfaceAgentInitResponse], error)
+	StreamInterfaceAgentStatus(context.Context, *connect.Request[v1.StreamInterfaceAgentStatusRequest], *connect.ServerStream[v1.StreamInterfaceAgentStatusResponse]) error
+	TaskGetInterfaceAgentStatus(context.Context, *connect.Request[v1.TaskGetInterfaceAgentStatusRequest], *connect.ServerStream[v1.TaskGetInterfaceAgentStatusResponseWrapped]) error
+	TaskInit(context.Context, *connect.Request[v1.TaskInitRequest]) (*connect.Response[v1.TaskInitResponse], error)
+	TaskPause(context.Context, *connect.Request[v1.TaskPauseRequest]) (*connect.Response[v1.TaskPauseResponse], error)
+	TaskInfo(context.Context, *connect.Request[v1.TaskInfoRequest]) (*connect.Response[v1.TaskInfoResponse], error)
+	TaskStreamLog(context.Context, *connect.Request[v1.TaskStreamLogRequest], *connect.ServerStream[v1.TaskStreamLogResponse]) error
+	TaskSendMessage(context.Context, *connect.Request[v1.TaskSendMessageRequest]) (*connect.Response[v1.TaskSendMessageResponse], error)
+	TaskProvideResult(context.Context, *connect.Request[v1.TaskProvideResultRequest]) (*connect.Response[v1.TaskProvideResultResponse], error)
+	CreateExperimentalIndex(context.Context, *connect.Request[v1.CreateExperimentalIndexRequest]) (*connect.Response[v1.CreateExperimentalIndexResponse], error)
+	ListExperimentalIndexFiles(context.Context, *connect.Request[v1.ListExperimentalIndexFilesRequest]) (*connect.Response[v1.ListExperimentalIndexFilesResponse], error)
+	ListenExperimentalIndex(context.Context, *connect.Request[v1.ListenExperimentalIndexRequest], *connect.ServerStream[v1.ListenExperimentalIndexResponse]) error
+	RegisterFileToIndex(context.Context, *connect.Request[v1.RegisterFileToIndexRequest]) (*connect.Response[v1.RequestReceivedResponse], error)
+	SetupIndexDependencies(context.Context, *connect.Request[v1.SetupIndexDependenciesRequest]) (*connect.Response[v1.SetupIndexDependenciesResponse], error)
+	ComputeIndexTopoSort(context.Context, *connect.Request[v1.ComputeIndexTopoSortRequest]) (*connect.Response[v1.ComputeIndexTopoSortResponse], error)
+	StreamChatDeepContext(context.Context, *connect.Request[v1.StreamChatDeepContextRequest], *connect.ServerStream[v1.StreamChatDeepContextResponse]) error
+	ChooseCodeReferences(context.Context, *connect.Request[v1.ChooseCodeReferencesRequest]) (*connect.Response[v1.RequestReceivedResponse], error)
+	RegisterCodeReferences(context.Context, *connect.Request[v1.RegisterCodeReferencesRequest]) (*connect.Response[v1.RegisterCodeReferencesResponse], error)
+	ExtractPaths(context.Context, *connect.Request[v1.ExtractPathsRequest]) (*connect.Response[v1.ExtractPathsResponse], error)
+	SummarizeWithReferences(context.Context, *connect.Request[v1.SummarizeWithReferencesRequest]) (*connect.Response[v1.RequestReceivedResponse], error)
+	DocumentationQuery(context.Context, *connect.Request[v1.DocumentationQueryRequest]) (*connect.Response[v1.DocumentationQueryResponse], error)
+	AvailableDocs(context.Context, *connect.Request[v1.AvailableDocsRequest]) (*connect.Response[v1.AvailableDocsResponse], error)
+	ReportFeedback(context.Context, *connect.Request[v1.ReportFeedbackRequest]) (*connect.Response[v1.ReportFeedbackResponse], error)
+	ReportBug(context.Context, *connect.Request[v1.ReportBugRequest]) (*connect.Response[v1.ReportBugResponse], error)
+	StreamChatContext(context.Context, *connect.Request[v1.StreamChatContextRequest], *connect.ServerStream[v1.StreamChatContextResponse]) error
+	GenerateTldr(context.Context, *connect.Request[v1.GenerateTldrRequest]) (*connect.Response[v1.GenerateTldrResponse], error)
+	TaskStreamChatContext(context.Context, *connect.Request[v1.TaskStreamChatContextRequest], *connect.ServerStream[v1.TaskStreamChatContextResponseWrapped]) error
+	RerankResults(context.Context, *connect.Request[v1.RerankerRequest]) (*connect.Response[v1.RerankerResponse], error)
+	ModelQuery(context.Context, *connect.Request[v1.ModelQueryRequest]) (*connect.Response[v1.ModelQueryResponse], error)
+	ModelQueryV2(context.Context, *connect.Request[v1.ModelQueryRequest], *connect.ServerStream[v1.ModelQueryResponseV2]) error
+	IntentPrediction(context.Context, *connect.Request[v1.IntentPredictionRequest]) (*connect.Response[v1.IntentPredictionResponse], error)
+	StreamCursorTutor(context.Context, *connect.Request[v1.StreamCursorTutorRequest], *connect.ServerStream[v1.StreamCursorTutorResponse]) error
+	CheckFeatureStatus(context.Context, *connect.Request[v1.CheckFeatureStatusRequest]) (*connect.Response[v1.CheckFeatureStatusResponse], error)
+	GetEffectiveTokenLimit(context.Context, *connect.Request[v1.GetEffectiveTokenLimitRequest]) (*connect.Response[v1.GetEffectiveTokenLimitResponse], error)
+	GetContextScores(context.Context, *connect.Request[v1.ContextScoresRequest]) (*connect.Response[v1.ContextScoresResponse], error)
+	StreamCpp(context.Context, *connect.Request[v1.StreamCppRequest], *connect.ServerStream[v1.StreamCppResponse]) error
+	CppConfig(context.Context, *connect.Request[v1.CppConfigRequest]) (*connect.Response[v1.CppConfigResponse], error)
+	CppEditHistoryStatus(context.Context, *connect.Request[v1.CppEditHistoryStatusRequest]) (*connect.Response[v1.CppEditHistoryStatusResponse], error)
+	CppAppend(context.Context, *connect.Request[v1.CppAppendRequest]) (*connect.Response[v1.CppAppendResponse], error)
+	CheckNumberConfig(context.Context, *connect.Request[v1.CheckNumberConfigRequest]) (*connect.Response[v1.CheckNumberConfigResponse], error)
+	StreamTerminalAutocomplete(context.Context, *connect.Request[v1.StreamTerminalAutocompleteRequest], *connect.ServerStream[v1.StreamTerminalAutocompleteResponse]) error
+	StreamPseudocodeGenerator(context.Context, *connect.Request[v1.StreamPseudocodeGeneratorRequest], *connect.ServerStream[v1.StreamPseudocodeGeneratorResponse]) error
+	StreamPseudocodeMapper(context.Context, *connect.Request[v1.StreamPseudocodeMapperRequest], *connect.ServerStream[v1.StreamPseudocodeMapperResponse]) error
+	StreamAiLintBug(context.Context, *connect.Request[v1.StreamAiLintBugRequest], *connect.ServerStream[v1.StreamAiLintBugResponse]) error
+	StreamAiCursorHelp(context.Context, *connect.Request[v1.StreamAiCursorHelpRequest], *connect.ServerStream[v1.StreamAiCursorHelpResponse]) error
+	LogUserLintReply(context.Context, *connect.Request[v1.LogUserLintReplyRequest]) (*connect.Response[v1.LogUserLintReplyResponse], error)
+	LogLinterExplicitUserFeedback(context.Context, *connect.Request[v1.LogLinterExplicitUserFeedbackRequest]) (*connect.Response[v1.LogLinterExplicitUserFeedbackResponse], error)
+	StreamFixMarkers(context.Context, *connect.Request[v1.FixMarkersRequest], *connect.ServerStream[v1.FixMarkersResponse]) error
+	ReportInlineAction(context.Context, *connect.Request[v1.ReportInlineActionRequest]) (*connect.Response[v1.ReportInlineActionResponse], error)
+	StreamPriomptPrompt(context.Context, *connect.Request[v1.StreamPriomptPromptRequest], *connect.ServerStream[v1.StreamPriomptPromptResponse]) error
+	StreamLint(context.Context, *connect.Request[v1.StreamLintRequest], *connect.ServerStream[v1.StreamChatResponse]) error
+	StreamNewLintRule(context.Context, *connect.Request[v1.StreamNewRuleRequest], *connect.ServerStream[v1.StreamChatResponse]) error
+	AiProject(context.Context, *connect.Request[v1.AiProjectRequest], *connect.ServerStream[v1.AiProjectResponse]) error
+	ToCamelCase(context.Context, *connect.Request[v1.ToCamelCaseRequest]) (*connect.Response[v1.ToCamelCaseResponse], error)
+	ReportGenerationFeedback(context.Context, *connect.Request[v1.ReportGenerationFeedbackRequest]) (*connect.Response[v1.ReportGenerationFeedbackResponse], error)
+	GetThoughtAnnotation(context.Context, *connect.Request[v1.GetThoughtAnnotationRequest]) (*connect.Response[v1.GetThoughtAnnotationResponse], error)
+	StreamWebCmdKV1(context.Context, *connect.Request[v1.StreamWebCmdKV1Request], *connect.ServerStream[v1.StreamWebCmdKV1Response]) error
+	StreamNextCursorPrediction(context.Context, *connect.Request[v1.StreamNextCursorPredictionRequest], *connect.ServerStream[v1.StreamNextCursorPredictionResponse]) error
+	IsCursorPredictionEnabled(context.Context, *connect.Request[v1.IsCursorPredictionEnabledRequest]) (*connect.Response[v1.IsCursorPredictionEnabledResponse], error)
+	GetCppEditClassification(context.Context, *connect.Request[v1.GetCppEditClassificationRequest]) (*connect.Response[v1.GetCppEditClassificationResponse], error)
+	GetTerminalCompletion(context.Context, *connect.Request[v1.GetTerminalCompletionRequest]) (*connect.Response[v1.GetTerminalCompletionResponse], error)
+	TakeNotesOnCommitDiff(context.Context, *connect.Request[v1.TakeNotesOnCommitDiffRequest]) (*connect.Response[v1.TakeNotesOnCommitDiffResponse], error)
+	BulkEmbed(context.Context, *connect.Request[v1.BulkEmbedRequest]) (*connect.Response[v1.BulkEmbedResponse], error)
+	ContinueChatRequestWithCommits(context.Context, *connect.Request[v1.ContinueChatRequestWithCommitsRequest]) (*connect.Response[v1.EmptyResponse], error)
+	BackgroundCmdKEval(context.Context, *connect.Request[v1.BackgroundCmdKEvalRequest], *connect.ServerStream[v1.BackgroundCmdKEvalResponse]) error
+	BackgroundCmdK(context.Context, *connect.Request[v1.BackgroundCmdKRequest], *connect.ServerStream[v1.BackgroundCmdKResponse]) error
+	StreamCursorMotion(context.Context, *connect.Request[v1.StreamCursorMotionRequest], *connect.ServerStream[v1.StreamCursorMotionResponse]) error
+	CalculateAutoSelection(context.Context, *connect.Request[v1.CalculateAutoSelectionRequest]) (*connect.Response[v1.CalculateAutoSelectionResponse], error)
+	GetAtSymbolSuggestions(context.Context, *connect.Request[v1.GetAtSymbolSuggestionsRequest]) (*connect.Response[v1.GetAtSymbolSuggestionsResponse], error)
+	GetCodebaseQuestions(context.Context, *connect.Request[v1.GetChatRequest]) (*connect.Response[v1.GetCodebaseQuestionsResponse], error)
+	GetRankedContextFromContextBank(context.Context, *connect.Request[v1.GetRankedContextFromContextBankRequest]) (*connect.Response[v1.GetRankedContextFromContextBankResponse], error)
+	CppEditHistoryAppend(context.Context, *connect.Request[v1.EditHistoryAppendChangesRequest]) (*connect.Response[v1.EditHistoryAppendChangesResponse], error)
+	DevOnlyGetPastRequestIds(context.Context, *connect.Request[v1.DevOnlyGetPastRequestIdsRequest]) (*connect.Response[v1.DevOnlyGetPastRequestIdsResponse], error)
+	GetFilesForComposer(context.Context, *connect.Request[v1.GetFilesForComposerRequest]) (*connect.Response[v1.GetFilesForComposerResponse], error)
+	TryParseTypeScriptTreeSitter(context.Context, *connect.Request[v1.TryParseTypeScriptTreeSitterRequest]) (*connect.Response[v1.TryParseTypeScriptTreeSitterResponse], error)
+	NameTab(context.Context, *connect.Request[v1.NameTabRequest]) (*connect.Response[v1.NameTabResponse], error)
+	TestModelStatus(context.Context, *connect.Request[v1.TestModelStatusRequest]) (*connect.Response[v1.TestModelStatusResponse], error)
 }
 
 // NewAiServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -88,16 +2402,1008 @@ type AiServiceHandler interface {
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
 func NewAiServiceHandler(svc AiServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
+	aiServiceHealthCheckHandler := connect.NewUnaryHandler(
+		AiServiceHealthCheckProcedure,
+		svc.HealthCheck,
+		connect.WithSchema(aiServiceHealthCheckMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceTimeLeftHealthCheckHandler := connect.NewUnaryHandler(
+		AiServiceTimeLeftHealthCheckProcedure,
+		svc.TimeLeftHealthCheck,
+		connect.WithSchema(aiServiceTimeLeftHealthCheckMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceThrowErrorCheckHandler := connect.NewUnaryHandler(
+		AiServiceThrowErrorCheckProcedure,
+		svc.ThrowErrorCheck,
+		connect.WithSchema(aiServiceThrowErrorCheckMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceAvailableModelsHandler := connect.NewUnaryHandler(
+		AiServiceAvailableModelsProcedure,
+		svc.AvailableModels,
+		connect.WithSchema(aiServiceAvailableModelsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamChatTryReallyHardHandler := connect.NewServerStreamHandler(
+		AiServiceStreamChatTryReallyHardProcedure,
+		svc.StreamChatTryReallyHard,
+		connect.WithSchema(aiServiceStreamChatTryReallyHardMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceRerankDocumentsHandler := connect.NewUnaryHandler(
+		AiServiceRerankDocumentsProcedure,
+		svc.RerankDocuments,
+		connect.WithSchema(aiServiceRerankDocumentsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamComposerHandler := connect.NewServerStreamHandler(
+		AiServiceStreamComposerProcedure,
+		svc.StreamComposer,
+		connect.WithSchema(aiServiceStreamComposerMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamComposerContextHandler := connect.NewServerStreamHandler(
+		AiServiceStreamComposerContextProcedure,
+		svc.StreamComposerContext,
+		connect.WithSchema(aiServiceStreamComposerContextMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceWarmComposerCacheHandler := connect.NewUnaryHandler(
+		AiServiceWarmComposerCacheProcedure,
+		svc.WarmComposerCache,
+		connect.WithSchema(aiServiceWarmComposerCacheMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGetChatTitleHandler := connect.NewUnaryHandler(
+		AiServiceGetChatTitleProcedure,
+		svc.GetChatTitle,
+		connect.WithSchema(aiServiceGetChatTitleMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGetCompletionHandler := connect.NewUnaryHandler(
+		AiServiceGetCompletionProcedure,
+		svc.GetCompletion,
+		connect.WithSchema(aiServiceGetCompletionMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGetSearchHandler := connect.NewUnaryHandler(
+		AiServiceGetSearchProcedure,
+		svc.GetSearch,
+		connect.WithSchema(aiServiceGetSearchMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamInlineEditsHandler := connect.NewServerStreamHandler(
+		AiServiceStreamInlineEditsProcedure,
+		svc.StreamInlineEdits,
+		connect.WithSchema(aiServiceStreamInlineEditsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceSummarizeConversationHandler := connect.NewUnaryHandler(
+		AiServiceSummarizeConversationProcedure,
+		svc.SummarizeConversation,
+		connect.WithSchema(aiServiceSummarizeConversationMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceIsolatedTreesitterHandler := connect.NewUnaryHandler(
+		AiServiceIsolatedTreesitterProcedure,
+		svc.IsolatedTreesitter,
+		connect.WithSchema(aiServiceIsolatedTreesitterMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGetSimplePromptHandler := connect.NewUnaryHandler(
+		AiServiceGetSimplePromptProcedure,
+		svc.GetSimplePrompt,
+		connect.WithSchema(aiServiceGetSimplePromptMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceCheckLongFilesFitHandler := connect.NewUnaryHandler(
+		AiServiceCheckLongFilesFitProcedure,
+		svc.CheckLongFilesFit,
+		connect.WithSchema(aiServiceCheckLongFilesFitMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGetEvaluationPromptHandler := connect.NewUnaryHandler(
+		AiServiceGetEvaluationPromptProcedure,
+		svc.GetEvaluationPrompt,
+		connect.WithSchema(aiServiceGetEvaluationPromptMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGetUserInfoHandler := connect.NewUnaryHandler(
+		AiServiceGetUserInfoProcedure,
+		svc.GetUserInfo,
+		connect.WithSchema(aiServiceGetUserInfoMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceClearAndRedoEntireBucketHandler := connect.NewUnaryHandler(
+		AiServiceClearAndRedoEntireBucketProcedure,
+		svc.ClearAndRedoEntireBucket,
+		connect.WithSchema(aiServiceClearAndRedoEntireBucketMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamBranchGeminiHandler := connect.NewServerStreamHandler(
+		AiServiceStreamBranchGeminiProcedure,
+		svc.StreamBranchGemini,
+		connect.WithSchema(aiServiceStreamBranchGeminiMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamBranchFileSelectionsHandler := connect.NewServerStreamHandler(
+		AiServiceStreamBranchFileSelectionsProcedure,
+		svc.StreamBranchFileSelections,
+		connect.WithSchema(aiServiceStreamBranchFileSelectionsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamBackgroundEditHandler := connect.NewServerStreamHandler(
+		AiServiceStreamBackgroundEditProcedure,
+		svc.StreamBackgroundEdit,
+		connect.WithSchema(aiServiceStreamBackgroundEditMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamGPTFourEditHandler := connect.NewServerStreamHandler(
+		AiServiceStreamGPTFourEditProcedure,
+		svc.StreamGPTFourEdit,
+		connect.WithSchema(aiServiceStreamGPTFourEditMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
 	aiServiceStreamChatHandler := connect.NewServerStreamHandler(
 		AiServiceStreamChatProcedure,
 		svc.StreamChat,
 		connect.WithSchema(aiServiceStreamChatMethodDescriptor),
 		connect.WithHandlerOptions(opts...),
 	)
+	aiServiceStreamChatWebHandler := connect.NewServerStreamHandler(
+		AiServiceStreamChatWebProcedure,
+		svc.StreamChatWeb,
+		connect.WithSchema(aiServiceStreamChatWebMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamEditHandler := connect.NewServerStreamHandler(
+		AiServiceStreamEditProcedure,
+		svc.StreamEdit,
+		connect.WithSchema(aiServiceStreamEditMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServicePreloadEditHandler := connect.NewUnaryHandler(
+		AiServicePreloadEditProcedure,
+		svc.PreloadEdit,
+		connect.WithSchema(aiServicePreloadEditMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamFastEditHandler := connect.NewServerStreamHandler(
+		AiServiceStreamFastEditProcedure,
+		svc.StreamFastEdit,
+		connect.WithSchema(aiServiceStreamFastEditMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamGenerateHandler := connect.NewServerStreamHandler(
+		AiServiceStreamGenerateProcedure,
+		svc.StreamGenerate,
+		connect.WithSchema(aiServiceStreamGenerateMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamInlineLongCompletionHandler := connect.NewServerStreamHandler(
+		AiServiceStreamInlineLongCompletionProcedure,
+		svc.StreamInlineLongCompletion,
+		connect.WithSchema(aiServiceStreamInlineLongCompletionMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceSlashEditHandler := connect.NewServerStreamHandler(
+		AiServiceSlashEditProcedure,
+		svc.SlashEdit,
+		connect.WithSchema(aiServiceSlashEditMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceSlashEditFollowUpWithPreviousEditsHandler := connect.NewServerStreamHandler(
+		AiServiceSlashEditFollowUpWithPreviousEditsProcedure,
+		svc.SlashEditFollowUpWithPreviousEdits,
+		connect.WithSchema(aiServiceSlashEditFollowUpWithPreviousEditsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamAiPreviewsHandler := connect.NewServerStreamHandler(
+		AiServiceStreamAiPreviewsProcedure,
+		svc.StreamAiPreviews,
+		connect.WithSchema(aiServiceStreamAiPreviewsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceShouldTurnOnCppOnboardingHandler := connect.NewUnaryHandler(
+		AiServiceShouldTurnOnCppOnboardingProcedure,
+		svc.ShouldTurnOnCppOnboarding,
+		connect.WithSchema(aiServiceShouldTurnOnCppOnboardingMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamReviewHandler := connect.NewServerStreamHandler(
+		AiServiceStreamReviewProcedure,
+		svc.StreamReview,
+		connect.WithSchema(aiServiceStreamReviewMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamReviewChatHandler := connect.NewServerStreamHandler(
+		AiServiceStreamReviewChatProcedure,
+		svc.StreamReviewChat,
+		connect.WithSchema(aiServiceStreamReviewChatMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceCheckQueuePositionHandler := connect.NewUnaryHandler(
+		AiServiceCheckQueuePositionProcedure,
+		svc.CheckQueuePosition,
+		connect.WithSchema(aiServiceCheckQueuePositionMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceCheckUsageBasedPriceHandler := connect.NewUnaryHandler(
+		AiServiceCheckUsageBasedPriceProcedure,
+		svc.CheckUsageBasedPrice,
+		connect.WithSchema(aiServiceCheckUsageBasedPriceMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceDoThisForMeCheckHandler := connect.NewUnaryHandler(
+		AiServiceDoThisForMeCheckProcedure,
+		svc.DoThisForMeCheck,
+		connect.WithSchema(aiServiceDoThisForMeCheckMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamDoThisForMeHandler := connect.NewServerStreamHandler(
+		AiServiceStreamDoThisForMeProcedure,
+		svc.StreamDoThisForMe,
+		connect.WithSchema(aiServiceStreamDoThisForMeMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamChatToolformerHandler := connect.NewServerStreamHandler(
+		AiServiceStreamChatToolformerProcedure,
+		svc.StreamChatToolformer,
+		connect.WithSchema(aiServiceStreamChatToolformerMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamChatToolformerContinueHandler := connect.NewServerStreamHandler(
+		AiServiceStreamChatToolformerContinueProcedure,
+		svc.StreamChatToolformerContinue,
+		connect.WithSchema(aiServiceStreamChatToolformerContinueMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServicePushAiThoughtHandler := connect.NewUnaryHandler(
+		AiServicePushAiThoughtProcedure,
+		svc.PushAiThought,
+		connect.WithSchema(aiServicePushAiThoughtMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceCheckDoableAsTaskHandler := connect.NewUnaryHandler(
+		AiServiceCheckDoableAsTaskProcedure,
+		svc.CheckDoableAsTask,
+		connect.WithSchema(aiServiceCheckDoableAsTaskMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceReportGroundTruthCandidateHandler := connect.NewUnaryHandler(
+		AiServiceReportGroundTruthCandidateProcedure,
+		svc.ReportGroundTruthCandidate,
+		connect.WithSchema(aiServiceReportGroundTruthCandidateMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceReportCmdKFateHandler := connect.NewUnaryHandler(
+		AiServiceReportCmdKFateProcedure,
+		svc.ReportCmdKFate,
+		connect.WithSchema(aiServiceReportCmdKFateMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceShowWelcomeScreenHandler := connect.NewUnaryHandler(
+		AiServiceShowWelcomeScreenProcedure,
+		svc.ShowWelcomeScreen,
+		connect.WithSchema(aiServiceShowWelcomeScreenMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceInterfaceAgentInitHandler := connect.NewUnaryHandler(
+		AiServiceInterfaceAgentInitProcedure,
+		svc.InterfaceAgentInit,
+		connect.WithSchema(aiServiceInterfaceAgentInitMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamInterfaceAgentStatusHandler := connect.NewServerStreamHandler(
+		AiServiceStreamInterfaceAgentStatusProcedure,
+		svc.StreamInterfaceAgentStatus,
+		connect.WithSchema(aiServiceStreamInterfaceAgentStatusMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceTaskGetInterfaceAgentStatusHandler := connect.NewServerStreamHandler(
+		AiServiceTaskGetInterfaceAgentStatusProcedure,
+		svc.TaskGetInterfaceAgentStatus,
+		connect.WithSchema(aiServiceTaskGetInterfaceAgentStatusMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceTaskInitHandler := connect.NewUnaryHandler(
+		AiServiceTaskInitProcedure,
+		svc.TaskInit,
+		connect.WithSchema(aiServiceTaskInitMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceTaskPauseHandler := connect.NewUnaryHandler(
+		AiServiceTaskPauseProcedure,
+		svc.TaskPause,
+		connect.WithSchema(aiServiceTaskPauseMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceTaskInfoHandler := connect.NewUnaryHandler(
+		AiServiceTaskInfoProcedure,
+		svc.TaskInfo,
+		connect.WithSchema(aiServiceTaskInfoMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceTaskStreamLogHandler := connect.NewServerStreamHandler(
+		AiServiceTaskStreamLogProcedure,
+		svc.TaskStreamLog,
+		connect.WithSchema(aiServiceTaskStreamLogMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceTaskSendMessageHandler := connect.NewUnaryHandler(
+		AiServiceTaskSendMessageProcedure,
+		svc.TaskSendMessage,
+		connect.WithSchema(aiServiceTaskSendMessageMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceTaskProvideResultHandler := connect.NewUnaryHandler(
+		AiServiceTaskProvideResultProcedure,
+		svc.TaskProvideResult,
+		connect.WithSchema(aiServiceTaskProvideResultMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceCreateExperimentalIndexHandler := connect.NewUnaryHandler(
+		AiServiceCreateExperimentalIndexProcedure,
+		svc.CreateExperimentalIndex,
+		connect.WithSchema(aiServiceCreateExperimentalIndexMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceListExperimentalIndexFilesHandler := connect.NewUnaryHandler(
+		AiServiceListExperimentalIndexFilesProcedure,
+		svc.ListExperimentalIndexFiles,
+		connect.WithSchema(aiServiceListExperimentalIndexFilesMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceListenExperimentalIndexHandler := connect.NewServerStreamHandler(
+		AiServiceListenExperimentalIndexProcedure,
+		svc.ListenExperimentalIndex,
+		connect.WithSchema(aiServiceListenExperimentalIndexMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceRegisterFileToIndexHandler := connect.NewUnaryHandler(
+		AiServiceRegisterFileToIndexProcedure,
+		svc.RegisterFileToIndex,
+		connect.WithSchema(aiServiceRegisterFileToIndexMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceSetupIndexDependenciesHandler := connect.NewUnaryHandler(
+		AiServiceSetupIndexDependenciesProcedure,
+		svc.SetupIndexDependencies,
+		connect.WithSchema(aiServiceSetupIndexDependenciesMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceComputeIndexTopoSortHandler := connect.NewUnaryHandler(
+		AiServiceComputeIndexTopoSortProcedure,
+		svc.ComputeIndexTopoSort,
+		connect.WithSchema(aiServiceComputeIndexTopoSortMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamChatDeepContextHandler := connect.NewServerStreamHandler(
+		AiServiceStreamChatDeepContextProcedure,
+		svc.StreamChatDeepContext,
+		connect.WithSchema(aiServiceStreamChatDeepContextMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceChooseCodeReferencesHandler := connect.NewUnaryHandler(
+		AiServiceChooseCodeReferencesProcedure,
+		svc.ChooseCodeReferences,
+		connect.WithSchema(aiServiceChooseCodeReferencesMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceRegisterCodeReferencesHandler := connect.NewUnaryHandler(
+		AiServiceRegisterCodeReferencesProcedure,
+		svc.RegisterCodeReferences,
+		connect.WithSchema(aiServiceRegisterCodeReferencesMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceExtractPathsHandler := connect.NewUnaryHandler(
+		AiServiceExtractPathsProcedure,
+		svc.ExtractPaths,
+		connect.WithSchema(aiServiceExtractPathsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceSummarizeWithReferencesHandler := connect.NewUnaryHandler(
+		AiServiceSummarizeWithReferencesProcedure,
+		svc.SummarizeWithReferences,
+		connect.WithSchema(aiServiceSummarizeWithReferencesMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceDocumentationQueryHandler := connect.NewUnaryHandler(
+		AiServiceDocumentationQueryProcedure,
+		svc.DocumentationQuery,
+		connect.WithSchema(aiServiceDocumentationQueryMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceAvailableDocsHandler := connect.NewUnaryHandler(
+		AiServiceAvailableDocsProcedure,
+		svc.AvailableDocs,
+		connect.WithSchema(aiServiceAvailableDocsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceReportFeedbackHandler := connect.NewUnaryHandler(
+		AiServiceReportFeedbackProcedure,
+		svc.ReportFeedback,
+		connect.WithSchema(aiServiceReportFeedbackMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceReportBugHandler := connect.NewUnaryHandler(
+		AiServiceReportBugProcedure,
+		svc.ReportBug,
+		connect.WithSchema(aiServiceReportBugMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamChatContextHandler := connect.NewServerStreamHandler(
+		AiServiceStreamChatContextProcedure,
+		svc.StreamChatContext,
+		connect.WithSchema(aiServiceStreamChatContextMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGenerateTldrHandler := connect.NewUnaryHandler(
+		AiServiceGenerateTldrProcedure,
+		svc.GenerateTldr,
+		connect.WithSchema(aiServiceGenerateTldrMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceTaskStreamChatContextHandler := connect.NewServerStreamHandler(
+		AiServiceTaskStreamChatContextProcedure,
+		svc.TaskStreamChatContext,
+		connect.WithSchema(aiServiceTaskStreamChatContextMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceRerankResultsHandler := connect.NewUnaryHandler(
+		AiServiceRerankResultsProcedure,
+		svc.RerankResults,
+		connect.WithSchema(aiServiceRerankResultsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceModelQueryHandler := connect.NewUnaryHandler(
+		AiServiceModelQueryProcedure,
+		svc.ModelQuery,
+		connect.WithSchema(aiServiceModelQueryMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceModelQueryV2Handler := connect.NewServerStreamHandler(
+		AiServiceModelQueryV2Procedure,
+		svc.ModelQueryV2,
+		connect.WithSchema(aiServiceModelQueryV2MethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceIntentPredictionHandler := connect.NewUnaryHandler(
+		AiServiceIntentPredictionProcedure,
+		svc.IntentPrediction,
+		connect.WithSchema(aiServiceIntentPredictionMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamCursorTutorHandler := connect.NewServerStreamHandler(
+		AiServiceStreamCursorTutorProcedure,
+		svc.StreamCursorTutor,
+		connect.WithSchema(aiServiceStreamCursorTutorMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceCheckFeatureStatusHandler := connect.NewUnaryHandler(
+		AiServiceCheckFeatureStatusProcedure,
+		svc.CheckFeatureStatus,
+		connect.WithSchema(aiServiceCheckFeatureStatusMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGetEffectiveTokenLimitHandler := connect.NewUnaryHandler(
+		AiServiceGetEffectiveTokenLimitProcedure,
+		svc.GetEffectiveTokenLimit,
+		connect.WithSchema(aiServiceGetEffectiveTokenLimitMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGetContextScoresHandler := connect.NewUnaryHandler(
+		AiServiceGetContextScoresProcedure,
+		svc.GetContextScores,
+		connect.WithSchema(aiServiceGetContextScoresMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamCppHandler := connect.NewServerStreamHandler(
+		AiServiceStreamCppProcedure,
+		svc.StreamCpp,
+		connect.WithSchema(aiServiceStreamCppMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceCppConfigHandler := connect.NewUnaryHandler(
+		AiServiceCppConfigProcedure,
+		svc.CppConfig,
+		connect.WithSchema(aiServiceCppConfigMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceCppEditHistoryStatusHandler := connect.NewUnaryHandler(
+		AiServiceCppEditHistoryStatusProcedure,
+		svc.CppEditHistoryStatus,
+		connect.WithSchema(aiServiceCppEditHistoryStatusMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceCppAppendHandler := connect.NewUnaryHandler(
+		AiServiceCppAppendProcedure,
+		svc.CppAppend,
+		connect.WithSchema(aiServiceCppAppendMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceCheckNumberConfigHandler := connect.NewUnaryHandler(
+		AiServiceCheckNumberConfigProcedure,
+		svc.CheckNumberConfig,
+		connect.WithSchema(aiServiceCheckNumberConfigMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamTerminalAutocompleteHandler := connect.NewServerStreamHandler(
+		AiServiceStreamTerminalAutocompleteProcedure,
+		svc.StreamTerminalAutocomplete,
+		connect.WithSchema(aiServiceStreamTerminalAutocompleteMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamPseudocodeGeneratorHandler := connect.NewServerStreamHandler(
+		AiServiceStreamPseudocodeGeneratorProcedure,
+		svc.StreamPseudocodeGenerator,
+		connect.WithSchema(aiServiceStreamPseudocodeGeneratorMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamPseudocodeMapperHandler := connect.NewServerStreamHandler(
+		AiServiceStreamPseudocodeMapperProcedure,
+		svc.StreamPseudocodeMapper,
+		connect.WithSchema(aiServiceStreamPseudocodeMapperMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamAiLintBugHandler := connect.NewServerStreamHandler(
+		AiServiceStreamAiLintBugProcedure,
+		svc.StreamAiLintBug,
+		connect.WithSchema(aiServiceStreamAiLintBugMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamAiCursorHelpHandler := connect.NewServerStreamHandler(
+		AiServiceStreamAiCursorHelpProcedure,
+		svc.StreamAiCursorHelp,
+		connect.WithSchema(aiServiceStreamAiCursorHelpMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceLogUserLintReplyHandler := connect.NewUnaryHandler(
+		AiServiceLogUserLintReplyProcedure,
+		svc.LogUserLintReply,
+		connect.WithSchema(aiServiceLogUserLintReplyMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceLogLinterExplicitUserFeedbackHandler := connect.NewUnaryHandler(
+		AiServiceLogLinterExplicitUserFeedbackProcedure,
+		svc.LogLinterExplicitUserFeedback,
+		connect.WithSchema(aiServiceLogLinterExplicitUserFeedbackMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamFixMarkersHandler := connect.NewServerStreamHandler(
+		AiServiceStreamFixMarkersProcedure,
+		svc.StreamFixMarkers,
+		connect.WithSchema(aiServiceStreamFixMarkersMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceReportInlineActionHandler := connect.NewUnaryHandler(
+		AiServiceReportInlineActionProcedure,
+		svc.ReportInlineAction,
+		connect.WithSchema(aiServiceReportInlineActionMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamPriomptPromptHandler := connect.NewServerStreamHandler(
+		AiServiceStreamPriomptPromptProcedure,
+		svc.StreamPriomptPrompt,
+		connect.WithSchema(aiServiceStreamPriomptPromptMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamLintHandler := connect.NewServerStreamHandler(
+		AiServiceStreamLintProcedure,
+		svc.StreamLint,
+		connect.WithSchema(aiServiceStreamLintMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamNewLintRuleHandler := connect.NewServerStreamHandler(
+		AiServiceStreamNewLintRuleProcedure,
+		svc.StreamNewLintRule,
+		connect.WithSchema(aiServiceStreamNewLintRuleMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceAiProjectHandler := connect.NewServerStreamHandler(
+		AiServiceAiProjectProcedure,
+		svc.AiProject,
+		connect.WithSchema(aiServiceAiProjectMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceToCamelCaseHandler := connect.NewUnaryHandler(
+		AiServiceToCamelCaseProcedure,
+		svc.ToCamelCase,
+		connect.WithSchema(aiServiceToCamelCaseMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceReportGenerationFeedbackHandler := connect.NewUnaryHandler(
+		AiServiceReportGenerationFeedbackProcedure,
+		svc.ReportGenerationFeedback,
+		connect.WithSchema(aiServiceReportGenerationFeedbackMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGetThoughtAnnotationHandler := connect.NewUnaryHandler(
+		AiServiceGetThoughtAnnotationProcedure,
+		svc.GetThoughtAnnotation,
+		connect.WithSchema(aiServiceGetThoughtAnnotationMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamWebCmdKV1Handler := connect.NewServerStreamHandler(
+		AiServiceStreamWebCmdKV1Procedure,
+		svc.StreamWebCmdKV1,
+		connect.WithSchema(aiServiceStreamWebCmdKV1MethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamNextCursorPredictionHandler := connect.NewServerStreamHandler(
+		AiServiceStreamNextCursorPredictionProcedure,
+		svc.StreamNextCursorPrediction,
+		connect.WithSchema(aiServiceStreamNextCursorPredictionMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceIsCursorPredictionEnabledHandler := connect.NewUnaryHandler(
+		AiServiceIsCursorPredictionEnabledProcedure,
+		svc.IsCursorPredictionEnabled,
+		connect.WithSchema(aiServiceIsCursorPredictionEnabledMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGetCppEditClassificationHandler := connect.NewUnaryHandler(
+		AiServiceGetCppEditClassificationProcedure,
+		svc.GetCppEditClassification,
+		connect.WithSchema(aiServiceGetCppEditClassificationMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGetTerminalCompletionHandler := connect.NewUnaryHandler(
+		AiServiceGetTerminalCompletionProcedure,
+		svc.GetTerminalCompletion,
+		connect.WithSchema(aiServiceGetTerminalCompletionMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceTakeNotesOnCommitDiffHandler := connect.NewUnaryHandler(
+		AiServiceTakeNotesOnCommitDiffProcedure,
+		svc.TakeNotesOnCommitDiff,
+		connect.WithSchema(aiServiceTakeNotesOnCommitDiffMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceBulkEmbedHandler := connect.NewUnaryHandler(
+		AiServiceBulkEmbedProcedure,
+		svc.BulkEmbed,
+		connect.WithSchema(aiServiceBulkEmbedMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceContinueChatRequestWithCommitsHandler := connect.NewUnaryHandler(
+		AiServiceContinueChatRequestWithCommitsProcedure,
+		svc.ContinueChatRequestWithCommits,
+		connect.WithSchema(aiServiceContinueChatRequestWithCommitsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceBackgroundCmdKEvalHandler := connect.NewServerStreamHandler(
+		AiServiceBackgroundCmdKEvalProcedure,
+		svc.BackgroundCmdKEval,
+		connect.WithSchema(aiServiceBackgroundCmdKEvalMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceBackgroundCmdKHandler := connect.NewServerStreamHandler(
+		AiServiceBackgroundCmdKProcedure,
+		svc.BackgroundCmdK,
+		connect.WithSchema(aiServiceBackgroundCmdKMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceStreamCursorMotionHandler := connect.NewServerStreamHandler(
+		AiServiceStreamCursorMotionProcedure,
+		svc.StreamCursorMotion,
+		connect.WithSchema(aiServiceStreamCursorMotionMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceCalculateAutoSelectionHandler := connect.NewUnaryHandler(
+		AiServiceCalculateAutoSelectionProcedure,
+		svc.CalculateAutoSelection,
+		connect.WithSchema(aiServiceCalculateAutoSelectionMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGetAtSymbolSuggestionsHandler := connect.NewUnaryHandler(
+		AiServiceGetAtSymbolSuggestionsProcedure,
+		svc.GetAtSymbolSuggestions,
+		connect.WithSchema(aiServiceGetAtSymbolSuggestionsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGetCodebaseQuestionsHandler := connect.NewUnaryHandler(
+		AiServiceGetCodebaseQuestionsProcedure,
+		svc.GetCodebaseQuestions,
+		connect.WithSchema(aiServiceGetCodebaseQuestionsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGetRankedContextFromContextBankHandler := connect.NewUnaryHandler(
+		AiServiceGetRankedContextFromContextBankProcedure,
+		svc.GetRankedContextFromContextBank,
+		connect.WithSchema(aiServiceGetRankedContextFromContextBankMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceCppEditHistoryAppendHandler := connect.NewUnaryHandler(
+		AiServiceCppEditHistoryAppendProcedure,
+		svc.CppEditHistoryAppend,
+		connect.WithSchema(aiServiceCppEditHistoryAppendMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceDevOnlyGetPastRequestIdsHandler := connect.NewUnaryHandler(
+		AiServiceDevOnlyGetPastRequestIdsProcedure,
+		svc.DevOnlyGetPastRequestIds,
+		connect.WithSchema(aiServiceDevOnlyGetPastRequestIdsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceGetFilesForComposerHandler := connect.NewUnaryHandler(
+		AiServiceGetFilesForComposerProcedure,
+		svc.GetFilesForComposer,
+		connect.WithSchema(aiServiceGetFilesForComposerMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceTryParseTypeScriptTreeSitterHandler := connect.NewUnaryHandler(
+		AiServiceTryParseTypeScriptTreeSitterProcedure,
+		svc.TryParseTypeScriptTreeSitter,
+		connect.WithSchema(aiServiceTryParseTypeScriptTreeSitterMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceNameTabHandler := connect.NewUnaryHandler(
+		AiServiceNameTabProcedure,
+		svc.NameTab,
+		connect.WithSchema(aiServiceNameTabMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	aiServiceTestModelStatusHandler := connect.NewUnaryHandler(
+		AiServiceTestModelStatusProcedure,
+		svc.TestModelStatus,
+		connect.WithSchema(aiServiceTestModelStatusMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/aiserver.v1.AiService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
+		case AiServiceHealthCheckProcedure:
+			aiServiceHealthCheckHandler.ServeHTTP(w, r)
+		case AiServiceTimeLeftHealthCheckProcedure:
+			aiServiceTimeLeftHealthCheckHandler.ServeHTTP(w, r)
+		case AiServiceThrowErrorCheckProcedure:
+			aiServiceThrowErrorCheckHandler.ServeHTTP(w, r)
+		case AiServiceAvailableModelsProcedure:
+			aiServiceAvailableModelsHandler.ServeHTTP(w, r)
+		case AiServiceStreamChatTryReallyHardProcedure:
+			aiServiceStreamChatTryReallyHardHandler.ServeHTTP(w, r)
+		case AiServiceRerankDocumentsProcedure:
+			aiServiceRerankDocumentsHandler.ServeHTTP(w, r)
+		case AiServiceStreamComposerProcedure:
+			aiServiceStreamComposerHandler.ServeHTTP(w, r)
+		case AiServiceStreamComposerContextProcedure:
+			aiServiceStreamComposerContextHandler.ServeHTTP(w, r)
+		case AiServiceWarmComposerCacheProcedure:
+			aiServiceWarmComposerCacheHandler.ServeHTTP(w, r)
+		case AiServiceGetChatTitleProcedure:
+			aiServiceGetChatTitleHandler.ServeHTTP(w, r)
+		case AiServiceGetCompletionProcedure:
+			aiServiceGetCompletionHandler.ServeHTTP(w, r)
+		case AiServiceGetSearchProcedure:
+			aiServiceGetSearchHandler.ServeHTTP(w, r)
+		case AiServiceStreamInlineEditsProcedure:
+			aiServiceStreamInlineEditsHandler.ServeHTTP(w, r)
+		case AiServiceSummarizeConversationProcedure:
+			aiServiceSummarizeConversationHandler.ServeHTTP(w, r)
+		case AiServiceIsolatedTreesitterProcedure:
+			aiServiceIsolatedTreesitterHandler.ServeHTTP(w, r)
+		case AiServiceGetSimplePromptProcedure:
+			aiServiceGetSimplePromptHandler.ServeHTTP(w, r)
+		case AiServiceCheckLongFilesFitProcedure:
+			aiServiceCheckLongFilesFitHandler.ServeHTTP(w, r)
+		case AiServiceGetEvaluationPromptProcedure:
+			aiServiceGetEvaluationPromptHandler.ServeHTTP(w, r)
+		case AiServiceGetUserInfoProcedure:
+			aiServiceGetUserInfoHandler.ServeHTTP(w, r)
+		case AiServiceClearAndRedoEntireBucketProcedure:
+			aiServiceClearAndRedoEntireBucketHandler.ServeHTTP(w, r)
+		case AiServiceStreamBranchGeminiProcedure:
+			aiServiceStreamBranchGeminiHandler.ServeHTTP(w, r)
+		case AiServiceStreamBranchFileSelectionsProcedure:
+			aiServiceStreamBranchFileSelectionsHandler.ServeHTTP(w, r)
+		case AiServiceStreamBackgroundEditProcedure:
+			aiServiceStreamBackgroundEditHandler.ServeHTTP(w, r)
+		case AiServiceStreamGPTFourEditProcedure:
+			aiServiceStreamGPTFourEditHandler.ServeHTTP(w, r)
 		case AiServiceStreamChatProcedure:
 			aiServiceStreamChatHandler.ServeHTTP(w, r)
+		case AiServiceStreamChatWebProcedure:
+			aiServiceStreamChatWebHandler.ServeHTTP(w, r)
+		case AiServiceStreamEditProcedure:
+			aiServiceStreamEditHandler.ServeHTTP(w, r)
+		case AiServicePreloadEditProcedure:
+			aiServicePreloadEditHandler.ServeHTTP(w, r)
+		case AiServiceStreamFastEditProcedure:
+			aiServiceStreamFastEditHandler.ServeHTTP(w, r)
+		case AiServiceStreamGenerateProcedure:
+			aiServiceStreamGenerateHandler.ServeHTTP(w, r)
+		case AiServiceStreamInlineLongCompletionProcedure:
+			aiServiceStreamInlineLongCompletionHandler.ServeHTTP(w, r)
+		case AiServiceSlashEditProcedure:
+			aiServiceSlashEditHandler.ServeHTTP(w, r)
+		case AiServiceSlashEditFollowUpWithPreviousEditsProcedure:
+			aiServiceSlashEditFollowUpWithPreviousEditsHandler.ServeHTTP(w, r)
+		case AiServiceStreamAiPreviewsProcedure:
+			aiServiceStreamAiPreviewsHandler.ServeHTTP(w, r)
+		case AiServiceShouldTurnOnCppOnboardingProcedure:
+			aiServiceShouldTurnOnCppOnboardingHandler.ServeHTTP(w, r)
+		case AiServiceStreamReviewProcedure:
+			aiServiceStreamReviewHandler.ServeHTTP(w, r)
+		case AiServiceStreamReviewChatProcedure:
+			aiServiceStreamReviewChatHandler.ServeHTTP(w, r)
+		case AiServiceCheckQueuePositionProcedure:
+			aiServiceCheckQueuePositionHandler.ServeHTTP(w, r)
+		case AiServiceCheckUsageBasedPriceProcedure:
+			aiServiceCheckUsageBasedPriceHandler.ServeHTTP(w, r)
+		case AiServiceDoThisForMeCheckProcedure:
+			aiServiceDoThisForMeCheckHandler.ServeHTTP(w, r)
+		case AiServiceStreamDoThisForMeProcedure:
+			aiServiceStreamDoThisForMeHandler.ServeHTTP(w, r)
+		case AiServiceStreamChatToolformerProcedure:
+			aiServiceStreamChatToolformerHandler.ServeHTTP(w, r)
+		case AiServiceStreamChatToolformerContinueProcedure:
+			aiServiceStreamChatToolformerContinueHandler.ServeHTTP(w, r)
+		case AiServicePushAiThoughtProcedure:
+			aiServicePushAiThoughtHandler.ServeHTTP(w, r)
+		case AiServiceCheckDoableAsTaskProcedure:
+			aiServiceCheckDoableAsTaskHandler.ServeHTTP(w, r)
+		case AiServiceReportGroundTruthCandidateProcedure:
+			aiServiceReportGroundTruthCandidateHandler.ServeHTTP(w, r)
+		case AiServiceReportCmdKFateProcedure:
+			aiServiceReportCmdKFateHandler.ServeHTTP(w, r)
+		case AiServiceShowWelcomeScreenProcedure:
+			aiServiceShowWelcomeScreenHandler.ServeHTTP(w, r)
+		case AiServiceInterfaceAgentInitProcedure:
+			aiServiceInterfaceAgentInitHandler.ServeHTTP(w, r)
+		case AiServiceStreamInterfaceAgentStatusProcedure:
+			aiServiceStreamInterfaceAgentStatusHandler.ServeHTTP(w, r)
+		case AiServiceTaskGetInterfaceAgentStatusProcedure:
+			aiServiceTaskGetInterfaceAgentStatusHandler.ServeHTTP(w, r)
+		case AiServiceTaskInitProcedure:
+			aiServiceTaskInitHandler.ServeHTTP(w, r)
+		case AiServiceTaskPauseProcedure:
+			aiServiceTaskPauseHandler.ServeHTTP(w, r)
+		case AiServiceTaskInfoProcedure:
+			aiServiceTaskInfoHandler.ServeHTTP(w, r)
+		case AiServiceTaskStreamLogProcedure:
+			aiServiceTaskStreamLogHandler.ServeHTTP(w, r)
+		case AiServiceTaskSendMessageProcedure:
+			aiServiceTaskSendMessageHandler.ServeHTTP(w, r)
+		case AiServiceTaskProvideResultProcedure:
+			aiServiceTaskProvideResultHandler.ServeHTTP(w, r)
+		case AiServiceCreateExperimentalIndexProcedure:
+			aiServiceCreateExperimentalIndexHandler.ServeHTTP(w, r)
+		case AiServiceListExperimentalIndexFilesProcedure:
+			aiServiceListExperimentalIndexFilesHandler.ServeHTTP(w, r)
+		case AiServiceListenExperimentalIndexProcedure:
+			aiServiceListenExperimentalIndexHandler.ServeHTTP(w, r)
+		case AiServiceRegisterFileToIndexProcedure:
+			aiServiceRegisterFileToIndexHandler.ServeHTTP(w, r)
+		case AiServiceSetupIndexDependenciesProcedure:
+			aiServiceSetupIndexDependenciesHandler.ServeHTTP(w, r)
+		case AiServiceComputeIndexTopoSortProcedure:
+			aiServiceComputeIndexTopoSortHandler.ServeHTTP(w, r)
+		case AiServiceStreamChatDeepContextProcedure:
+			aiServiceStreamChatDeepContextHandler.ServeHTTP(w, r)
+		case AiServiceChooseCodeReferencesProcedure:
+			aiServiceChooseCodeReferencesHandler.ServeHTTP(w, r)
+		case AiServiceRegisterCodeReferencesProcedure:
+			aiServiceRegisterCodeReferencesHandler.ServeHTTP(w, r)
+		case AiServiceExtractPathsProcedure:
+			aiServiceExtractPathsHandler.ServeHTTP(w, r)
+		case AiServiceSummarizeWithReferencesProcedure:
+			aiServiceSummarizeWithReferencesHandler.ServeHTTP(w, r)
+		case AiServiceDocumentationQueryProcedure:
+			aiServiceDocumentationQueryHandler.ServeHTTP(w, r)
+		case AiServiceAvailableDocsProcedure:
+			aiServiceAvailableDocsHandler.ServeHTTP(w, r)
+		case AiServiceReportFeedbackProcedure:
+			aiServiceReportFeedbackHandler.ServeHTTP(w, r)
+		case AiServiceReportBugProcedure:
+			aiServiceReportBugHandler.ServeHTTP(w, r)
+		case AiServiceStreamChatContextProcedure:
+			aiServiceStreamChatContextHandler.ServeHTTP(w, r)
+		case AiServiceGenerateTldrProcedure:
+			aiServiceGenerateTldrHandler.ServeHTTP(w, r)
+		case AiServiceTaskStreamChatContextProcedure:
+			aiServiceTaskStreamChatContextHandler.ServeHTTP(w, r)
+		case AiServiceRerankResultsProcedure:
+			aiServiceRerankResultsHandler.ServeHTTP(w, r)
+		case AiServiceModelQueryProcedure:
+			aiServiceModelQueryHandler.ServeHTTP(w, r)
+		case AiServiceModelQueryV2Procedure:
+			aiServiceModelQueryV2Handler.ServeHTTP(w, r)
+		case AiServiceIntentPredictionProcedure:
+			aiServiceIntentPredictionHandler.ServeHTTP(w, r)
+		case AiServiceStreamCursorTutorProcedure:
+			aiServiceStreamCursorTutorHandler.ServeHTTP(w, r)
+		case AiServiceCheckFeatureStatusProcedure:
+			aiServiceCheckFeatureStatusHandler.ServeHTTP(w, r)
+		case AiServiceGetEffectiveTokenLimitProcedure:
+			aiServiceGetEffectiveTokenLimitHandler.ServeHTTP(w, r)
+		case AiServiceGetContextScoresProcedure:
+			aiServiceGetContextScoresHandler.ServeHTTP(w, r)
+		case AiServiceStreamCppProcedure:
+			aiServiceStreamCppHandler.ServeHTTP(w, r)
+		case AiServiceCppConfigProcedure:
+			aiServiceCppConfigHandler.ServeHTTP(w, r)
+		case AiServiceCppEditHistoryStatusProcedure:
+			aiServiceCppEditHistoryStatusHandler.ServeHTTP(w, r)
+		case AiServiceCppAppendProcedure:
+			aiServiceCppAppendHandler.ServeHTTP(w, r)
+		case AiServiceCheckNumberConfigProcedure:
+			aiServiceCheckNumberConfigHandler.ServeHTTP(w, r)
+		case AiServiceStreamTerminalAutocompleteProcedure:
+			aiServiceStreamTerminalAutocompleteHandler.ServeHTTP(w, r)
+		case AiServiceStreamPseudocodeGeneratorProcedure:
+			aiServiceStreamPseudocodeGeneratorHandler.ServeHTTP(w, r)
+		case AiServiceStreamPseudocodeMapperProcedure:
+			aiServiceStreamPseudocodeMapperHandler.ServeHTTP(w, r)
+		case AiServiceStreamAiLintBugProcedure:
+			aiServiceStreamAiLintBugHandler.ServeHTTP(w, r)
+		case AiServiceStreamAiCursorHelpProcedure:
+			aiServiceStreamAiCursorHelpHandler.ServeHTTP(w, r)
+		case AiServiceLogUserLintReplyProcedure:
+			aiServiceLogUserLintReplyHandler.ServeHTTP(w, r)
+		case AiServiceLogLinterExplicitUserFeedbackProcedure:
+			aiServiceLogLinterExplicitUserFeedbackHandler.ServeHTTP(w, r)
+		case AiServiceStreamFixMarkersProcedure:
+			aiServiceStreamFixMarkersHandler.ServeHTTP(w, r)
+		case AiServiceReportInlineActionProcedure:
+			aiServiceReportInlineActionHandler.ServeHTTP(w, r)
+		case AiServiceStreamPriomptPromptProcedure:
+			aiServiceStreamPriomptPromptHandler.ServeHTTP(w, r)
+		case AiServiceStreamLintProcedure:
+			aiServiceStreamLintHandler.ServeHTTP(w, r)
+		case AiServiceStreamNewLintRuleProcedure:
+			aiServiceStreamNewLintRuleHandler.ServeHTTP(w, r)
+		case AiServiceAiProjectProcedure:
+			aiServiceAiProjectHandler.ServeHTTP(w, r)
+		case AiServiceToCamelCaseProcedure:
+			aiServiceToCamelCaseHandler.ServeHTTP(w, r)
+		case AiServiceReportGenerationFeedbackProcedure:
+			aiServiceReportGenerationFeedbackHandler.ServeHTTP(w, r)
+		case AiServiceGetThoughtAnnotationProcedure:
+			aiServiceGetThoughtAnnotationHandler.ServeHTTP(w, r)
+		case AiServiceStreamWebCmdKV1Procedure:
+			aiServiceStreamWebCmdKV1Handler.ServeHTTP(w, r)
+		case AiServiceStreamNextCursorPredictionProcedure:
+			aiServiceStreamNextCursorPredictionHandler.ServeHTTP(w, r)
+		case AiServiceIsCursorPredictionEnabledProcedure:
+			aiServiceIsCursorPredictionEnabledHandler.ServeHTTP(w, r)
+		case AiServiceGetCppEditClassificationProcedure:
+			aiServiceGetCppEditClassificationHandler.ServeHTTP(w, r)
+		case AiServiceGetTerminalCompletionProcedure:
+			aiServiceGetTerminalCompletionHandler.ServeHTTP(w, r)
+		case AiServiceTakeNotesOnCommitDiffProcedure:
+			aiServiceTakeNotesOnCommitDiffHandler.ServeHTTP(w, r)
+		case AiServiceBulkEmbedProcedure:
+			aiServiceBulkEmbedHandler.ServeHTTP(w, r)
+		case AiServiceContinueChatRequestWithCommitsProcedure:
+			aiServiceContinueChatRequestWithCommitsHandler.ServeHTTP(w, r)
+		case AiServiceBackgroundCmdKEvalProcedure:
+			aiServiceBackgroundCmdKEvalHandler.ServeHTTP(w, r)
+		case AiServiceBackgroundCmdKProcedure:
+			aiServiceBackgroundCmdKHandler.ServeHTTP(w, r)
+		case AiServiceStreamCursorMotionProcedure:
+			aiServiceStreamCursorMotionHandler.ServeHTTP(w, r)
+		case AiServiceCalculateAutoSelectionProcedure:
+			aiServiceCalculateAutoSelectionHandler.ServeHTTP(w, r)
+		case AiServiceGetAtSymbolSuggestionsProcedure:
+			aiServiceGetAtSymbolSuggestionsHandler.ServeHTTP(w, r)
+		case AiServiceGetCodebaseQuestionsProcedure:
+			aiServiceGetCodebaseQuestionsHandler.ServeHTTP(w, r)
+		case AiServiceGetRankedContextFromContextBankProcedure:
+			aiServiceGetRankedContextFromContextBankHandler.ServeHTTP(w, r)
+		case AiServiceCppEditHistoryAppendProcedure:
+			aiServiceCppEditHistoryAppendHandler.ServeHTTP(w, r)
+		case AiServiceDevOnlyGetPastRequestIdsProcedure:
+			aiServiceDevOnlyGetPastRequestIdsHandler.ServeHTTP(w, r)
+		case AiServiceGetFilesForComposerProcedure:
+			aiServiceGetFilesForComposerHandler.ServeHTTP(w, r)
+		case AiServiceTryParseTypeScriptTreeSitterProcedure:
+			aiServiceTryParseTypeScriptTreeSitterHandler.ServeHTTP(w, r)
+		case AiServiceNameTabProcedure:
+			aiServiceNameTabHandler.ServeHTTP(w, r)
+		case AiServiceTestModelStatusProcedure:
+			aiServiceTestModelStatusHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -107,6 +3413,1247 @@ func NewAiServiceHandler(svc AiServiceHandler, opts ...connect.HandlerOption) (s
 // UnimplementedAiServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedAiServiceHandler struct{}
 
+func (UnimplementedAiServiceHandler) HealthCheck(context.Context, *connect.Request[v1.HealthCheckRequest]) (*connect.Response[v1.HealthCheckResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.HealthCheck is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) TimeLeftHealthCheck(context.Context, *connect.Request[v1.HealthCheckRequest]) (*connect.Response[v1.TimeLeftHealthCheckResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.TimeLeftHealthCheck is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ThrowErrorCheck(context.Context, *connect.Request[v1.ThrowErrorCheckRequest]) (*connect.Response[v1.ThrowErrorCheckResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ThrowErrorCheck is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) AvailableModels(context.Context, *connect.Request[v1.AvailableModelsRequest]) (*connect.Response[v1.AvailableModelsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.AvailableModels is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamChatTryReallyHard(context.Context, *connect.Request[v1.GetChatRequest], *connect.ServerStream[v1.StreamChatResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamChatTryReallyHard is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) RerankDocuments(context.Context, *connect.Request[v1.RerankDocumentsRequest]) (*connect.Response[v1.RerankDocumentsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.RerankDocuments is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamComposer(context.Context, *connect.Request[v1.GetComposerChatRequest], *connect.ServerStream[v1.StreamChatResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamComposer is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamComposerContext(context.Context, *connect.Request[v1.StreamChatContextRequest], *connect.ServerStream[v1.StreamChatContextResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamComposerContext is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) WarmComposerCache(context.Context, *connect.Request[v1.GetComposerChatRequest]) (*connect.Response[v1.WarmComposerCacheResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.WarmComposerCache is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GetChatTitle(context.Context, *connect.Request[v1.GetChatTitleRequest]) (*connect.Response[v1.GetChatTitleResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GetChatTitle is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GetCompletion(context.Context, *connect.Request[v1.GetCompletionRequest]) (*connect.Response[v1.GetCompletionResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GetCompletion is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GetSearch(context.Context, *connect.Request[v1.GetSearchRequest]) (*connect.Response[v1.GetSearchResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GetSearch is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamInlineEdits(context.Context, *connect.Request[v1.StreamInlineEditsRequest], *connect.ServerStream[v1.StreamInlineEditsResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamInlineEdits is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) SummarizeConversation(context.Context, *connect.Request[v1.GetChatRequest]) (*connect.Response[v1.SummarizeConversationResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.SummarizeConversation is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) IsolatedTreesitter(context.Context, *connect.Request[v1.IsolatedTreesitterRequest]) (*connect.Response[v1.IsolatedTreesitterResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.IsolatedTreesitter is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GetSimplePrompt(context.Context, *connect.Request[v1.GetSimplePromptRequest]) (*connect.Response[v1.GetSimplePromptResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GetSimplePrompt is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) CheckLongFilesFit(context.Context, *connect.Request[v1.GetChatRequest]) (*connect.Response[v1.CheckLongFilesFitResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.CheckLongFilesFit is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GetEvaluationPrompt(context.Context, *connect.Request[v1.GetEvaluationPromptRequest]) (*connect.Response[v1.GetEvaluationPromptResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GetEvaluationPrompt is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GetUserInfo(context.Context, *connect.Request[v1.GetUserInfoRequest]) (*connect.Response[v1.GetUserInfoResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GetUserInfo is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ClearAndRedoEntireBucket(context.Context, *connect.Request[v1.ClearAndRedoEntireBucketRequest]) (*connect.Response[v1.ClearAndRedoEntireBucketResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ClearAndRedoEntireBucket is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamBranchGemini(context.Context, *connect.Request[v1.StreamBranchGeminiRequest], *connect.ServerStream[v1.StreamBranchGeminiResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamBranchGemini is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamBranchFileSelections(context.Context, *connect.Request[v1.StreamBranchFileSelectionsRequest], *connect.ServerStream[v1.StreamBranchFileSelectionsResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamBranchFileSelections is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamBackgroundEdit(context.Context, *connect.Request[v1.StreamBackgroundEditRequest], *connect.ServerStream[v1.StreamChatResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamBackgroundEdit is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamGPTFourEdit(context.Context, *connect.Request[v1.StreamGPTFourEditRequest], *connect.ServerStream[v1.StreamChatResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamGPTFourEdit is not implemented"))
+}
+
 func (UnimplementedAiServiceHandler) StreamChat(context.Context, *connect.Request[v1.GetChatRequest], *connect.ServerStream[v1.StreamChatResponse]) error {
 	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamChat is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamChatWeb(context.Context, *connect.Request[v1.GetChatRequest], *connect.ServerStream[v1.StreamChatResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamChatWeb is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamEdit(context.Context, *connect.Request[v1.StreamEditRequest], *connect.ServerStream[v1.StreamChatResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamEdit is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) PreloadEdit(context.Context, *connect.Request[v1.PreloadEditRequest]) (*connect.Response[v1.PreloadEditResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.PreloadEdit is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamFastEdit(context.Context, *connect.Request[v1.StreamFastEditRequest], *connect.ServerStream[v1.StreamFastEditResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamFastEdit is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamGenerate(context.Context, *connect.Request[v1.StreamGenerateRequest], *connect.ServerStream[v1.StreamChatResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamGenerate is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamInlineLongCompletion(context.Context, *connect.Request[v1.StreamInlineLongCompletionRequest], *connect.ServerStream[v1.StreamChatResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamInlineLongCompletion is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) SlashEdit(context.Context, *connect.Request[v1.SlashEditRequest], *connect.ServerStream[v1.SlashEditResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.SlashEdit is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) SlashEditFollowUpWithPreviousEdits(context.Context, *connect.Request[v1.SlashEditFollowUpWithPreviousEditsRequest], *connect.ServerStream[v1.StreamSlashEditFollowUpWithPreviousEditsResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.SlashEditFollowUpWithPreviousEdits is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamAiPreviews(context.Context, *connect.Request[v1.StreamAiPreviewsRequest], *connect.ServerStream[v1.StreamAiPreviewsResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamAiPreviews is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ShouldTurnOnCppOnboarding(context.Context, *connect.Request[v1.ShouldTurnOnCppOnboardingRequest]) (*connect.Response[v1.ShouldTurnOnCppOnboardingResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ShouldTurnOnCppOnboarding is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamReview(context.Context, *connect.Request[v1.ReviewRequest], *connect.ServerStream[v1.ReviewResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamReview is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamReviewChat(context.Context, *connect.Request[v1.ReviewChatRequest], *connect.ServerStream[v1.ReviewChatResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamReviewChat is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) CheckQueuePosition(context.Context, *connect.Request[v1.CheckQueuePositionRequest]) (*connect.Response[v1.CheckQueuePositionResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.CheckQueuePosition is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) CheckUsageBasedPrice(context.Context, *connect.Request[v1.CheckUsageBasedPriceRequest]) (*connect.Response[v1.CheckUsageBasedPriceResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.CheckUsageBasedPrice is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) DoThisForMeCheck(context.Context, *connect.Request[v1.DoThisForMeCheckRequest]) (*connect.Response[v1.DoThisForMeCheckResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.DoThisForMeCheck is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamDoThisForMe(context.Context, *connect.Request[v1.DoThisForMeRequest], *connect.ServerStream[v1.DoThisForMeResponseWrapped]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamDoThisForMe is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamChatToolformer(context.Context, *connect.Request[v1.GetChatRequest], *connect.ServerStream[v1.StreamChatToolformerResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamChatToolformer is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamChatToolformerContinue(context.Context, *connect.Request[v1.StreamChatToolformerContinueRequest], *connect.ServerStream[v1.StreamChatToolformerResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamChatToolformerContinue is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) PushAiThought(context.Context, *connect.Request[v1.PushAiThoughtRequest]) (*connect.Response[v1.PushAiThoughtResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.PushAiThought is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) CheckDoableAsTask(context.Context, *connect.Request[v1.CheckDoableAsTaskRequest]) (*connect.Response[v1.CheckDoableAsTaskResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.CheckDoableAsTask is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ReportGroundTruthCandidate(context.Context, *connect.Request[v1.ReportGroundTruthCandidateRequest]) (*connect.Response[v1.ReportGroundTruthCandidateResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ReportGroundTruthCandidate is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ReportCmdKFate(context.Context, *connect.Request[v1.ReportCmdKFateRequest]) (*connect.Response[v1.ReportCmdKFateResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ReportCmdKFate is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ShowWelcomeScreen(context.Context, *connect.Request[v1.ShowWelcomeScreenRequest]) (*connect.Response[v1.ShowWelcomeScreenResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ShowWelcomeScreen is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) InterfaceAgentInit(context.Context, *connect.Request[v1.InterfaceAgentInitRequest]) (*connect.Response[v1.InterfaceAgentInitResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.InterfaceAgentInit is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamInterfaceAgentStatus(context.Context, *connect.Request[v1.StreamInterfaceAgentStatusRequest], *connect.ServerStream[v1.StreamInterfaceAgentStatusResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamInterfaceAgentStatus is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) TaskGetInterfaceAgentStatus(context.Context, *connect.Request[v1.TaskGetInterfaceAgentStatusRequest], *connect.ServerStream[v1.TaskGetInterfaceAgentStatusResponseWrapped]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.TaskGetInterfaceAgentStatus is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) TaskInit(context.Context, *connect.Request[v1.TaskInitRequest]) (*connect.Response[v1.TaskInitResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.TaskInit is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) TaskPause(context.Context, *connect.Request[v1.TaskPauseRequest]) (*connect.Response[v1.TaskPauseResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.TaskPause is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) TaskInfo(context.Context, *connect.Request[v1.TaskInfoRequest]) (*connect.Response[v1.TaskInfoResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.TaskInfo is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) TaskStreamLog(context.Context, *connect.Request[v1.TaskStreamLogRequest], *connect.ServerStream[v1.TaskStreamLogResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.TaskStreamLog is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) TaskSendMessage(context.Context, *connect.Request[v1.TaskSendMessageRequest]) (*connect.Response[v1.TaskSendMessageResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.TaskSendMessage is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) TaskProvideResult(context.Context, *connect.Request[v1.TaskProvideResultRequest]) (*connect.Response[v1.TaskProvideResultResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.TaskProvideResult is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) CreateExperimentalIndex(context.Context, *connect.Request[v1.CreateExperimentalIndexRequest]) (*connect.Response[v1.CreateExperimentalIndexResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.CreateExperimentalIndex is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ListExperimentalIndexFiles(context.Context, *connect.Request[v1.ListExperimentalIndexFilesRequest]) (*connect.Response[v1.ListExperimentalIndexFilesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ListExperimentalIndexFiles is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ListenExperimentalIndex(context.Context, *connect.Request[v1.ListenExperimentalIndexRequest], *connect.ServerStream[v1.ListenExperimentalIndexResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ListenExperimentalIndex is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) RegisterFileToIndex(context.Context, *connect.Request[v1.RegisterFileToIndexRequest]) (*connect.Response[v1.RequestReceivedResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.RegisterFileToIndex is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) SetupIndexDependencies(context.Context, *connect.Request[v1.SetupIndexDependenciesRequest]) (*connect.Response[v1.SetupIndexDependenciesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.SetupIndexDependencies is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ComputeIndexTopoSort(context.Context, *connect.Request[v1.ComputeIndexTopoSortRequest]) (*connect.Response[v1.ComputeIndexTopoSortResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ComputeIndexTopoSort is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamChatDeepContext(context.Context, *connect.Request[v1.StreamChatDeepContextRequest], *connect.ServerStream[v1.StreamChatDeepContextResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamChatDeepContext is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ChooseCodeReferences(context.Context, *connect.Request[v1.ChooseCodeReferencesRequest]) (*connect.Response[v1.RequestReceivedResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ChooseCodeReferences is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) RegisterCodeReferences(context.Context, *connect.Request[v1.RegisterCodeReferencesRequest]) (*connect.Response[v1.RegisterCodeReferencesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.RegisterCodeReferences is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ExtractPaths(context.Context, *connect.Request[v1.ExtractPathsRequest]) (*connect.Response[v1.ExtractPathsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ExtractPaths is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) SummarizeWithReferences(context.Context, *connect.Request[v1.SummarizeWithReferencesRequest]) (*connect.Response[v1.RequestReceivedResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.SummarizeWithReferences is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) DocumentationQuery(context.Context, *connect.Request[v1.DocumentationQueryRequest]) (*connect.Response[v1.DocumentationQueryResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.DocumentationQuery is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) AvailableDocs(context.Context, *connect.Request[v1.AvailableDocsRequest]) (*connect.Response[v1.AvailableDocsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.AvailableDocs is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ReportFeedback(context.Context, *connect.Request[v1.ReportFeedbackRequest]) (*connect.Response[v1.ReportFeedbackResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ReportFeedback is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ReportBug(context.Context, *connect.Request[v1.ReportBugRequest]) (*connect.Response[v1.ReportBugResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ReportBug is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamChatContext(context.Context, *connect.Request[v1.StreamChatContextRequest], *connect.ServerStream[v1.StreamChatContextResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamChatContext is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GenerateTldr(context.Context, *connect.Request[v1.GenerateTldrRequest]) (*connect.Response[v1.GenerateTldrResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GenerateTldr is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) TaskStreamChatContext(context.Context, *connect.Request[v1.TaskStreamChatContextRequest], *connect.ServerStream[v1.TaskStreamChatContextResponseWrapped]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.TaskStreamChatContext is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) RerankResults(context.Context, *connect.Request[v1.RerankerRequest]) (*connect.Response[v1.RerankerResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.RerankResults is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ModelQuery(context.Context, *connect.Request[v1.ModelQueryRequest]) (*connect.Response[v1.ModelQueryResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ModelQuery is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ModelQueryV2(context.Context, *connect.Request[v1.ModelQueryRequest], *connect.ServerStream[v1.ModelQueryResponseV2]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ModelQueryV2 is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) IntentPrediction(context.Context, *connect.Request[v1.IntentPredictionRequest]) (*connect.Response[v1.IntentPredictionResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.IntentPrediction is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamCursorTutor(context.Context, *connect.Request[v1.StreamCursorTutorRequest], *connect.ServerStream[v1.StreamCursorTutorResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamCursorTutor is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) CheckFeatureStatus(context.Context, *connect.Request[v1.CheckFeatureStatusRequest]) (*connect.Response[v1.CheckFeatureStatusResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.CheckFeatureStatus is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GetEffectiveTokenLimit(context.Context, *connect.Request[v1.GetEffectiveTokenLimitRequest]) (*connect.Response[v1.GetEffectiveTokenLimitResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GetEffectiveTokenLimit is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GetContextScores(context.Context, *connect.Request[v1.ContextScoresRequest]) (*connect.Response[v1.ContextScoresResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GetContextScores is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamCpp(context.Context, *connect.Request[v1.StreamCppRequest], *connect.ServerStream[v1.StreamCppResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamCpp is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) CppConfig(context.Context, *connect.Request[v1.CppConfigRequest]) (*connect.Response[v1.CppConfigResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.CppConfig is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) CppEditHistoryStatus(context.Context, *connect.Request[v1.CppEditHistoryStatusRequest]) (*connect.Response[v1.CppEditHistoryStatusResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.CppEditHistoryStatus is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) CppAppend(context.Context, *connect.Request[v1.CppAppendRequest]) (*connect.Response[v1.CppAppendResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.CppAppend is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) CheckNumberConfig(context.Context, *connect.Request[v1.CheckNumberConfigRequest]) (*connect.Response[v1.CheckNumberConfigResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.CheckNumberConfig is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamTerminalAutocomplete(context.Context, *connect.Request[v1.StreamTerminalAutocompleteRequest], *connect.ServerStream[v1.StreamTerminalAutocompleteResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamTerminalAutocomplete is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamPseudocodeGenerator(context.Context, *connect.Request[v1.StreamPseudocodeGeneratorRequest], *connect.ServerStream[v1.StreamPseudocodeGeneratorResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamPseudocodeGenerator is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamPseudocodeMapper(context.Context, *connect.Request[v1.StreamPseudocodeMapperRequest], *connect.ServerStream[v1.StreamPseudocodeMapperResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamPseudocodeMapper is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamAiLintBug(context.Context, *connect.Request[v1.StreamAiLintBugRequest], *connect.ServerStream[v1.StreamAiLintBugResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamAiLintBug is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamAiCursorHelp(context.Context, *connect.Request[v1.StreamAiCursorHelpRequest], *connect.ServerStream[v1.StreamAiCursorHelpResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamAiCursorHelp is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) LogUserLintReply(context.Context, *connect.Request[v1.LogUserLintReplyRequest]) (*connect.Response[v1.LogUserLintReplyResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.LogUserLintReply is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) LogLinterExplicitUserFeedback(context.Context, *connect.Request[v1.LogLinterExplicitUserFeedbackRequest]) (*connect.Response[v1.LogLinterExplicitUserFeedbackResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.LogLinterExplicitUserFeedback is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamFixMarkers(context.Context, *connect.Request[v1.FixMarkersRequest], *connect.ServerStream[v1.FixMarkersResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamFixMarkers is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ReportInlineAction(context.Context, *connect.Request[v1.ReportInlineActionRequest]) (*connect.Response[v1.ReportInlineActionResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ReportInlineAction is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamPriomptPrompt(context.Context, *connect.Request[v1.StreamPriomptPromptRequest], *connect.ServerStream[v1.StreamPriomptPromptResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamPriomptPrompt is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamLint(context.Context, *connect.Request[v1.StreamLintRequest], *connect.ServerStream[v1.StreamChatResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamLint is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamNewLintRule(context.Context, *connect.Request[v1.StreamNewRuleRequest], *connect.ServerStream[v1.StreamChatResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamNewLintRule is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) AiProject(context.Context, *connect.Request[v1.AiProjectRequest], *connect.ServerStream[v1.AiProjectResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.AiProject is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ToCamelCase(context.Context, *connect.Request[v1.ToCamelCaseRequest]) (*connect.Response[v1.ToCamelCaseResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ToCamelCase is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ReportGenerationFeedback(context.Context, *connect.Request[v1.ReportGenerationFeedbackRequest]) (*connect.Response[v1.ReportGenerationFeedbackResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ReportGenerationFeedback is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GetThoughtAnnotation(context.Context, *connect.Request[v1.GetThoughtAnnotationRequest]) (*connect.Response[v1.GetThoughtAnnotationResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GetThoughtAnnotation is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamWebCmdKV1(context.Context, *connect.Request[v1.StreamWebCmdKV1Request], *connect.ServerStream[v1.StreamWebCmdKV1Response]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamWebCmdKV1 is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamNextCursorPrediction(context.Context, *connect.Request[v1.StreamNextCursorPredictionRequest], *connect.ServerStream[v1.StreamNextCursorPredictionResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamNextCursorPrediction is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) IsCursorPredictionEnabled(context.Context, *connect.Request[v1.IsCursorPredictionEnabledRequest]) (*connect.Response[v1.IsCursorPredictionEnabledResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.IsCursorPredictionEnabled is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GetCppEditClassification(context.Context, *connect.Request[v1.GetCppEditClassificationRequest]) (*connect.Response[v1.GetCppEditClassificationResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GetCppEditClassification is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GetTerminalCompletion(context.Context, *connect.Request[v1.GetTerminalCompletionRequest]) (*connect.Response[v1.GetTerminalCompletionResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GetTerminalCompletion is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) TakeNotesOnCommitDiff(context.Context, *connect.Request[v1.TakeNotesOnCommitDiffRequest]) (*connect.Response[v1.TakeNotesOnCommitDiffResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.TakeNotesOnCommitDiff is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) BulkEmbed(context.Context, *connect.Request[v1.BulkEmbedRequest]) (*connect.Response[v1.BulkEmbedResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.BulkEmbed is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) ContinueChatRequestWithCommits(context.Context, *connect.Request[v1.ContinueChatRequestWithCommitsRequest]) (*connect.Response[v1.EmptyResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.ContinueChatRequestWithCommits is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) BackgroundCmdKEval(context.Context, *connect.Request[v1.BackgroundCmdKEvalRequest], *connect.ServerStream[v1.BackgroundCmdKEvalResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.BackgroundCmdKEval is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) BackgroundCmdK(context.Context, *connect.Request[v1.BackgroundCmdKRequest], *connect.ServerStream[v1.BackgroundCmdKResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.BackgroundCmdK is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) StreamCursorMotion(context.Context, *connect.Request[v1.StreamCursorMotionRequest], *connect.ServerStream[v1.StreamCursorMotionResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.StreamCursorMotion is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) CalculateAutoSelection(context.Context, *connect.Request[v1.CalculateAutoSelectionRequest]) (*connect.Response[v1.CalculateAutoSelectionResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.CalculateAutoSelection is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GetAtSymbolSuggestions(context.Context, *connect.Request[v1.GetAtSymbolSuggestionsRequest]) (*connect.Response[v1.GetAtSymbolSuggestionsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GetAtSymbolSuggestions is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GetCodebaseQuestions(context.Context, *connect.Request[v1.GetChatRequest]) (*connect.Response[v1.GetCodebaseQuestionsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GetCodebaseQuestions is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GetRankedContextFromContextBank(context.Context, *connect.Request[v1.GetRankedContextFromContextBankRequest]) (*connect.Response[v1.GetRankedContextFromContextBankResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GetRankedContextFromContextBank is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) CppEditHistoryAppend(context.Context, *connect.Request[v1.EditHistoryAppendChangesRequest]) (*connect.Response[v1.EditHistoryAppendChangesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.CppEditHistoryAppend is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) DevOnlyGetPastRequestIds(context.Context, *connect.Request[v1.DevOnlyGetPastRequestIdsRequest]) (*connect.Response[v1.DevOnlyGetPastRequestIdsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.DevOnlyGetPastRequestIds is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) GetFilesForComposer(context.Context, *connect.Request[v1.GetFilesForComposerRequest]) (*connect.Response[v1.GetFilesForComposerResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.GetFilesForComposer is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) TryParseTypeScriptTreeSitter(context.Context, *connect.Request[v1.TryParseTypeScriptTreeSitterRequest]) (*connect.Response[v1.TryParseTypeScriptTreeSitterResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.TryParseTypeScriptTreeSitter is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) NameTab(context.Context, *connect.Request[v1.NameTabRequest]) (*connect.Response[v1.NameTabResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.NameTab is not implemented"))
+}
+
+func (UnimplementedAiServiceHandler) TestModelStatus(context.Context, *connect.Request[v1.TestModelStatusRequest]) (*connect.Response[v1.TestModelStatusResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.AiService.TestModelStatus is not implemented"))
+}
+
+// RepositoryServiceClient is a client for the aiserver.v1.RepositoryService service.
+type RepositoryServiceClient interface {
+	FastRepoInitHandshake(context.Context, *connect.Request[v1.FastRepoInitHandshakeRequest]) (*connect.Response[v1.FastRepoInitHandshakeResponse], error)
+	SyncMerkleSubtree(context.Context, *connect.Request[v1.SyncMerkleSubtreeRequest]) (*connect.Response[v1.SyncMerkleSubtreeResponse], error)
+	FastUpdateFile(context.Context, *connect.Request[v1.FastUpdateFileRequest]) (*connect.Response[v1.FastUpdateFileResponse], error)
+	SearchRepositoryV2(context.Context, *connect.Request[v1.SearchRepositoryRequest]) (*connect.Response[v1.SearchRepositoryResponse], error)
+	RemoveRepositoryV2(context.Context, *connect.Request[v1.RemoveRepositoryRequest]) (*connect.Response[v1.RemoveRepositoryResponse], error)
+	EnsureIndexCreated(context.Context, *connect.Request[v1.EnsureIndexCreatedRequest]) (*connect.Response[v1.EnsureIndexCreatedResponse], error)
+	GetHighLevelFolderDescription(context.Context, *connect.Request[v1.GetHighLevelFolderDescriptionRequest]) (*connect.Response[v1.GetHighLevelFolderDescriptionResponse], error)
+	GetEmbeddings(context.Context, *connect.Request[v1.GetEmbeddingsRequest]) (*connect.Response[v1.GetEmbeddingsResponse], error)
+	SearchRepositoryDeepContext(context.Context, *connect.Request[v1.SearchRepositoryDeepContextRequest]) (*connect.Response[v1.SearchRepositoryDeepContextResponse], error)
+	RepositoryStatus(context.Context, *connect.Request[v1.RepositoryStatusRequest]) (*connect.Response[v1.RepositoryStatusResponse], error)
+	BatchRepositoryStatus(context.Context, *connect.Request[v1.BatchRepositoryStatusRequest]) (*connect.Response[v1.BatchRepositoryStatusResponse], error)
+	SearchRepository(context.Context, *connect.Request[v1.SearchRepositoryRequest]) (*connect.Response[v1.SearchRepositoryResponse], error)
+	RemoveRepository(context.Context, *connect.Request[v1.RemoveRepositoryRequest]) (*connect.Response[v1.RemoveRepositoryResponse], error)
+	GetUploadLimits(context.Context, *connect.Request[v1.GetUploadLimitsRequest]) (*connect.Response[v1.GetUploadLimitsResponse], error)
+	GetNumFilesToSend(context.Context, *connect.Request[v1.GetNumFilesToSendRequest]) (*connect.Response[v1.GetNumFilesToSendResponse], error)
+	GetAvailableChunkingStrategies(context.Context, *connect.Request[v1.GetAvailableChunkingStrategiesRequest]) (*connect.Response[v1.GetAvailableChunkingStrategiesResponse], error)
+	AdminRemoveRepository(context.Context, *connect.Request[v1.AdminRemoveRepositoryRequest]) (*connect.Response[v1.AdminRemoveRepositoryResponse], error)
+	GetRepositories(context.Context, *connect.Request[v1.RepositoriesRequest]) (*connect.Response[v1.RepositoriesResponse], error)
+	LoginUser(context.Context, *connect.Request[v1.LoginRequest]) (*connect.Response[v1.LoginResponse], error)
+	LogoutUser(context.Context, *connect.Request[v1.LogoutRequest]) (*connect.Response[v1.LogoutResponse], error)
+	IsLoggedIn(context.Context, *connect.Request[v1.IsLoggedInRequest]) (*connect.Response[v1.IsLoggedInResponse], error)
+	PollLoggedIn(context.Context, *connect.Request[v1.PollLoginRequest]) (*connect.Response[v1.PollLoginResponse], error)
+	UpgradeScope(context.Context, *connect.Request[v1.UpgradeScopeRequest]) (*connect.Response[v1.UpgradeScopeResponse], error)
+	SyncRepository(context.Context, *connect.Request[v1.SyncRepositoryRequest]) (*connect.Response[v1.SyncRepositoryResponse], error)
+	UploadRepository(context.Context, *connect.Request[v1.UploadRepositoryRequest]) (*connect.Response[v1.UploadRepositoryResponse], error)
+	SubscribeRepository(context.Context, *connect.Request[v1.SubscribeRepositoryRequest]) (*connect.Response[v1.SubscribeRepositoryResponse], error)
+	UnsubscribeRepository(context.Context, *connect.Request[v1.UnsubscribeRepositoryRequest]) (*connect.Response[v1.UnsubscribeRepositoryResponse], error)
+}
+
+// NewRepositoryServiceClient constructs a client for the aiserver.v1.RepositoryService service. By
+// default, it uses the Connect protocol with the binary Protobuf Codec, asks for gzipped responses,
+// and sends uncompressed requests. To use the gRPC or gRPC-Web protocols, supply the
+// connect.WithGRPC() or connect.WithGRPCWeb() options.
+//
+// The URL supplied here should be the base URL for the Connect or gRPC server (for example,
+// http://api.acme.com or https://acme.com/grpc).
+func NewRepositoryServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) RepositoryServiceClient {
+	baseURL = strings.TrimRight(baseURL, "/")
+	return &repositoryServiceClient{
+		fastRepoInitHandshake: connect.NewClient[v1.FastRepoInitHandshakeRequest, v1.FastRepoInitHandshakeResponse](
+			httpClient,
+			baseURL+RepositoryServiceFastRepoInitHandshakeProcedure,
+			connect.WithSchema(repositoryServiceFastRepoInitHandshakeMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		syncMerkleSubtree: connect.NewClient[v1.SyncMerkleSubtreeRequest, v1.SyncMerkleSubtreeResponse](
+			httpClient,
+			baseURL+RepositoryServiceSyncMerkleSubtreeProcedure,
+			connect.WithSchema(repositoryServiceSyncMerkleSubtreeMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		fastUpdateFile: connect.NewClient[v1.FastUpdateFileRequest, v1.FastUpdateFileResponse](
+			httpClient,
+			baseURL+RepositoryServiceFastUpdateFileProcedure,
+			connect.WithSchema(repositoryServiceFastUpdateFileMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		searchRepositoryV2: connect.NewClient[v1.SearchRepositoryRequest, v1.SearchRepositoryResponse](
+			httpClient,
+			baseURL+RepositoryServiceSearchRepositoryV2Procedure,
+			connect.WithSchema(repositoryServiceSearchRepositoryV2MethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		removeRepositoryV2: connect.NewClient[v1.RemoveRepositoryRequest, v1.RemoveRepositoryResponse](
+			httpClient,
+			baseURL+RepositoryServiceRemoveRepositoryV2Procedure,
+			connect.WithSchema(repositoryServiceRemoveRepositoryV2MethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		ensureIndexCreated: connect.NewClient[v1.EnsureIndexCreatedRequest, v1.EnsureIndexCreatedResponse](
+			httpClient,
+			baseURL+RepositoryServiceEnsureIndexCreatedProcedure,
+			connect.WithSchema(repositoryServiceEnsureIndexCreatedMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getHighLevelFolderDescription: connect.NewClient[v1.GetHighLevelFolderDescriptionRequest, v1.GetHighLevelFolderDescriptionResponse](
+			httpClient,
+			baseURL+RepositoryServiceGetHighLevelFolderDescriptionProcedure,
+			connect.WithSchema(repositoryServiceGetHighLevelFolderDescriptionMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getEmbeddings: connect.NewClient[v1.GetEmbeddingsRequest, v1.GetEmbeddingsResponse](
+			httpClient,
+			baseURL+RepositoryServiceGetEmbeddingsProcedure,
+			connect.WithSchema(repositoryServiceGetEmbeddingsMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		searchRepositoryDeepContext: connect.NewClient[v1.SearchRepositoryDeepContextRequest, v1.SearchRepositoryDeepContextResponse](
+			httpClient,
+			baseURL+RepositoryServiceSearchRepositoryDeepContextProcedure,
+			connect.WithSchema(repositoryServiceSearchRepositoryDeepContextMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		repositoryStatus: connect.NewClient[v1.RepositoryStatusRequest, v1.RepositoryStatusResponse](
+			httpClient,
+			baseURL+RepositoryServiceRepositoryStatusProcedure,
+			connect.WithSchema(repositoryServiceRepositoryStatusMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		batchRepositoryStatus: connect.NewClient[v1.BatchRepositoryStatusRequest, v1.BatchRepositoryStatusResponse](
+			httpClient,
+			baseURL+RepositoryServiceBatchRepositoryStatusProcedure,
+			connect.WithSchema(repositoryServiceBatchRepositoryStatusMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		searchRepository: connect.NewClient[v1.SearchRepositoryRequest, v1.SearchRepositoryResponse](
+			httpClient,
+			baseURL+RepositoryServiceSearchRepositoryProcedure,
+			connect.WithSchema(repositoryServiceSearchRepositoryMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		removeRepository: connect.NewClient[v1.RemoveRepositoryRequest, v1.RemoveRepositoryResponse](
+			httpClient,
+			baseURL+RepositoryServiceRemoveRepositoryProcedure,
+			connect.WithSchema(repositoryServiceRemoveRepositoryMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getUploadLimits: connect.NewClient[v1.GetUploadLimitsRequest, v1.GetUploadLimitsResponse](
+			httpClient,
+			baseURL+RepositoryServiceGetUploadLimitsProcedure,
+			connect.WithSchema(repositoryServiceGetUploadLimitsMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getNumFilesToSend: connect.NewClient[v1.GetNumFilesToSendRequest, v1.GetNumFilesToSendResponse](
+			httpClient,
+			baseURL+RepositoryServiceGetNumFilesToSendProcedure,
+			connect.WithSchema(repositoryServiceGetNumFilesToSendMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getAvailableChunkingStrategies: connect.NewClient[v1.GetAvailableChunkingStrategiesRequest, v1.GetAvailableChunkingStrategiesResponse](
+			httpClient,
+			baseURL+RepositoryServiceGetAvailableChunkingStrategiesProcedure,
+			connect.WithSchema(repositoryServiceGetAvailableChunkingStrategiesMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		adminRemoveRepository: connect.NewClient[v1.AdminRemoveRepositoryRequest, v1.AdminRemoveRepositoryResponse](
+			httpClient,
+			baseURL+RepositoryServiceAdminRemoveRepositoryProcedure,
+			connect.WithSchema(repositoryServiceAdminRemoveRepositoryMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		getRepositories: connect.NewClient[v1.RepositoriesRequest, v1.RepositoriesResponse](
+			httpClient,
+			baseURL+RepositoryServiceGetRepositoriesProcedure,
+			connect.WithSchema(repositoryServiceGetRepositoriesMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		loginUser: connect.NewClient[v1.LoginRequest, v1.LoginResponse](
+			httpClient,
+			baseURL+RepositoryServiceLoginUserProcedure,
+			connect.WithSchema(repositoryServiceLoginUserMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		logoutUser: connect.NewClient[v1.LogoutRequest, v1.LogoutResponse](
+			httpClient,
+			baseURL+RepositoryServiceLogoutUserProcedure,
+			connect.WithSchema(repositoryServiceLogoutUserMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		isLoggedIn: connect.NewClient[v1.IsLoggedInRequest, v1.IsLoggedInResponse](
+			httpClient,
+			baseURL+RepositoryServiceIsLoggedInProcedure,
+			connect.WithSchema(repositoryServiceIsLoggedInMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		pollLoggedIn: connect.NewClient[v1.PollLoginRequest, v1.PollLoginResponse](
+			httpClient,
+			baseURL+RepositoryServicePollLoggedInProcedure,
+			connect.WithSchema(repositoryServicePollLoggedInMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		upgradeScope: connect.NewClient[v1.UpgradeScopeRequest, v1.UpgradeScopeResponse](
+			httpClient,
+			baseURL+RepositoryServiceUpgradeScopeProcedure,
+			connect.WithSchema(repositoryServiceUpgradeScopeMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		syncRepository: connect.NewClient[v1.SyncRepositoryRequest, v1.SyncRepositoryResponse](
+			httpClient,
+			baseURL+RepositoryServiceSyncRepositoryProcedure,
+			connect.WithSchema(repositoryServiceSyncRepositoryMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		uploadRepository: connect.NewClient[v1.UploadRepositoryRequest, v1.UploadRepositoryResponse](
+			httpClient,
+			baseURL+RepositoryServiceUploadRepositoryProcedure,
+			connect.WithSchema(repositoryServiceUploadRepositoryMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		subscribeRepository: connect.NewClient[v1.SubscribeRepositoryRequest, v1.SubscribeRepositoryResponse](
+			httpClient,
+			baseURL+RepositoryServiceSubscribeRepositoryProcedure,
+			connect.WithSchema(repositoryServiceSubscribeRepositoryMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		unsubscribeRepository: connect.NewClient[v1.UnsubscribeRepositoryRequest, v1.UnsubscribeRepositoryResponse](
+			httpClient,
+			baseURL+RepositoryServiceUnsubscribeRepositoryProcedure,
+			connect.WithSchema(repositoryServiceUnsubscribeRepositoryMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+	}
+}
+
+// repositoryServiceClient implements RepositoryServiceClient.
+type repositoryServiceClient struct {
+	fastRepoInitHandshake          *connect.Client[v1.FastRepoInitHandshakeRequest, v1.FastRepoInitHandshakeResponse]
+	syncMerkleSubtree              *connect.Client[v1.SyncMerkleSubtreeRequest, v1.SyncMerkleSubtreeResponse]
+	fastUpdateFile                 *connect.Client[v1.FastUpdateFileRequest, v1.FastUpdateFileResponse]
+	searchRepositoryV2             *connect.Client[v1.SearchRepositoryRequest, v1.SearchRepositoryResponse]
+	removeRepositoryV2             *connect.Client[v1.RemoveRepositoryRequest, v1.RemoveRepositoryResponse]
+	ensureIndexCreated             *connect.Client[v1.EnsureIndexCreatedRequest, v1.EnsureIndexCreatedResponse]
+	getHighLevelFolderDescription  *connect.Client[v1.GetHighLevelFolderDescriptionRequest, v1.GetHighLevelFolderDescriptionResponse]
+	getEmbeddings                  *connect.Client[v1.GetEmbeddingsRequest, v1.GetEmbeddingsResponse]
+	searchRepositoryDeepContext    *connect.Client[v1.SearchRepositoryDeepContextRequest, v1.SearchRepositoryDeepContextResponse]
+	repositoryStatus               *connect.Client[v1.RepositoryStatusRequest, v1.RepositoryStatusResponse]
+	batchRepositoryStatus          *connect.Client[v1.BatchRepositoryStatusRequest, v1.BatchRepositoryStatusResponse]
+	searchRepository               *connect.Client[v1.SearchRepositoryRequest, v1.SearchRepositoryResponse]
+	removeRepository               *connect.Client[v1.RemoveRepositoryRequest, v1.RemoveRepositoryResponse]
+	getUploadLimits                *connect.Client[v1.GetUploadLimitsRequest, v1.GetUploadLimitsResponse]
+	getNumFilesToSend              *connect.Client[v1.GetNumFilesToSendRequest, v1.GetNumFilesToSendResponse]
+	getAvailableChunkingStrategies *connect.Client[v1.GetAvailableChunkingStrategiesRequest, v1.GetAvailableChunkingStrategiesResponse]
+	adminRemoveRepository          *connect.Client[v1.AdminRemoveRepositoryRequest, v1.AdminRemoveRepositoryResponse]
+	getRepositories                *connect.Client[v1.RepositoriesRequest, v1.RepositoriesResponse]
+	loginUser                      *connect.Client[v1.LoginRequest, v1.LoginResponse]
+	logoutUser                     *connect.Client[v1.LogoutRequest, v1.LogoutResponse]
+	isLoggedIn                     *connect.Client[v1.IsLoggedInRequest, v1.IsLoggedInResponse]
+	pollLoggedIn                   *connect.Client[v1.PollLoginRequest, v1.PollLoginResponse]
+	upgradeScope                   *connect.Client[v1.UpgradeScopeRequest, v1.UpgradeScopeResponse]
+	syncRepository                 *connect.Client[v1.SyncRepositoryRequest, v1.SyncRepositoryResponse]
+	uploadRepository               *connect.Client[v1.UploadRepositoryRequest, v1.UploadRepositoryResponse]
+	subscribeRepository            *connect.Client[v1.SubscribeRepositoryRequest, v1.SubscribeRepositoryResponse]
+	unsubscribeRepository          *connect.Client[v1.UnsubscribeRepositoryRequest, v1.UnsubscribeRepositoryResponse]
+}
+
+// FastRepoInitHandshake calls aiserver.v1.RepositoryService.FastRepoInitHandshake.
+func (c *repositoryServiceClient) FastRepoInitHandshake(ctx context.Context, req *connect.Request[v1.FastRepoInitHandshakeRequest]) (*connect.Response[v1.FastRepoInitHandshakeResponse], error) {
+	return c.fastRepoInitHandshake.CallUnary(ctx, req)
+}
+
+// SyncMerkleSubtree calls aiserver.v1.RepositoryService.SyncMerkleSubtree.
+func (c *repositoryServiceClient) SyncMerkleSubtree(ctx context.Context, req *connect.Request[v1.SyncMerkleSubtreeRequest]) (*connect.Response[v1.SyncMerkleSubtreeResponse], error) {
+	return c.syncMerkleSubtree.CallUnary(ctx, req)
+}
+
+// FastUpdateFile calls aiserver.v1.RepositoryService.FastUpdateFile.
+func (c *repositoryServiceClient) FastUpdateFile(ctx context.Context, req *connect.Request[v1.FastUpdateFileRequest]) (*connect.Response[v1.FastUpdateFileResponse], error) {
+	return c.fastUpdateFile.CallUnary(ctx, req)
+}
+
+// SearchRepositoryV2 calls aiserver.v1.RepositoryService.SearchRepositoryV2.
+func (c *repositoryServiceClient) SearchRepositoryV2(ctx context.Context, req *connect.Request[v1.SearchRepositoryRequest]) (*connect.Response[v1.SearchRepositoryResponse], error) {
+	return c.searchRepositoryV2.CallUnary(ctx, req)
+}
+
+// RemoveRepositoryV2 calls aiserver.v1.RepositoryService.RemoveRepositoryV2.
+func (c *repositoryServiceClient) RemoveRepositoryV2(ctx context.Context, req *connect.Request[v1.RemoveRepositoryRequest]) (*connect.Response[v1.RemoveRepositoryResponse], error) {
+	return c.removeRepositoryV2.CallUnary(ctx, req)
+}
+
+// EnsureIndexCreated calls aiserver.v1.RepositoryService.EnsureIndexCreated.
+func (c *repositoryServiceClient) EnsureIndexCreated(ctx context.Context, req *connect.Request[v1.EnsureIndexCreatedRequest]) (*connect.Response[v1.EnsureIndexCreatedResponse], error) {
+	return c.ensureIndexCreated.CallUnary(ctx, req)
+}
+
+// GetHighLevelFolderDescription calls aiserver.v1.RepositoryService.GetHighLevelFolderDescription.
+func (c *repositoryServiceClient) GetHighLevelFolderDescription(ctx context.Context, req *connect.Request[v1.GetHighLevelFolderDescriptionRequest]) (*connect.Response[v1.GetHighLevelFolderDescriptionResponse], error) {
+	return c.getHighLevelFolderDescription.CallUnary(ctx, req)
+}
+
+// GetEmbeddings calls aiserver.v1.RepositoryService.GetEmbeddings.
+func (c *repositoryServiceClient) GetEmbeddings(ctx context.Context, req *connect.Request[v1.GetEmbeddingsRequest]) (*connect.Response[v1.GetEmbeddingsResponse], error) {
+	return c.getEmbeddings.CallUnary(ctx, req)
+}
+
+// SearchRepositoryDeepContext calls aiserver.v1.RepositoryService.SearchRepositoryDeepContext.
+func (c *repositoryServiceClient) SearchRepositoryDeepContext(ctx context.Context, req *connect.Request[v1.SearchRepositoryDeepContextRequest]) (*connect.Response[v1.SearchRepositoryDeepContextResponse], error) {
+	return c.searchRepositoryDeepContext.CallUnary(ctx, req)
+}
+
+// RepositoryStatus calls aiserver.v1.RepositoryService.RepositoryStatus.
+func (c *repositoryServiceClient) RepositoryStatus(ctx context.Context, req *connect.Request[v1.RepositoryStatusRequest]) (*connect.Response[v1.RepositoryStatusResponse], error) {
+	return c.repositoryStatus.CallUnary(ctx, req)
+}
+
+// BatchRepositoryStatus calls aiserver.v1.RepositoryService.BatchRepositoryStatus.
+func (c *repositoryServiceClient) BatchRepositoryStatus(ctx context.Context, req *connect.Request[v1.BatchRepositoryStatusRequest]) (*connect.Response[v1.BatchRepositoryStatusResponse], error) {
+	return c.batchRepositoryStatus.CallUnary(ctx, req)
+}
+
+// SearchRepository calls aiserver.v1.RepositoryService.SearchRepository.
+func (c *repositoryServiceClient) SearchRepository(ctx context.Context, req *connect.Request[v1.SearchRepositoryRequest]) (*connect.Response[v1.SearchRepositoryResponse], error) {
+	return c.searchRepository.CallUnary(ctx, req)
+}
+
+// RemoveRepository calls aiserver.v1.RepositoryService.RemoveRepository.
+func (c *repositoryServiceClient) RemoveRepository(ctx context.Context, req *connect.Request[v1.RemoveRepositoryRequest]) (*connect.Response[v1.RemoveRepositoryResponse], error) {
+	return c.removeRepository.CallUnary(ctx, req)
+}
+
+// GetUploadLimits calls aiserver.v1.RepositoryService.GetUploadLimits.
+func (c *repositoryServiceClient) GetUploadLimits(ctx context.Context, req *connect.Request[v1.GetUploadLimitsRequest]) (*connect.Response[v1.GetUploadLimitsResponse], error) {
+	return c.getUploadLimits.CallUnary(ctx, req)
+}
+
+// GetNumFilesToSend calls aiserver.v1.RepositoryService.GetNumFilesToSend.
+func (c *repositoryServiceClient) GetNumFilesToSend(ctx context.Context, req *connect.Request[v1.GetNumFilesToSendRequest]) (*connect.Response[v1.GetNumFilesToSendResponse], error) {
+	return c.getNumFilesToSend.CallUnary(ctx, req)
+}
+
+// GetAvailableChunkingStrategies calls
+// aiserver.v1.RepositoryService.GetAvailableChunkingStrategies.
+func (c *repositoryServiceClient) GetAvailableChunkingStrategies(ctx context.Context, req *connect.Request[v1.GetAvailableChunkingStrategiesRequest]) (*connect.Response[v1.GetAvailableChunkingStrategiesResponse], error) {
+	return c.getAvailableChunkingStrategies.CallUnary(ctx, req)
+}
+
+// AdminRemoveRepository calls aiserver.v1.RepositoryService.AdminRemoveRepository.
+func (c *repositoryServiceClient) AdminRemoveRepository(ctx context.Context, req *connect.Request[v1.AdminRemoveRepositoryRequest]) (*connect.Response[v1.AdminRemoveRepositoryResponse], error) {
+	return c.adminRemoveRepository.CallUnary(ctx, req)
+}
+
+// GetRepositories calls aiserver.v1.RepositoryService.GetRepositories.
+func (c *repositoryServiceClient) GetRepositories(ctx context.Context, req *connect.Request[v1.RepositoriesRequest]) (*connect.Response[v1.RepositoriesResponse], error) {
+	return c.getRepositories.CallUnary(ctx, req)
+}
+
+// LoginUser calls aiserver.v1.RepositoryService.LoginUser.
+func (c *repositoryServiceClient) LoginUser(ctx context.Context, req *connect.Request[v1.LoginRequest]) (*connect.Response[v1.LoginResponse], error) {
+	return c.loginUser.CallUnary(ctx, req)
+}
+
+// LogoutUser calls aiserver.v1.RepositoryService.LogoutUser.
+func (c *repositoryServiceClient) LogoutUser(ctx context.Context, req *connect.Request[v1.LogoutRequest]) (*connect.Response[v1.LogoutResponse], error) {
+	return c.logoutUser.CallUnary(ctx, req)
+}
+
+// IsLoggedIn calls aiserver.v1.RepositoryService.IsLoggedIn.
+func (c *repositoryServiceClient) IsLoggedIn(ctx context.Context, req *connect.Request[v1.IsLoggedInRequest]) (*connect.Response[v1.IsLoggedInResponse], error) {
+	return c.isLoggedIn.CallUnary(ctx, req)
+}
+
+// PollLoggedIn calls aiserver.v1.RepositoryService.PollLoggedIn.
+func (c *repositoryServiceClient) PollLoggedIn(ctx context.Context, req *connect.Request[v1.PollLoginRequest]) (*connect.Response[v1.PollLoginResponse], error) {
+	return c.pollLoggedIn.CallUnary(ctx, req)
+}
+
+// UpgradeScope calls aiserver.v1.RepositoryService.UpgradeScope.
+func (c *repositoryServiceClient) UpgradeScope(ctx context.Context, req *connect.Request[v1.UpgradeScopeRequest]) (*connect.Response[v1.UpgradeScopeResponse], error) {
+	return c.upgradeScope.CallUnary(ctx, req)
+}
+
+// SyncRepository calls aiserver.v1.RepositoryService.SyncRepository.
+func (c *repositoryServiceClient) SyncRepository(ctx context.Context, req *connect.Request[v1.SyncRepositoryRequest]) (*connect.Response[v1.SyncRepositoryResponse], error) {
+	return c.syncRepository.CallUnary(ctx, req)
+}
+
+// UploadRepository calls aiserver.v1.RepositoryService.UploadRepository.
+func (c *repositoryServiceClient) UploadRepository(ctx context.Context, req *connect.Request[v1.UploadRepositoryRequest]) (*connect.Response[v1.UploadRepositoryResponse], error) {
+	return c.uploadRepository.CallUnary(ctx, req)
+}
+
+// SubscribeRepository calls aiserver.v1.RepositoryService.SubscribeRepository.
+func (c *repositoryServiceClient) SubscribeRepository(ctx context.Context, req *connect.Request[v1.SubscribeRepositoryRequest]) (*connect.Response[v1.SubscribeRepositoryResponse], error) {
+	return c.subscribeRepository.CallUnary(ctx, req)
+}
+
+// UnsubscribeRepository calls aiserver.v1.RepositoryService.UnsubscribeRepository.
+func (c *repositoryServiceClient) UnsubscribeRepository(ctx context.Context, req *connect.Request[v1.UnsubscribeRepositoryRequest]) (*connect.Response[v1.UnsubscribeRepositoryResponse], error) {
+	return c.unsubscribeRepository.CallUnary(ctx, req)
+}
+
+// RepositoryServiceHandler is an implementation of the aiserver.v1.RepositoryService service.
+type RepositoryServiceHandler interface {
+	FastRepoInitHandshake(context.Context, *connect.Request[v1.FastRepoInitHandshakeRequest]) (*connect.Response[v1.FastRepoInitHandshakeResponse], error)
+	SyncMerkleSubtree(context.Context, *connect.Request[v1.SyncMerkleSubtreeRequest]) (*connect.Response[v1.SyncMerkleSubtreeResponse], error)
+	FastUpdateFile(context.Context, *connect.Request[v1.FastUpdateFileRequest]) (*connect.Response[v1.FastUpdateFileResponse], error)
+	SearchRepositoryV2(context.Context, *connect.Request[v1.SearchRepositoryRequest]) (*connect.Response[v1.SearchRepositoryResponse], error)
+	RemoveRepositoryV2(context.Context, *connect.Request[v1.RemoveRepositoryRequest]) (*connect.Response[v1.RemoveRepositoryResponse], error)
+	EnsureIndexCreated(context.Context, *connect.Request[v1.EnsureIndexCreatedRequest]) (*connect.Response[v1.EnsureIndexCreatedResponse], error)
+	GetHighLevelFolderDescription(context.Context, *connect.Request[v1.GetHighLevelFolderDescriptionRequest]) (*connect.Response[v1.GetHighLevelFolderDescriptionResponse], error)
+	GetEmbeddings(context.Context, *connect.Request[v1.GetEmbeddingsRequest]) (*connect.Response[v1.GetEmbeddingsResponse], error)
+	SearchRepositoryDeepContext(context.Context, *connect.Request[v1.SearchRepositoryDeepContextRequest]) (*connect.Response[v1.SearchRepositoryDeepContextResponse], error)
+	RepositoryStatus(context.Context, *connect.Request[v1.RepositoryStatusRequest]) (*connect.Response[v1.RepositoryStatusResponse], error)
+	BatchRepositoryStatus(context.Context, *connect.Request[v1.BatchRepositoryStatusRequest]) (*connect.Response[v1.BatchRepositoryStatusResponse], error)
+	SearchRepository(context.Context, *connect.Request[v1.SearchRepositoryRequest]) (*connect.Response[v1.SearchRepositoryResponse], error)
+	RemoveRepository(context.Context, *connect.Request[v1.RemoveRepositoryRequest]) (*connect.Response[v1.RemoveRepositoryResponse], error)
+	GetUploadLimits(context.Context, *connect.Request[v1.GetUploadLimitsRequest]) (*connect.Response[v1.GetUploadLimitsResponse], error)
+	GetNumFilesToSend(context.Context, *connect.Request[v1.GetNumFilesToSendRequest]) (*connect.Response[v1.GetNumFilesToSendResponse], error)
+	GetAvailableChunkingStrategies(context.Context, *connect.Request[v1.GetAvailableChunkingStrategiesRequest]) (*connect.Response[v1.GetAvailableChunkingStrategiesResponse], error)
+	AdminRemoveRepository(context.Context, *connect.Request[v1.AdminRemoveRepositoryRequest]) (*connect.Response[v1.AdminRemoveRepositoryResponse], error)
+	GetRepositories(context.Context, *connect.Request[v1.RepositoriesRequest]) (*connect.Response[v1.RepositoriesResponse], error)
+	LoginUser(context.Context, *connect.Request[v1.LoginRequest]) (*connect.Response[v1.LoginResponse], error)
+	LogoutUser(context.Context, *connect.Request[v1.LogoutRequest]) (*connect.Response[v1.LogoutResponse], error)
+	IsLoggedIn(context.Context, *connect.Request[v1.IsLoggedInRequest]) (*connect.Response[v1.IsLoggedInResponse], error)
+	PollLoggedIn(context.Context, *connect.Request[v1.PollLoginRequest]) (*connect.Response[v1.PollLoginResponse], error)
+	UpgradeScope(context.Context, *connect.Request[v1.UpgradeScopeRequest]) (*connect.Response[v1.UpgradeScopeResponse], error)
+	SyncRepository(context.Context, *connect.Request[v1.SyncRepositoryRequest]) (*connect.Response[v1.SyncRepositoryResponse], error)
+	UploadRepository(context.Context, *connect.Request[v1.UploadRepositoryRequest]) (*connect.Response[v1.UploadRepositoryResponse], error)
+	SubscribeRepository(context.Context, *connect.Request[v1.SubscribeRepositoryRequest]) (*connect.Response[v1.SubscribeRepositoryResponse], error)
+	UnsubscribeRepository(context.Context, *connect.Request[v1.UnsubscribeRepositoryRequest]) (*connect.Response[v1.UnsubscribeRepositoryResponse], error)
+}
+
+// NewRepositoryServiceHandler builds an HTTP handler from the service implementation. It returns
+// the path on which to mount the handler and the handler itself.
+//
+// By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
+// and JSON codecs. They also support gzip compression.
+func NewRepositoryServiceHandler(svc RepositoryServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
+	repositoryServiceFastRepoInitHandshakeHandler := connect.NewUnaryHandler(
+		RepositoryServiceFastRepoInitHandshakeProcedure,
+		svc.FastRepoInitHandshake,
+		connect.WithSchema(repositoryServiceFastRepoInitHandshakeMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceSyncMerkleSubtreeHandler := connect.NewUnaryHandler(
+		RepositoryServiceSyncMerkleSubtreeProcedure,
+		svc.SyncMerkleSubtree,
+		connect.WithSchema(repositoryServiceSyncMerkleSubtreeMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceFastUpdateFileHandler := connect.NewUnaryHandler(
+		RepositoryServiceFastUpdateFileProcedure,
+		svc.FastUpdateFile,
+		connect.WithSchema(repositoryServiceFastUpdateFileMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceSearchRepositoryV2Handler := connect.NewUnaryHandler(
+		RepositoryServiceSearchRepositoryV2Procedure,
+		svc.SearchRepositoryV2,
+		connect.WithSchema(repositoryServiceSearchRepositoryV2MethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceRemoveRepositoryV2Handler := connect.NewUnaryHandler(
+		RepositoryServiceRemoveRepositoryV2Procedure,
+		svc.RemoveRepositoryV2,
+		connect.WithSchema(repositoryServiceRemoveRepositoryV2MethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceEnsureIndexCreatedHandler := connect.NewUnaryHandler(
+		RepositoryServiceEnsureIndexCreatedProcedure,
+		svc.EnsureIndexCreated,
+		connect.WithSchema(repositoryServiceEnsureIndexCreatedMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceGetHighLevelFolderDescriptionHandler := connect.NewUnaryHandler(
+		RepositoryServiceGetHighLevelFolderDescriptionProcedure,
+		svc.GetHighLevelFolderDescription,
+		connect.WithSchema(repositoryServiceGetHighLevelFolderDescriptionMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceGetEmbeddingsHandler := connect.NewUnaryHandler(
+		RepositoryServiceGetEmbeddingsProcedure,
+		svc.GetEmbeddings,
+		connect.WithSchema(repositoryServiceGetEmbeddingsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceSearchRepositoryDeepContextHandler := connect.NewUnaryHandler(
+		RepositoryServiceSearchRepositoryDeepContextProcedure,
+		svc.SearchRepositoryDeepContext,
+		connect.WithSchema(repositoryServiceSearchRepositoryDeepContextMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceRepositoryStatusHandler := connect.NewUnaryHandler(
+		RepositoryServiceRepositoryStatusProcedure,
+		svc.RepositoryStatus,
+		connect.WithSchema(repositoryServiceRepositoryStatusMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceBatchRepositoryStatusHandler := connect.NewUnaryHandler(
+		RepositoryServiceBatchRepositoryStatusProcedure,
+		svc.BatchRepositoryStatus,
+		connect.WithSchema(repositoryServiceBatchRepositoryStatusMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceSearchRepositoryHandler := connect.NewUnaryHandler(
+		RepositoryServiceSearchRepositoryProcedure,
+		svc.SearchRepository,
+		connect.WithSchema(repositoryServiceSearchRepositoryMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceRemoveRepositoryHandler := connect.NewUnaryHandler(
+		RepositoryServiceRemoveRepositoryProcedure,
+		svc.RemoveRepository,
+		connect.WithSchema(repositoryServiceRemoveRepositoryMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceGetUploadLimitsHandler := connect.NewUnaryHandler(
+		RepositoryServiceGetUploadLimitsProcedure,
+		svc.GetUploadLimits,
+		connect.WithSchema(repositoryServiceGetUploadLimitsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceGetNumFilesToSendHandler := connect.NewUnaryHandler(
+		RepositoryServiceGetNumFilesToSendProcedure,
+		svc.GetNumFilesToSend,
+		connect.WithSchema(repositoryServiceGetNumFilesToSendMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceGetAvailableChunkingStrategiesHandler := connect.NewUnaryHandler(
+		RepositoryServiceGetAvailableChunkingStrategiesProcedure,
+		svc.GetAvailableChunkingStrategies,
+		connect.WithSchema(repositoryServiceGetAvailableChunkingStrategiesMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceAdminRemoveRepositoryHandler := connect.NewUnaryHandler(
+		RepositoryServiceAdminRemoveRepositoryProcedure,
+		svc.AdminRemoveRepository,
+		connect.WithSchema(repositoryServiceAdminRemoveRepositoryMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceGetRepositoriesHandler := connect.NewUnaryHandler(
+		RepositoryServiceGetRepositoriesProcedure,
+		svc.GetRepositories,
+		connect.WithSchema(repositoryServiceGetRepositoriesMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceLoginUserHandler := connect.NewUnaryHandler(
+		RepositoryServiceLoginUserProcedure,
+		svc.LoginUser,
+		connect.WithSchema(repositoryServiceLoginUserMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceLogoutUserHandler := connect.NewUnaryHandler(
+		RepositoryServiceLogoutUserProcedure,
+		svc.LogoutUser,
+		connect.WithSchema(repositoryServiceLogoutUserMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceIsLoggedInHandler := connect.NewUnaryHandler(
+		RepositoryServiceIsLoggedInProcedure,
+		svc.IsLoggedIn,
+		connect.WithSchema(repositoryServiceIsLoggedInMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServicePollLoggedInHandler := connect.NewUnaryHandler(
+		RepositoryServicePollLoggedInProcedure,
+		svc.PollLoggedIn,
+		connect.WithSchema(repositoryServicePollLoggedInMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceUpgradeScopeHandler := connect.NewUnaryHandler(
+		RepositoryServiceUpgradeScopeProcedure,
+		svc.UpgradeScope,
+		connect.WithSchema(repositoryServiceUpgradeScopeMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceSyncRepositoryHandler := connect.NewUnaryHandler(
+		RepositoryServiceSyncRepositoryProcedure,
+		svc.SyncRepository,
+		connect.WithSchema(repositoryServiceSyncRepositoryMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceUploadRepositoryHandler := connect.NewUnaryHandler(
+		RepositoryServiceUploadRepositoryProcedure,
+		svc.UploadRepository,
+		connect.WithSchema(repositoryServiceUploadRepositoryMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceSubscribeRepositoryHandler := connect.NewUnaryHandler(
+		RepositoryServiceSubscribeRepositoryProcedure,
+		svc.SubscribeRepository,
+		connect.WithSchema(repositoryServiceSubscribeRepositoryMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	repositoryServiceUnsubscribeRepositoryHandler := connect.NewUnaryHandler(
+		RepositoryServiceUnsubscribeRepositoryProcedure,
+		svc.UnsubscribeRepository,
+		connect.WithSchema(repositoryServiceUnsubscribeRepositoryMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
+	return "/aiserver.v1.RepositoryService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case RepositoryServiceFastRepoInitHandshakeProcedure:
+			repositoryServiceFastRepoInitHandshakeHandler.ServeHTTP(w, r)
+		case RepositoryServiceSyncMerkleSubtreeProcedure:
+			repositoryServiceSyncMerkleSubtreeHandler.ServeHTTP(w, r)
+		case RepositoryServiceFastUpdateFileProcedure:
+			repositoryServiceFastUpdateFileHandler.ServeHTTP(w, r)
+		case RepositoryServiceSearchRepositoryV2Procedure:
+			repositoryServiceSearchRepositoryV2Handler.ServeHTTP(w, r)
+		case RepositoryServiceRemoveRepositoryV2Procedure:
+			repositoryServiceRemoveRepositoryV2Handler.ServeHTTP(w, r)
+		case RepositoryServiceEnsureIndexCreatedProcedure:
+			repositoryServiceEnsureIndexCreatedHandler.ServeHTTP(w, r)
+		case RepositoryServiceGetHighLevelFolderDescriptionProcedure:
+			repositoryServiceGetHighLevelFolderDescriptionHandler.ServeHTTP(w, r)
+		case RepositoryServiceGetEmbeddingsProcedure:
+			repositoryServiceGetEmbeddingsHandler.ServeHTTP(w, r)
+		case RepositoryServiceSearchRepositoryDeepContextProcedure:
+			repositoryServiceSearchRepositoryDeepContextHandler.ServeHTTP(w, r)
+		case RepositoryServiceRepositoryStatusProcedure:
+			repositoryServiceRepositoryStatusHandler.ServeHTTP(w, r)
+		case RepositoryServiceBatchRepositoryStatusProcedure:
+			repositoryServiceBatchRepositoryStatusHandler.ServeHTTP(w, r)
+		case RepositoryServiceSearchRepositoryProcedure:
+			repositoryServiceSearchRepositoryHandler.ServeHTTP(w, r)
+		case RepositoryServiceRemoveRepositoryProcedure:
+			repositoryServiceRemoveRepositoryHandler.ServeHTTP(w, r)
+		case RepositoryServiceGetUploadLimitsProcedure:
+			repositoryServiceGetUploadLimitsHandler.ServeHTTP(w, r)
+		case RepositoryServiceGetNumFilesToSendProcedure:
+			repositoryServiceGetNumFilesToSendHandler.ServeHTTP(w, r)
+		case RepositoryServiceGetAvailableChunkingStrategiesProcedure:
+			repositoryServiceGetAvailableChunkingStrategiesHandler.ServeHTTP(w, r)
+		case RepositoryServiceAdminRemoveRepositoryProcedure:
+			repositoryServiceAdminRemoveRepositoryHandler.ServeHTTP(w, r)
+		case RepositoryServiceGetRepositoriesProcedure:
+			repositoryServiceGetRepositoriesHandler.ServeHTTP(w, r)
+		case RepositoryServiceLoginUserProcedure:
+			repositoryServiceLoginUserHandler.ServeHTTP(w, r)
+		case RepositoryServiceLogoutUserProcedure:
+			repositoryServiceLogoutUserHandler.ServeHTTP(w, r)
+		case RepositoryServiceIsLoggedInProcedure:
+			repositoryServiceIsLoggedInHandler.ServeHTTP(w, r)
+		case RepositoryServicePollLoggedInProcedure:
+			repositoryServicePollLoggedInHandler.ServeHTTP(w, r)
+		case RepositoryServiceUpgradeScopeProcedure:
+			repositoryServiceUpgradeScopeHandler.ServeHTTP(w, r)
+		case RepositoryServiceSyncRepositoryProcedure:
+			repositoryServiceSyncRepositoryHandler.ServeHTTP(w, r)
+		case RepositoryServiceUploadRepositoryProcedure:
+			repositoryServiceUploadRepositoryHandler.ServeHTTP(w, r)
+		case RepositoryServiceSubscribeRepositoryProcedure:
+			repositoryServiceSubscribeRepositoryHandler.ServeHTTP(w, r)
+		case RepositoryServiceUnsubscribeRepositoryProcedure:
+			repositoryServiceUnsubscribeRepositoryHandler.ServeHTTP(w, r)
+		default:
+			http.NotFound(w, r)
+		}
+	})
+}
+
+// UnimplementedRepositoryServiceHandler returns CodeUnimplemented from all methods.
+type UnimplementedRepositoryServiceHandler struct{}
+
+func (UnimplementedRepositoryServiceHandler) FastRepoInitHandshake(context.Context, *connect.Request[v1.FastRepoInitHandshakeRequest]) (*connect.Response[v1.FastRepoInitHandshakeResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.FastRepoInitHandshake is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) SyncMerkleSubtree(context.Context, *connect.Request[v1.SyncMerkleSubtreeRequest]) (*connect.Response[v1.SyncMerkleSubtreeResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.SyncMerkleSubtree is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) FastUpdateFile(context.Context, *connect.Request[v1.FastUpdateFileRequest]) (*connect.Response[v1.FastUpdateFileResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.FastUpdateFile is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) SearchRepositoryV2(context.Context, *connect.Request[v1.SearchRepositoryRequest]) (*connect.Response[v1.SearchRepositoryResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.SearchRepositoryV2 is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) RemoveRepositoryV2(context.Context, *connect.Request[v1.RemoveRepositoryRequest]) (*connect.Response[v1.RemoveRepositoryResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.RemoveRepositoryV2 is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) EnsureIndexCreated(context.Context, *connect.Request[v1.EnsureIndexCreatedRequest]) (*connect.Response[v1.EnsureIndexCreatedResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.EnsureIndexCreated is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) GetHighLevelFolderDescription(context.Context, *connect.Request[v1.GetHighLevelFolderDescriptionRequest]) (*connect.Response[v1.GetHighLevelFolderDescriptionResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.GetHighLevelFolderDescription is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) GetEmbeddings(context.Context, *connect.Request[v1.GetEmbeddingsRequest]) (*connect.Response[v1.GetEmbeddingsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.GetEmbeddings is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) SearchRepositoryDeepContext(context.Context, *connect.Request[v1.SearchRepositoryDeepContextRequest]) (*connect.Response[v1.SearchRepositoryDeepContextResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.SearchRepositoryDeepContext is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) RepositoryStatus(context.Context, *connect.Request[v1.RepositoryStatusRequest]) (*connect.Response[v1.RepositoryStatusResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.RepositoryStatus is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) BatchRepositoryStatus(context.Context, *connect.Request[v1.BatchRepositoryStatusRequest]) (*connect.Response[v1.BatchRepositoryStatusResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.BatchRepositoryStatus is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) SearchRepository(context.Context, *connect.Request[v1.SearchRepositoryRequest]) (*connect.Response[v1.SearchRepositoryResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.SearchRepository is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) RemoveRepository(context.Context, *connect.Request[v1.RemoveRepositoryRequest]) (*connect.Response[v1.RemoveRepositoryResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.RemoveRepository is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) GetUploadLimits(context.Context, *connect.Request[v1.GetUploadLimitsRequest]) (*connect.Response[v1.GetUploadLimitsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.GetUploadLimits is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) GetNumFilesToSend(context.Context, *connect.Request[v1.GetNumFilesToSendRequest]) (*connect.Response[v1.GetNumFilesToSendResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.GetNumFilesToSend is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) GetAvailableChunkingStrategies(context.Context, *connect.Request[v1.GetAvailableChunkingStrategiesRequest]) (*connect.Response[v1.GetAvailableChunkingStrategiesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.GetAvailableChunkingStrategies is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) AdminRemoveRepository(context.Context, *connect.Request[v1.AdminRemoveRepositoryRequest]) (*connect.Response[v1.AdminRemoveRepositoryResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.AdminRemoveRepository is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) GetRepositories(context.Context, *connect.Request[v1.RepositoriesRequest]) (*connect.Response[v1.RepositoriesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.GetRepositories is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) LoginUser(context.Context, *connect.Request[v1.LoginRequest]) (*connect.Response[v1.LoginResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.LoginUser is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) LogoutUser(context.Context, *connect.Request[v1.LogoutRequest]) (*connect.Response[v1.LogoutResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.LogoutUser is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) IsLoggedIn(context.Context, *connect.Request[v1.IsLoggedInRequest]) (*connect.Response[v1.IsLoggedInResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.IsLoggedIn is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) PollLoggedIn(context.Context, *connect.Request[v1.PollLoginRequest]) (*connect.Response[v1.PollLoginResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.PollLoggedIn is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) UpgradeScope(context.Context, *connect.Request[v1.UpgradeScopeRequest]) (*connect.Response[v1.UpgradeScopeResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.UpgradeScope is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) SyncRepository(context.Context, *connect.Request[v1.SyncRepositoryRequest]) (*connect.Response[v1.SyncRepositoryResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.SyncRepository is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) UploadRepository(context.Context, *connect.Request[v1.UploadRepositoryRequest]) (*connect.Response[v1.UploadRepositoryResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.UploadRepository is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) SubscribeRepository(context.Context, *connect.Request[v1.SubscribeRepositoryRequest]) (*connect.Response[v1.SubscribeRepositoryResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.SubscribeRepository is not implemented"))
+}
+
+func (UnimplementedRepositoryServiceHandler) UnsubscribeRepository(context.Context, *connect.Request[v1.UnsubscribeRepositoryRequest]) (*connect.Response[v1.UnsubscribeRepositoryResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("aiserver.v1.RepositoryService.UnsubscribeRepository is not implemented"))
 }
