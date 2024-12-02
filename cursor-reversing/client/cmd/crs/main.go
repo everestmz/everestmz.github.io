@@ -24,7 +24,10 @@ var ModelsCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		aiClient := cursor.NewAiServiceClient()
 
-		resp, err := aiClient.AvailableModels(context.TODO(), cursor.NewRequest(&aiserverv1.AvailableModelsRequest{}))
+		resp, err := aiClient.AvailableModels(context.TODO(), cursor.NewRequest(&aiserverv1.AvailableModelsRequest{
+			IsNightly:                true,
+			IncludeLongContextModels: true,
+		}))
 		if err != nil {
 			return err
 		}
