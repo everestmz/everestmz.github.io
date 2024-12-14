@@ -3,13 +3,13 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: home
-title: Hi, I'm Everest
+title: Everest
+header: Hi, I'm Everest
 ---
-
 
 I'm building a stealth product at [Rippling](https://rippling.com).
 
-Outside of work, I'm usually hacking on one of my personal [projects](/projects). Right now, I'm building AI-assisted programming tools like [sage](https://github.com/everestmz/sage) and [llmcat](https://github.com/everestmz/llmcat).
+Outside of work, I'm usually hacking on one of my [projects](/projects). Right now, I'm building AI-assisted programming tools like [sage](https://github.com/everestmz/sage) and [llmcat](https://github.com/everestmz/llmcat).
 
 Previously, I dropped out of Waterloo to found Fuzzbuzz ([YC W19](https://www.ycombinator.com/companies/fuzzbuzz)), where we built systems and tools to autonomously find software vulnerabilities. We served Fortune 100 companies and intelligence agencies, and were [acquired by Rippling](https://www.rippling.com/blog/founders-keepers-rippling-acquires-fuzzbuzz) in 2023.
 
