@@ -8,6 +8,8 @@ permalink: /posts/introducing-sage
 featured: true
 ---
 
+_Check out [sage](https://github.com/everestmz/sage) on GitHub_
+
 My editor crashed again. Somewhere in our 15-million-line codebase was the function I needed, but [Pyright](https://github.com/microsoft/pyright) had other ideas. Third crash that day. Same story: workspace symbol search bringing my dev environment to its knees.
 
 At the time, I’d been bouncing between [Helix](https://helix-editor.com/) and [Cursor](https://www.cursor.com/) for months. Cursor's AI features are great - especially being able to `@mention` symbols to include them in context. But Helix's keybinds were muscle memory at this point. If only it had plugin support…

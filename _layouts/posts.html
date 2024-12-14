@@ -10,7 +10,7 @@ layout: default
   {% if site.posts.size > 0 %}
       {% for post in site.posts %}
       <p>
-        <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+        <span><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a> - <span class="post-list-date">{{ post.date | date: "%B %d %Y" }}</span></span>
       </p>
       {% endfor %}
   {% endif %}
