@@ -67,11 +67,7 @@ Under 50ms. No crashes, no swapping, no angry "LSP server exited" messages. Just
 
 Now for the fun part. How do you add features to an editor that doesn't support plugins? You pretend to be something it already trusts. Every modern editor speaks LSP - it's how they interact with language servers like Pyright. The protocol is simple: the editor sends requests like "what's the definition of this symbol?" or "search for symbols matching this text", and the server responds.
 
-The best part is: nothing says you have to be a real language server. You can be a proxy that:
-
-- Passes most requests through to the real language server
-- Intercepts the interesting ones
-- Adds entirely new capabilities
+The best part is: nothing says you have to be a real language server. You can be a proxy that passes most requests through to the real language server, intercepts the interesting ones, and adds entirely new capabilities.
 
 Think of it like a reverse proxy for your editor. When your editor starts up, it sends an "initialize" request to discover what the language server can do. This is our chance to hook in: 
 
@@ -151,13 +147,11 @@ LSP lets us inject features anywhere, SQLite makes symbol lookup instant, and Ol
 
 ## The Result
 
-I now have the best of both worlds:
-- Lightning-fast symbol search across that massive codebase
-- AI features in my favorite editor
-- No more context switching between different tools
+Now, I have the best of both worlds: AI integration and symbol search without context switching between editors, or crashing pyright.
 
-But the real discovery wasn't just solving these specific problems - by treating LSP as a universal plugin interface rather than just a protocol for language features, I'd stumbled onto something more interesting: a way to extend any editor without writing editor-specific code.
-It's a bit like figuring out that your house's electrical system can do more than just carry power - reminds me of how those powerline wifi extenders blew my mind when I was in high school. LSP wasn't designed as a universal plugin system, but with a bit of creative thinking, that's exactly what it became.
+But the real discovery wasn't just solving these specific problems - by treating LSP as a universal plugin interface rather than just a protocol for language features, we can extend any editor without writing editor-specific code.
+
+It's a bit like figuring out that your house's electrical system can do more than just carry power - reminds me of how those powerline wifi extenders blew my mind when I was in high school. LSP wasn't designed as a universal plugin system, but with a bit of creative thinking, that's exactly what it becomes.
 
 ## What's Next?
 I’m fascinated by the idea of LSP as a universal interface for extending how we interact with code. Think about what git hooks did for version control - LSP should be the same thing for editing, a true universal plugin interface. Somehow, our tools haven't caught up with that yet.
