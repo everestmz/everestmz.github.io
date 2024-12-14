@@ -1,0 +1,15 @@
+---
+layout: default
+---
+
+<h1>{{ page.title }}</h1>
+
+<span class="post-details">
+{{ page.date | date: "%B %d %Y" }}
+
+<span class="post-read-time">{% include reading-time.html %}</span>
+</span>
+
+<hr />
+
+{{ content }}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>{{ page.title }} - {{ site.title }}</title>
+      <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav class="page-content nav">
+      <a class="home-link" href="/">everest</a>
+      <span class="nav-right">
+        <a href="/posts">posts</a>
+        <a href="/projects">projects</a>
+      </span>
+    </nav>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+      <hr />
+      <footer>
+        <span>
+          <a href="mailto:evmunro1@gmail.com">email</a>
+          |
+          twitter: <a href="https://twitter.com/evsmz">@evsmz</a>
+          |
+          github: <a href="https://github.com/everestmz">everestmz</a>
+          |
+          linkedin: <a href="https://linkedin.com/in/everestmz">everestmz</a>
+        </span>
+      </footer>
+    </main>
+  </body>
+</html>
